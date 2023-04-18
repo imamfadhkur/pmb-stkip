@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Register;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -65,5 +67,14 @@ class RegisterController extends Controller
     public function destroy(Register $register)
     {
         //
+    }
+
+    public function ubahPembayaran(Request $request)
+    {
+        // dd($request);
+        $register_id = $request->regist_id;
+        Register::where('id', '=', $register_id)->update(['pembayaran' => 'sudah']);
+
+        return redirect('/register')->with('messageSuccess', 'Data berhasil dirubah');
     }
 }

@@ -9,7 +9,7 @@
       <a href="/register">Pendaftar</a>
   </li>
   <li class="{{ Request::is('data') ? 'active' : '' }}">
-  <a href="#pageData" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Data</a>
+  <a href="#pageData" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Data Pendaftaran</a>
   <ul class="collapse list-unstyled" id="pageData">
     <li class="{{ Request::is('jenjang-pendidikan') ? 'active' : '' }}">
         <a href="#">Jenjang Pendidikan</a>
@@ -38,6 +38,14 @@
     </li>
   </ul>
   </li>
+  @can('superadmin')
+  <li class="{{ Request::is('admin') ? 'active' : '' }}">
+      <a href="/admin">Admin</a>
+  </li>
+  <li class="{{ Request::is('setting') ? 'active' : '' }}">
+      <a href="/setting">Setting</a>
+  </li>
+  @endcan
 </ul>
 
 <div class="footer">

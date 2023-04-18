@@ -6,6 +6,11 @@
   <div id="content" class="p-md-3">
     @include('dashboard.layouts.navbar')
 
+    @if (session('messageSuccess'))
+        <div class="alert alert-success">
+            {{ session('messageSuccess') }}
+        </div>
+    @endif
     
     <table class="table table-hover">
       <tr>
@@ -32,7 +37,15 @@
             @endif
           </td>
           <td>
-            <a class="btn btn-warning mx-3" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" href="" title="verifikasi pembayaran {{ $register->nama }}"><i class="bi bi-cash-coin"></i></a>
+            <form action="/change-status-pembayaran" method="POST">
+              @csrf
+              <input type="hidden" name="regist_id" value="{{ $register->id }}">
+              <button title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-primary">
+                <i class="bi bi-cash-coin"></i>
+              </button>
+              
+              {{-- <a type="submit" class="btn btn-warning mx-3" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" href="" title="verifikasi pembayaran {{ $register->nama }}"><i class="bi bi-cash-coin"></i></a> --}}
+            </form>
           </td>
         </tr>
       @endforeach
