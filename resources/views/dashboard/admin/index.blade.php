@@ -19,6 +19,7 @@
         <th>Email</th>
         <th>Alamat</th>
         <th>Asal Sekolah</th>
+        <th>Bukti Pembayaran</th>
         <th>Pembayaran Registrasi</th>
         <th>Action</th>
       </tr>
@@ -29,6 +30,7 @@
           <td>{{ $register->email }}</td>
           <td>{{ $register->alamat }}</td>
           <td>{{ $register->nama_sekolah }}</td>
+          <td>{*img}</td>
           <td>
             @if ($register->pembayaran === "belum")
                 <p class="text-danger"><b>belum</b></p>
@@ -43,8 +45,6 @@
               <button title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-primary">
                 <i class="bi bi-cash-coin"></i>
               </button>
-              
-              {{-- <a type="submit" class="btn btn-warning mx-3" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" href="" title="verifikasi pembayaran {{ $register->nama }}"><i class="bi bi-cash-coin"></i></a> --}}
             </form>
           </td>
         </tr>

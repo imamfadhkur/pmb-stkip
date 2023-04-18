@@ -77,4 +77,17 @@ class RegisterController extends Controller
 
         return redirect('/register')->with('messageSuccess', 'Data berhasil dirubah');
     }
+
+    public function uploadPembayaran(Request $request)
+    {
+        $validatedData = $request->validate([
+            'bukti_pembayaran' => 'image|max:2024'
+        ]);
+        $validatedData['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('bukti-pembayaran');
+        
+        $register_user_id = Auth::user()->id;
+        Register::where('user_id', '=', $register_user_id)->update(['bukti_pembayaran' => $validatedData['bukti_pembayaran']]);
+
+        return redirect('/dashboard');
+    }
 }
