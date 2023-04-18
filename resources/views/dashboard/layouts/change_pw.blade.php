@@ -1,0 +1,25 @@
+<h4>Silahkan ganti password anda terlebih dahulu</h4>
+<form action="/change-password" method="POST">
+    @csrf
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+    </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <input type="checkbox" onclick="showPassword()" class="mb-4"> Show Password <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>

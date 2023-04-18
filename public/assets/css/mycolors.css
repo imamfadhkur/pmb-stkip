@@ -1,0 +1,170 @@
+.test {
+    background-color: yellow;
+}
+
+/* Warna utama */
+:root {
+    --my-primary-color: #f39c12; /* kuning */
+    --my-secondary-color: #e67e22; /* oranye */
+}
+
+/* Warna tambahan */
+:root {
+    --my-gray-dark: #333333;
+    --my-gray-light: #f2f2f2;
+    --my-blue-dark: #1a1aff;
+    --my-green-dark: #2ecc71;
+    --my-purple-dark: #8e44ad;
+}
+
+/* Pewarnaan Teks */
+.text-my-primary {
+    color: var(--my-primary-color);
+}
+
+.text-my-secondary {
+    color: var(--my-secondary-color);
+}
+
+.text-my-gray-dark {
+    color: var(--my-gray-dark);
+}
+
+.text-my-gray-light {
+    color: var(--my-gray-light);
+}
+
+.text-my-blue-dark {
+    color: var(--my-blue-dark);
+}
+
+.text-my-green-dark {
+    color: var(--my-green-dark);
+}
+
+.text-my-purple-dark {
+    color: var(--my-purple-dark);
+}
+
+/* Pewarnaan Background */
+.bg-my-primary {
+    background-color: var(--my-primary-color);
+}
+
+.bg-my-secondary {
+    background-color: var(--my-secondary-color);
+}
+
+.bg-my-gray-dark {
+    background-color: var(--my-gray-dark);
+    color: var(--my-gray-light);
+}
+
+.bg-my-gray-light {
+    background-color: var(--my-gray-light);
+}
+
+.bg-my-blue-dark {
+    background-color: var(--my-blue-dark);
+}
+
+.bg-my-green-dark {
+    background-color: var(--my-green-dark);
+}
+
+.bg-my-purple-dark {
+    background-color: var(--my-purple-dark);
+}
+
+/* Tombol */
+.btn-my-primary {
+    background-color: var(--my-primary-color);
+    border-color: var(--my-primary-color);
+    color: var(--my-secondary-color);
+}
+
+.btn-my-primary:hover {
+    background-color: var(--my-secondary-color);
+    border-color: var(--my-secondary-color);
+    color: var(--my-primary-color);
+}
+
+.btn-my-secondary {
+    background-color: var(--my-secondary-color);
+    border-color: var(--my-secondary-color);
+    color: var(--my-primary-color);
+}
+
+.btn-my-secondary:hover {
+    background-color: var(--my-primary-color);
+    border-color: var(--my-primary-color);
+    color: var(--my-secondary-color);
+}
+
+.btn-my-gray-dark {
+    background-color: var(--my-gray-dark);
+    border-color: var(--my-gray-dark);
+    color: var(--my-gray-light);
+}
+
+.btn-my-gray-dark:hover {
+    background-color: var(--my-gray-light);
+    border-color: var(--my-gray-light);
+    color: var(--my-gray-dark);
+}
+
+.btn-my-gray-light {
+    background-color: var(--my-gray-light);
+    border-color: var(--my-gray-light);
+    color: var(--my-gray-dark);
+}
+
+.btn-my-gray-light:hover {
+    background-color: var(--my-gray-dark);
+    border-color: var(--my-gray-dark);
+    color: var(--my-gray-light);
+}
+
+.btn-my-blue-dark {
+    background-color: var(--my-blue-dark);
+    border-color: var(--my-blue-dark);
+}
+
+.btn-my-blue-dark:hover {
+    background-color: var(--my-gray-dark);
+    border-color: var(--my-gray-dark);
+}
+
+.btn-my-green-dark {
+    background-color: var(--my-green-dark);
+    border-color: var(--my-green-dark);
+}
+
+.btn-my-green-dark:hover {
+    background-color: var(--my-gray-dark);
+    border-color: var(--my-gray-dark);
+}
+
+.btn-my-purple-dark {
+    background-color: var(--my-purple-dark);
+    border-color: var(--my-purple-dark);
+}
+
+.btn-my-purple-dark:hover {
+    background-color: var(--my-gray-dark);
+    border-color: var(--my-gray-dark);
+}
+
+/* Navbar */
+.navbar-my {
+    background-color: var(--my-primary-color);
+}
+
+.navbar-brand-my,
+.nav-link-my {
+    color: #fff;
+}
+
+.nav-link-my:hover {
+    color: var(--my-secondary-color);
+}
