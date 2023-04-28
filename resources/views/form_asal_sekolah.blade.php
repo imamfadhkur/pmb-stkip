@@ -8,7 +8,7 @@
   </script>
 @endif
 
-<div class="container">
+<div class="container my-4">
     <div class="row">
         <div class="col">
             <h3 class="mx-4 mt-2">Asal Sekolah</h3>

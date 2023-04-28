@@ -30,7 +30,16 @@
           <td>{{ $register->email }}</td>
           <td>{{ $register->alamat }}</td>
           <td>{{ $register->nama_sekolah }}</td>
-          <td>{*img}</td>
+          <td>
+            @if ($register->bukti_pembayaran)
+            <a class="test-popup-link mfp-with-zoom" href="{{ asset('storage/'.$register->bukti_pembayaran) }}">
+              <img src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="Bukti Pembayaran {{ $register->nama }}" class="rounded w-50" style="max-height: 50px;" data-magnify-src="{{ asset('storage/'.$register->bukti_pembayaran) }}" data-magnify="gallery">
+            </a>
+                      
+            @else
+            <p class="text-danger"><b>belum upload</b></p>
+            @endif
+          </td>
           <td>
             @if ($register->pembayaran === "belum")
                 <p class="text-danger"><b>belum</b></p>
@@ -56,5 +65,16 @@
 
   </div>
 </div>
+
+  <script>
+    $(document).ready(function() {
+      $('.test-popup-link').magnificPopup({
+        type: 'image',
+        zoom: {
+          enabled: true
+        }
+      });
+    });
+  </script>  
 
 @endsection

@@ -20,8 +20,8 @@ use App\Http\Controllers\PendaftaranController;
 |
 */
 
-Route::get('/', function () {return view('index');});
-Route::get('/home', function () {return view('index');});
+Route::get('/', function () {return view('index', ['title' => 'home']);});
+Route::get('/home', function () {return view('index', ['title' => 'home']);});
 
 Route::get('/beranda', function()
 {
@@ -30,7 +30,7 @@ Route::get('/beranda', function()
     // return view('index',[
     //     'pass' => $data
     // ]);
-    return view('index');
+    return view('index', ['title' => 'beranda']);
 });
 
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['guest']], function () {
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/dashboard', function(){
         if (Auth::user()->level === 'camaba') {
-            return view('dashboard.index');
+            return view('dashboard.index', ['title' => 'dashboard']);
         } else {
             return redirect('/register');
         }

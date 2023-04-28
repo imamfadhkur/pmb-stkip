@@ -17,8 +17,15 @@
           <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
         @endif
     @endisset
+    
+    <!-- Magnific Popup core CSS file -->
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Magnific Popup core JS file -->
+    <script src="{{ asset('assets/js/jquery.magnific-popup.js') }}"></script>
 
-    <title>home</title>
+    <title>{{ $title }}</title>
   </head>
   <body class="d-flex flex-column" style="height: fit-content">
 
@@ -96,5 +103,12 @@
         }
       }
       </script>
+
+      {{-- magnific popup --}}
+      <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <!-- Magnific Popup core JS file -->
+      <script src="{{ asset('assets/js/jquery.magnific-popup.js') }}"></script>
+
   </body>
 </html>

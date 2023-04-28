@@ -17,7 +17,8 @@ class RegisterController extends Controller
     {
         $registers = Register::paginate(7);
         return view('dashboard.admin.index', [
-            'registers' => $registers
+            'registers' => $registers,
+            'title' => 'register'
         ]);
     }
 

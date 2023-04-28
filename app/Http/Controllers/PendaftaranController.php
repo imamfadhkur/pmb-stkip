@@ -25,6 +25,7 @@ class PendaftaranController extends Controller
             'jenjang_pendidikan' => $jenjang_pendidikan,
             'sistem_kuliah' => $sistem_kuliah,
             'jalur_masuk' => $jalur_masuk,
+            'title' => 'Pendaftaran | jalur pendaftaran'
         ]);
     }
 
@@ -38,6 +39,7 @@ class PendaftaranController extends Controller
             'jenjang_pendidikan' => $jenjang_pendidikan,
             'sistem_kuliah' => $sistem_kuliah,
             'jalur_masuk' => $jalur_masuk,
+            'title' => 'Pendaftaran | data diri'
         ]);
     }
 
@@ -84,6 +86,7 @@ class PendaftaranController extends Controller
             'alamat' => $alamat,
             'kewarganegaraan' => $kewarganegaraan,
             'identitas_kewarganegaraan' => $identitas_kewarganegaraan,
+            'title' => 'Pendaftaran | asal sekolah'
         ]);
     }
 
@@ -135,6 +138,7 @@ class PendaftaranController extends Controller
                 'jurusan_sekolah' => $jurusan_sekolah,
                 'tahun_lulus' => $tahun_lulus,
                 'alamat_sekolah' => $alamat_sekolah,
+                'title' => 'Pendaftaran | asal sekolah'
             ])->withErrors($validator);
         }
         
@@ -159,7 +163,8 @@ class PendaftaranController extends Controller
             'jurusan_sekolah' => $jurusan_sekolah,
             'tahun_lulus' => $tahun_lulus,
             'alamat_sekolah' => $alamat_sekolah,
-            'prodis' => $prodis
+            'prodis' => $prodis,
+            'title' => 'Pendaftaran | prodi'
         ]);
     }
 
@@ -211,7 +216,8 @@ class PendaftaranController extends Controller
                 'jurusan_sekolah' => $jurusan_sekolah,
                 'tahun_lulus' => $tahun_lulus,
                 'alamat_sekolah' => $alamat_sekolah,
-                'prodis' => $prodis
+                'prodis' => $prodis,
+                'title' => 'Pendaftaran | prodi'
             ])->with('errorProdi', 'Pilihan prodi tidak boleh sama.');
         }
 
@@ -236,6 +242,7 @@ class PendaftaranController extends Controller
             'pilihan1' => $pilihan1,
             'pilihan2' => $pilihan2,
             'pilihan3' => $pilihan3,
+            'title' => 'Pendaftaran | konfirmasi'
         ]);
     }
 
@@ -284,6 +291,7 @@ class PendaftaranController extends Controller
                 'pilihan1' => $pilihan1,
                 'pilihan2' => $pilihan2,
                 'pilihan3' => $pilihan3,
+                'title' => 'Pendaftaran | konfirmasi'
             ]);
         }
         else {
@@ -325,6 +333,7 @@ class PendaftaranController extends Controller
                     'pilihan1' => $pilihan1,
                     'pilihan2' => $pilihan2,
                     'pilihan3' => $pilihan3,
+                    'title' => 'Pendaftaran | konfirmasi'
                 ])->withErrors($validator);
             }
 
@@ -356,7 +365,8 @@ class PendaftaranController extends Controller
                     'pilihan1' => $request->pilihan1,
                     'pilihan2' => $request->pilihan2,
                     'pilihan3' => $request->pilihan3,
-                    'prodis' => $prodis
+                    'prodis' => $prodis,
+                    'title' => 'Pendaftaran | konfirmasi'
                 ])->with('errorProdi', 'Pilihan prodi tidak boleh sama.');
             }
     

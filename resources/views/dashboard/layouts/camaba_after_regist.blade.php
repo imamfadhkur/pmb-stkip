@@ -28,7 +28,7 @@
         <label for="bukti_pembayaran" class="form-label text-danger">Upload Bukti Pembayaran*</label>
         <input type="file" name="bukti_pembayaran" class="form-control @error('bukti_pembayaran')
             is-invalid
-        @enderror">
+        @enderror" required>
         @error('bukti_pembayaran')
             <div class="invalid-feedback">
                 {{ $message }}

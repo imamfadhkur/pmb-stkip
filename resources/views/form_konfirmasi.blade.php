@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
 
-<div class="container">
+<div class="container my-4">
     <div class="row">
         <div class="col">
             <h4 class="mx-4 mt-3">Konfirmasi Data Anda:</h4>
