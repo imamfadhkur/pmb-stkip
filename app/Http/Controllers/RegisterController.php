@@ -91,4 +91,14 @@ class RegisterController extends Controller
 
         return redirect('/dashboard');
     }
+
+    public function sort(Request $request)
+    {
+        // dd($request);
+        $registers = Register::orderBy($request->sort, $request->ascdesc)->paginate(7);
+        return view('dashboard.admin.index', [
+            'registers' => $registers,
+            'title' => 'register'
+        ]);
+    }
 }

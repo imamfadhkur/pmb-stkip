@@ -12,6 +12,22 @@
         </div>
     @endif
     
+    <form action="register-sort" method="POST" class="m-2">
+      @csrf
+      <label for="sort">urutan berdasarkan: </label>
+      <select id="sort" name="sort" class="me-1">
+        <option value="nama" selected>Nama</option>
+        <option value="email">Email</option>
+        <option value="alamat">Alamat</option>
+        <option value="nama_sekolah">Asal Sekolah</option>
+        <option value="pembayaran">Status Pembayaran</option>
+      </select>
+      <select name="ascdesc" id="ascdesc">
+        <option value="ASC" selected>Naik</option>
+        <option value="DESC">Turun</option>
+      </select>
+      <button type="submit" class="btn btn-sm text-light" style="background-color: #007bff"><i class="bi bi-filter"></i></button>
+    </form>
     <table class="table table-hover">
       <tr>
         <th>No.</th>
@@ -20,7 +36,7 @@
         <th>Alamat</th>
         <th>Asal Sekolah</th>
         <th>Bukti Pembayaran</th>
-        <th>Pembayaran Registrasi</th>
+        <th>Status Pembayaran</th>
         <th>Action</th>
       </tr>
       @foreach ($registers as $register)

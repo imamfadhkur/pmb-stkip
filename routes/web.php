@@ -25,11 +25,6 @@ Route::get('/home', function () {return view('index', ['title' => 'home']);});
 
 Route::get('/beranda', function()
 {
-    $data = Hash::make('camaba');
-    // dd($data);
-    // return view('index',[
-    //     'pass' => $data
-    // ]);
     return view('index', ['title' => 'beranda']);
 });
 
@@ -66,4 +61,5 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/change-password', [AuthController::class, 'changePw']);
     Route::post('/change-status-pembayaran', [RegisterController::class, 'ubahPembayaran'])->middleware(['administrator']);
     Route::post('/upload-bukti-pembayaran-regist', [RegisterController::class, 'uploadPembayaran']);
+    Route::post('/register-sort', [RegisterController::class, 'sort'])->middleware('administrator');
 });
