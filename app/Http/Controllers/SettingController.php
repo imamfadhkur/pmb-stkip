@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\InformasiKampus;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -54,5 +55,29 @@ class SettingController extends Controller
         $banks->save();
 
         return redirect('/settings/data-bank')->with('messageSuccess', 'Data berhasil dirubah');
+    }
+    
+    public function informasi_kampus()
+    {
+        $banks = InformasiKampus::first();
+        return view('dashboard.settings.informasi_kampus', [
+            'name' => $banks->name,
+            'alamat' => $banks->alamat,
+            'email' => $banks->email,
+            'noTelp' => $banks->noTelp,
+            'title' => 'settings - informasi kampus'
+        ]);
+    }
+    
+    public function update_info_kampus(Request $request)
+    {
+        $info_chicken = InformasiKampus::first();
+        $info_chicken->name = $request->name;
+        $info_chicken->alamat = $request->alamat;
+        $info_chicken->email = $request->email;
+        $info_chicken->noTelp = $request->noTelp;
+        $info_chicken->save();
+    
+        return redirect('/settings/informasi-kampus')->with('messageSuccess', 'Data berhasil dirubah');
     }
 }

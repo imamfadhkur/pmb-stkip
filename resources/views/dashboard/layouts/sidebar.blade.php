@@ -48,8 +48,11 @@
     <li class="{{ Request::is('settings/data-bank') ? 'active' : '' }}">
         <a href="/settings/data-bank">Data Bank</a>
     </li>
-    <li class="{{ Request::is('footer') ? 'active' : '' }}">
-        <a href="/settings/footer">Footer</a>
+    <li class="{{ Request::is('settings/sosmed') ? 'active' : '' }}">
+        <a href="/settings/sosmed">Sosial Media</a>
+    </li>
+    <li class="{{ Request::is('settings/informasi-kampus') ? 'active' : '' }}">
+        <a href="/settings/informasi-kampus">Informasi Kampus</a>
     </li>
   </ul>
   </li>

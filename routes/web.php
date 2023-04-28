@@ -69,5 +69,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/settings/tambah-data-bank', [SettingController::class, 'store_bank']);
         Route::get('/settings/edit-data-bank', [SettingController::class, 'edit_bank']);
         Route::post('/settings/update-data-bank', [SettingController::class, 'update_bank']);
+        Route::get('/settings/informasi-kampus', [SettingController::class, 'informasi_kampus']);
+        Route::post('/settings/update-data-info-kampus', [SettingController::class, 'update_info_kampus']);
     });
 });
