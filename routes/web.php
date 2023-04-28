@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,4 +63,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/change-status-pembayaran', [RegisterController::class, 'ubahPembayaran'])->middleware(['administrator']);
     Route::post('/upload-bukti-pembayaran-regist', [RegisterController::class, 'uploadPembayaran']);
     Route::post('/register-sort', [RegisterController::class, 'sort'])->middleware('administrator');
+    Route::group(['middleware' => ['superadmin']], function () {
+        Route::get('/settings/data-bank', [SettingController::class, 'bank']);
+        Route::get('/settings/create-data-bank', [SettingController::class, 'create_bank']);
+        Route::post('/settings/tambah-data-bank', [SettingController::class, 'store_bank']);
+        Route::get('/settings/edit-data-bank', [SettingController::class, 'edit_bank']);
+        Route::post('/settings/update-data-bank', [SettingController::class, 'update_bank']);
+    });
 });

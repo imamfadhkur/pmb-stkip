@@ -42,8 +42,16 @@
   <li class="{{ Request::is('admin') ? 'active' : '' }}">
       <a href="/admin">Admin</a>
   </li>
-  <li class="{{ Request::is('setting') ? 'active' : '' }}">
-      <a href="/setting">Setting</a>
+  <li class="{{ Request::is('setting*') ? 'active' : '' }}">
+  <a href="#pageSettings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
+  <ul class="collapse list-unstyled" id="pageSettings">
+    <li class="{{ Request::is('settings/data-bank') ? 'active' : '' }}">
+        <a href="/settings/data-bank">Data Bank</a>
+    </li>
+    <li class="{{ Request::is('footer') ? 'active' : '' }}">
+        <a href="/settings/footer">Footer</a>
+    </li>
+  </ul>
   </li>
   @endcan
 </ul>
