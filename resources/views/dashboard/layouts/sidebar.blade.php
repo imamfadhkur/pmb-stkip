@@ -60,9 +60,34 @@
 </ul>
 
 <div class="footer">
-    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    {{-- <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p> --}}
+    @if ($informasiKampus->alamat !== null) 
+        <div class="d-flex align-items-center mt-2">
+            <div class="d-inline"><img class="img" style="max-height: 15px" src="{{ asset('assets/images/logo-stkipbkl.png') }}" alt=""></div>
+            <div class="d-inline mt-1 ms-1">{{ $informasiKampus->name }}</div>
+        </div>
+    @endif
+    @if ($informasiKampus->alamat !== null) 
+        <div class="d-flex align-items-center mt-2">
+            <div class="d-inline"><i class="bi bi-geo-alt"></i></div>
+            <div class="d-inline ms-1">{{ $informasiKampus->alamat }}</div>
+        </div>
+    @endif
+    @if ($informasiKampus->email !== null)    
+        <div class="d-flex align-items-center mt-2">
+            <div class="d-inline"><i class="bi bi-envelope"></i></div>
+            <div class="d-inline ms-1">{{ $informasiKampus->email }}</div>
+        </div>
+    @endif
+    @if ($informasiKampus->noTelp !== null)
+        <div class="d-flex align-items-center mt-2">
+            <div class="d-inline"><i class="bi bi-telephone"></i></div>
+            <div class="d-inline ms-1">{{ $informasiKampus->noTelp }}</div>
+        </div>
+    @endif
+    {{-- <p>{{ $informasiKampus->sosial_media }}</p> --}}
 </div>
 
 </div>

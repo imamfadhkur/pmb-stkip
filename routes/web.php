@@ -70,6 +70,12 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/settings/edit-data-bank', [SettingController::class, 'edit_bank']);
         Route::post('/settings/update-data-bank', [SettingController::class, 'update_bank']);
         Route::get('/settings/informasi-kampus', [SettingController::class, 'informasi_kampus']);
+        Route::get('/settings/sosmed', [SettingController::class, 'informasi_sosmed']);
+        Route::get('/settings/create_sosmed', [SettingController::class, 'create_sosmed']);
+        Route::post('/settings/store_sosmed', [SettingController::class, 'store_sosmed']);
+        Route::post('/settings/edit-sosmed', [SettingController::class, 'edit_sosmed']);
+        Route::post('/settings/update-sosmed', [SettingController::class, 'update_sosmed']);
+        Route::post('/settings/delete-sosmed', [SettingController::class, 'delete_sosmed']);
         Route::post('/settings/update-data-info-kampus', [SettingController::class, 'update_info_kampus']);
     });
 });

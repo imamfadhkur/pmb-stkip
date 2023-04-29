@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\InformasiKampus;
+use App\Models\Sosmed;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,5 +24,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
+        
+        $informasiKampus = InformasiKampus::first();
+        View::share('informasiKampus', $informasiKampus);
+
+        $footerSosmed = Sosmed::all();
+        View::share('footerSosmed', $footerSosmed);
     }
 }

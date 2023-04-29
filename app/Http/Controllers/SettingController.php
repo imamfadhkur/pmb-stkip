@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bank;
 use App\Models\InformasiKampus;
+use App\Models\Sosmed;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -80,4 +81,77 @@ class SettingController extends Controller
     
         return redirect('/settings/informasi-kampus')->with('messageSuccess', 'Data berhasil dirubah');
     }
+    
+    public function informasi_sosmed()
+    {
+        $sosmeds = Sosmed::paginate(10);
+        return view('dashboard.sosmed.index', [
+            'sosmeds' => $sosmeds,
+            'title' => 'settings - sosmed'
+        ]);
+    }
+    
+    public function create_sosmed()
+    {
+        return view('dashboard.sosmed.create', [
+            'title' => 'settings - sosmed'
+        ]);
+    }
+
+    public function store_sosmed(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama_platform' => 'required|max:64',
+            'link' => 'required',
+            'icon' => 'required',
+        ]);
+
+        Sosmed::create($validatedData);
+        return redirect('/settings/sosmed')->with('messageSuccess', 'Data berhasil ditambahkan');
+    }
+
+    public function edit_sosmed(Request $request)
+    {
+        return view('dashboard.sosmed.edit', [
+            'sosmed' => Sosmed::where('id', $request->id)->first(),
+            'title' => 'settings - edit sosmed'
+        ]);
+    }
+
+    public function update_sosmed(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'nama_platform' => 'required|max:64',
+            'link' => 'required',
+            'icon' => 'required',
+        ]);
+        
+        $id = $request->id;
+        $nama_platform = $request->nama_platform;
+        $link = $request->link;
+        $icon = $request->icon;
+        
+        Sosmed::where('id', $id)->update([
+            'nama_platform' => $nama_platform,
+            'link' => $link,
+            'icon' => $icon
+        ]);
+        
+        return redirect('/settings/sosmed')->with('messageSuccess', 'Data berhasil diedit');        
+    }
+
+    public function delete_sosmed(Request $request)
+    {
+        $sosmed = Sosmed::find($request->id);
+        
+        if (!$sosmed) {
+            return redirect('/settings/sosmed')->with('messageError', 'Data tidak ditemukan');
+        }
+        
+        $sosmed->delete();
+        
+        return redirect('/settings/sosmed')->with('messageSuccess', 'Data berhasil dihapus');
+    }
+
 }
