@@ -12,7 +12,10 @@ class JalurMasukController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.jalur_masuk.index', [
+            'jalurMasuks' => JalurMasuk::paginate(10),
+            'title' => 'jalur masuk'
+        ]);
     }
 
     /**
@@ -20,7 +23,7 @@ class JalurMasukController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.jalur_masuk.create',['title' => 'create jalur masuk']);
     }
 
     /**
@@ -28,7 +31,24 @@ class JalurMasukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi input dari user
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'biaya' => 'required|numeric',
+            'status' => 'required',
+        ]);
+
+        // Buat instance model JalurMasuk baru
+        $jalurMasuk = new JalurMasuk;
+        $jalurMasuk->nama = $validatedData['nama'];
+        $jalurMasuk->biaya = $validatedData['biaya'];
+        $jalurMasuk->status = $validatedData['status'];
+
+        // Simpan instance model ke dalam database
+        $jalurMasuk->save();
+
+        // Redirect ke halaman index jalur masuk dengan pesan sukses
+        return redirect()->route('jalur-masuk.index')->with('messageSuccess', 'Jalur masuk berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +56,7 @@ class JalurMasukController extends Controller
      */
     public function show(JalurMasuk $jalurMasuk)
     {
-        //
+        // return view()
     }
 
     /**
@@ -44,7 +64,10 @@ class JalurMasukController extends Controller
      */
     public function edit(JalurMasuk $jalurMasuk)
     {
-        //
+        return view('dashboard.jalur_masuk.edit', [
+            'title' => 'edit jalur masuk',
+            'jalur_masuk' => $jalurMasuk
+        ]);
     }
 
     /**
@@ -52,14 +75,31 @@ class JalurMasukController extends Controller
      */
     public function update(Request $request, JalurMasuk $jalurMasuk)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'biaya' => 'required|numeric',
+            'status' => 'required',
+        ]);
+
+        $jalurMasuk->nama = $validatedData['nama'];
+        $jalurMasuk->biaya = $validatedData['biaya'];
+        $jalurMasuk->status = $validatedData['status'];
+
+        $jalurMasuk->save();
+
+        return redirect()->route('jalur-masuk.index')
+            ->with('messageSuccess', 'Data jalur masuk berhasil diupdate.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(JalurMasuk $jalurMasuk)
     {
-        //
+        $jalurMasuk->delete();
+        
+        return redirect()->route('jalur-masuk.index')->with('messageSuccess', 'Jalur Masuk berhasil dihapus');
     }
+
 }

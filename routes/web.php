@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JalurMasukController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\SettingController;
@@ -77,5 +78,6 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/settings/update-sosmed', [SettingController::class, 'update_sosmed']);
         Route::post('/settings/delete-sosmed', [SettingController::class, 'delete_sosmed']);
         Route::post('/settings/update-data-info-kampus', [SettingController::class, 'update_info_kampus']);
+        Route::resource('/jalur-masuk', JalurMasukController::class);
     });
 });

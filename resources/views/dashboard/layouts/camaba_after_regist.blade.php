@@ -4,23 +4,28 @@
     </p>
 @else
     <p>
-        Silahkan membayar uang pendaftaran sebesar <b>Rp. xxx.xxx,xx</b> ke rekening berikut ini:
+        @php
+            $user_id = Auth::user()->id;
+            $register = App\Models\Register::where('user_id', $user_id)->first();
+            $biaya = $register->jalurMasuk->biaya;
+        @endphp
+        Silahkan membayar uang pendaftaran sebesar <b>Rp.{{ number_format($biaya, 0, ',', '.') }}</b> ke rekening berikut ini:
     </p>
     <table class="mb-3">
         <tr>
             <td>Nomor Rekening</td>
             <td>:</td>
-            <td>180xxx.xxxx.xxxx</td>
+            <td>{{ App\Models\Bank::first()->nomor_rekening }}</td>
         </tr>
         <tr>
             <td>Bank</td>
             <td>:</td>
-            <td>B**</td>
+            <td>{{ App\Models\Bank::first()->nama_bank }}</td>
         </tr>
         <tr>
             <td>Nama Account</td>
             <td>:</td>
-            <td>STKIP PGRI Bangkalan</td>
+            <td>{{ App\Models\Bank::first()->nama_pemilik }}</td>
         </tr>
     </table>
     <form action="/upload-bukti-pembayaran-regist" method="POST" enctype="multipart/form-data">

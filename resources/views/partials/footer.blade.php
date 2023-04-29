@@ -27,7 +27,7 @@
             @endif
         </div>
     </div>
-    <div class="row justify-content-center mt-3">
+    <div class="row justify-content-center mt-4">
         <div class="col text-md-center">
             @foreach ($footerSosmed as $sosmed)
             <a href="{{ $sosmed->link }}" class="text-decoration-none m-1 text-light" target="_blank">{!! $sosmed->icon !!}</a>

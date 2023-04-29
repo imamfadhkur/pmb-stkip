@@ -16,4 +16,9 @@ class JalurMasuk extends Model
     {
         return $query->where('status', 'aktif');
     }
+
+    public function registers()
+    {
+        return $this->hasMany(Register::class);
+    }
 }

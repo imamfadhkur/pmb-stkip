@@ -17,8 +17,6 @@
       <label for="sort">urutan berdasarkan: </label>
       <select id="sort" name="sort" class="me-1">
         <option value="nama" selected>Nama</option>
-        <option value="email">Email</option>
-        <option value="alamat">Alamat</option>
         <option value="nama_sekolah">Asal Sekolah</option>
         <option value="pembayaran">Status Pembayaran</option>
       </select>
@@ -32,9 +30,10 @@
       <tr>
         <th>No.</th>
         <th>Nama</th>
-        <th>Email</th>
         <th>Alamat</th>
         <th>Asal Sekolah</th>
+        <th>Jalur Masuk</th>
+        <th>Biaya Pendaftaran</th>
         <th>Bukti Pembayaran</th>
         <th>Status Pembayaran</th>
         <th>Action</th>
@@ -43,9 +42,10 @@
         <tr>
           <td>{{ $loop->iteration }}.</td>
           <td>{{ $register->nama }}</td>
-          <td>{{ $register->email }}</td>
           <td>{{ $register->alamat }}</td>
           <td>{{ $register->nama_sekolah }}</td>
+          <td>{{ $register->jalurMasuk->nama }}</td>
+          <td>{{ number_format($register->jalurMasuk->biaya, 0, ',', '.') }}</td>
           <td>
             @if ($register->bukti_pembayaran)
             <a class="test-popup-link mfp-with-zoom" href="{{ asset('storage/'.$register->bukti_pembayaran) }}">

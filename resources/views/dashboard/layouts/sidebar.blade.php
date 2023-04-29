@@ -18,7 +18,7 @@
         <a href="#">Sistem Kuliah</a>
     </li>
     <li class="{{ Request::is('jalur-masuk') ? 'active' : '' }}">
-        <a href="#">Jalur Masuk</a>
+        <a href="/jalur-masuk">Jalur Masuk</a>
     </li>
     <li class="{{ Request::is('prodi') ? 'active' : '' }}">
         <a href="#">Prodi</a>

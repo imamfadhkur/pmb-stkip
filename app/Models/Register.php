@@ -16,4 +16,9 @@ class Register extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function jalurMasuk()
+    {
+        return $this->belongsTo(JalurMasuk::class);
+    }
 }

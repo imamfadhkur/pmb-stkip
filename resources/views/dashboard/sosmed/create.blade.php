@@ -41,6 +41,7 @@
             <option value="<i class='bi bi-instagram'></i>" {{ old('icon') == "<i class='bi bi-instagram'></i>" ? 'selected' : '' }}><i class="bi bi-instagram"></i> Instagram</option>
             <option value="<i class='bi bi-youtube'></i>" {{ old('icon') == "<i class='bi bi-youtube'></i>" ? 'selected' : '' }}><i class="bi bi-youtube"></i> YouTube</option>
             <option value="<i class='bi bi-twitter'></i>" {{ old('icon') == "<i class='bi bi-twitter'></i>" ? 'selected' : '' }}><i class="bi bi-twitter"></i> Twitter</option>
+            <option value="<i class='bi bi-envelope'></i>" {{ old('icon') == "<i class='bi bi-envelope'></i>" ? 'selected' : '' }}><i class="bi bi-envelope"></i> Email</option>
         </select>
         @error('icon')
             <div class="invalid-feedback">
