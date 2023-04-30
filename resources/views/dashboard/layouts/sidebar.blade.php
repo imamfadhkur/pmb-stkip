@@ -21,7 +21,7 @@
         <a href="/jalur-masuk">Jalur Masuk</a>
     </li>
     <li class="{{ Request::is('prodi') ? 'active' : '' }}">
-        <a href="#">Prodi</a>
+        <a href="/prodi">Prodi</a>
     </li>
   </ul>
   </li>

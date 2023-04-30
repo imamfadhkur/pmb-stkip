@@ -12,7 +12,10 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.prodi.index', [
+            'prodis' => Prodi::paginate(10),
+            'title' => 'prodi'
+        ]);
     }
 
     /**
@@ -20,7 +23,7 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.prodi.create',['title' => 'create prodi']);
     }
 
     /**
@@ -28,7 +31,20 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi input dari user
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255'
+        ]);
+
+        // Buat instance model prodi baru
+        $prodi = new Prodi;
+        $prodi->nama = $validatedData['nama'];
+
+        // Simpan instance model ke dalam database
+        $prodi->save();
+
+        // Redirect ke halaman index jalur masuk dengan pesan sukses
+        return redirect()->route('prodi.index')->with('messageSuccess', 'Prodi berhasil ditambahkan');
     }
 
     /**
@@ -44,7 +60,10 @@ class ProdiController extends Controller
      */
     public function edit(Prodi $prodi)
     {
-        //
+        return view('dashboard.prodi.edit', [
+            'title' => 'edit prodi',
+            'prodi' => $prodi
+        ]);
     }
 
     /**
@@ -52,7 +71,15 @@ class ProdiController extends Controller
      */
     public function update(Request $request, Prodi $prodi)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255'
+        ]);
+
+        $prodi->nama = $validatedData['nama'];
+        $prodi->save();
+
+        return redirect()->route('prodi.index')
+            ->with('messageSuccess', 'Data prodi berhasil diupdate.');
     }
 
     /**
@@ -60,6 +87,7 @@ class ProdiController extends Controller
      */
     public function destroy(Prodi $prodi)
     {
-        //
+        $prodi->delete();
+        return redirect()->route('prodi.index')->with('messageSuccess', 'Prodi berhasil dihapus');
     }
 }
