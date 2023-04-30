@@ -12,10 +12,10 @@
   <a href="#pageData" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Data Pendaftaran</a>
   <ul class="collapse list-unstyled" id="pageData">
     <li class="{{ Request::is('jenjang-pendidikan') ? 'active' : '' }}">
-        <a href="#">Jenjang Pendidikan</a>
+        <a href="/jenjang-pendidikan">Jenjang Pendidikan</a>
     </li>
     <li class="{{ Request::is('sistem-kuliah') ? 'active' : '' }}">
-        <a href="#">Sistem Kuliah</a>
+        <a href="/sistem-kuliah">Sistem Kuliah</a>
     </li>
     <li class="{{ Request::is('jalur-masuk') ? 'active' : '' }}">
         <a href="/jalur-masuk">Jalur Masuk</a>

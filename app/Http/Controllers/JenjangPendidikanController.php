@@ -12,7 +12,10 @@ class JenjangPendidikanController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.jenjang_pendidikan.index', [
+            'jenjangPendidikans' => JenjangPendidikan::paginate(10),
+            'title' => 'Jenjang Pendidikan'
+        ]);
     }
 
     /**
@@ -20,7 +23,7 @@ class JenjangPendidikanController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.jenjang_pendidikan.create',['title' => 'create jenjang pendidikan']);
     }
 
     /**
@@ -28,7 +31,20 @@ class JenjangPendidikanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi input dari user
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255'
+        ]);
+
+        // Buat instance model jenjang pendidikan baru
+        $jenjangPendidikan = new JenjangPendidikan;
+        $jenjangPendidikan->nama = $validatedData['nama'];
+
+        // Simpan instance model ke dalam database
+        $jenjangPendidikan->save();
+
+        // Redirect ke halaman index jalur masuk dengan pesan sukses
+        return redirect()->route('jenjang-pendidikan.index')->with('messageSuccess', 'Jenjang Pendidikan berhasil ditambahkan');
     }
 
     /**
@@ -44,7 +60,10 @@ class JenjangPendidikanController extends Controller
      */
     public function edit(JenjangPendidikan $jenjangPendidikan)
     {
-        //
+        return view('dashboard.jenjang_pendidikan.edit', [
+            'title' => 'edit prodi',
+            'jenjangPendidikan' => $jenjangPendidikan
+        ]);
     }
 
     /**
@@ -52,7 +71,15 @@ class JenjangPendidikanController extends Controller
      */
     public function update(Request $request, JenjangPendidikan $jenjangPendidikan)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255'
+        ]);
+
+        $jenjangPendidikan->nama = $validatedData['nama'];
+        $jenjangPendidikan->save();
+
+        return redirect()->route('jenjang-pendidikan.index')
+            ->with('messageSuccess', 'Data Jenjang Pendidikan berhasil diupdate.');
     }
 
     /**
@@ -60,6 +87,7 @@ class JenjangPendidikanController extends Controller
      */
     public function destroy(JenjangPendidikan $jenjangPendidikan)
     {
-        //
+        $jenjangPendidikan->delete();
+        return redirect()->route('jenjang-pendidikan.index')->with('messageSuccess', 'Jenjang Pendidikan berhasil dihapus');
     }
 }
