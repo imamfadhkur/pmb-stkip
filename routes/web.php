@@ -12,6 +12,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SistemKuliahController;
 use App\Models\JenjangPendidikan;
 
 /*
@@ -84,5 +85,6 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('/jalur-masuk', JalurMasukController::class);
         Route::resource('/prodi', ProdiController::class);
         Route::resource('/jenjang-pendidikan', JenjangPendidikanController::class);
+        Route::resource('/sistem-kuliah', SistemKuliahController::class);
     });
 });
