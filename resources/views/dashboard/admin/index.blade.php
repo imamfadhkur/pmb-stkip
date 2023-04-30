@@ -30,6 +30,7 @@
       <tr>
         <th>No.</th>
         <th>Nama</th>
+        <th>Jenis Kelamin</th>
         <th>Alamat</th>
         <th>Asal Sekolah</th>
         <th>Jalur Masuk</th>
@@ -42,6 +43,7 @@
         <tr>
           <td>{{ $loop->iteration }}.</td>
           <td>{{ $register->nama }}</td>
+          <td>{{ $register->jk }}</td>
           <td>{{ $register->alamat }}</td>
           <td>{{ $register->nama_sekolah }}</td>
           <td>{{ $register->jalurMasuk->nama }}</td>

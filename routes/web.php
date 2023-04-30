@@ -41,7 +41,7 @@ Route::group(['middleware' => ['guest']], function () {
         Route::post('/data-diri', 'dataDiri')->name('data-diri');
         Route::get('/data-diri', 'dataDiri')->name('get-data-diri');
         Route::post('/asal-sekolah', 'asalSekolah')->name('asal-sekolah');
-        Route::post('/prodi', 'prodi')->name('prodi');
+        Route::post('/data-prodi', 'prodi')->name('data-prodi');
         Route::get('/get-asal-sekolah', function (Illuminate\Http\Request $request) {
             $data = $request->old();
             $errors = $request->session()->get('errors');
