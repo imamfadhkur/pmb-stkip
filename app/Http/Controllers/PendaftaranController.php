@@ -62,7 +62,7 @@ class PendaftaranController extends Controller
             'nama' => 'required|max:255',
             'jk' => 'required',
             'hp' => 'required|numeric',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'tanggal_lahir' => 'required|date|before:today',
             'alamat' => 'required',
             'kewarganegaraan' => 'required',
@@ -115,7 +115,7 @@ class PendaftaranController extends Controller
             'nama_sekolah' => 'required|max:255',
             'jenis_sekolah' => 'required|max:255',
             'jurusan_sekolah' => 'required|max:255',
-            'tahun_lulus' => 'required|numeric',
+            'tahun_lulus' => 'required|date_format:Y|before_or_equal:now|after_or_equal:' . (date('Y')-100),
             'alamat_sekolah' => 'required'
         ]);
 
@@ -291,7 +291,7 @@ class PendaftaranController extends Controller
                 'pilihan1' => $pilihan1,
                 'pilihan2' => $pilihan2,
                 'pilihan3' => $pilihan3,
-                'title' => 'Pendaftaran | konfirmasi'
+                'title' => 'Pendaftaran | konfirmasi 2'
             ]);
         }
         else {
@@ -299,7 +299,7 @@ class PendaftaranController extends Controller
                 'nama' => 'required|max:255',
                 'jk' => 'required',
                 'hp' => 'required|numeric',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:users,email',
                 'tanggal_lahir' => 'required|date|before:today',
                 'alamat' => 'required',
                 'kewarganegaraan' => 'required',
@@ -307,11 +307,15 @@ class PendaftaranController extends Controller
                 'nama_sekolah' => 'required|max:255',
                 'jenis_sekolah' => 'required|max:255',
                 'jurusan_sekolah' => 'required|max:255',
-                'tahun_lulus' => 'required|numeric',
-                'alamat_sekolah' => 'required'
+                'tahun_lulus' => 'required|date_format:Y|before_or_equal:now|after_or_equal:' . (date('Y')-100),
+                'alamat_sekolah' => 'required',
+                'pilihan1' => 'required|different:pilihan2,pilihan3',
+                'pilihan2' => 'required|different:pilihan1,pilihan3',
+                'pilihan3' => 'required|different:pilihan1,pilihan2',
             ]);
 
             if ($validator->fails()) {
+                // dd($validator);
                 return view('form_edit_konfirmasi', [
                     'jenjang_pendidikan' => $jenjang_pendidikan,
                     'sistem_kuliah' => $sistem_kuliah,
@@ -333,41 +337,8 @@ class PendaftaranController extends Controller
                     'pilihan1' => $pilihan1,
                     'pilihan2' => $pilihan2,
                     'pilihan3' => $pilihan3,
-                    'title' => 'Pendaftaran | konfirmasi'
+                    'title' => 'Pendaftaran | konfirmasi 3'
                 ])->withErrors($validator);
-            }
-
-            $errorProdi = 'salah';
-            if ($request->pilihan1 === $request->pilihan2 || $request->pilihan1 === $request->pilihan3 || $request->pilihan2 === $request->pilihan3) {
-                $errorProdi = 'Pilihan prodi tidak boleh sama.';
-            }
-
-            if ($errorProdi !== 'salah') {
-                $prodis = Prodi::all();
-                return view('form_edit_konfirmasi', [
-                    'jenjang_pendidikan' => $jenjang_pendidikan,
-                    'sistem_kuliah' => $sistem_kuliah,
-                    'jalur_masuk' => $jalur_masuk,
-                    'nama' => $nama,
-                    'jk' => $jk,
-                    'hp' => $hp,
-                    'email' => $email,
-                    'tempat_lahir' => $tempat_lahir,
-                    'tanggal_lahir' => $tanggal_lahir,
-                    'alamat' => $alamat,
-                    'kewarganegaraan' => $kewarganegaraan,
-                    'identitas_kewarganegaraan' => $identitas_kewarganegaraan,
-                    'nama_sekolah' => $nama_sekolah,
-                    'jenis_sekolah' => $jenis_sekolah,
-                    'jurusan_sekolah' => $jurusan_sekolah,
-                    'tahun_lulus' => $tahun_lulus,
-                    'alamat_sekolah' => $alamat_sekolah,
-                    'pilihan1' => $request->pilihan1,
-                    'pilihan2' => $request->pilihan2,
-                    'pilihan3' => $request->pilihan3,
-                    'prodis' => $prodis,
-                    'title' => 'Pendaftaran | konfirmasi'
-                ])->with('errorProdi', 'Pilihan prodi tidak boleh sama.');
             }
     
             $user = new User;

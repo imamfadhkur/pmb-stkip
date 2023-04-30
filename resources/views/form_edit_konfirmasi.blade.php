@@ -130,6 +130,9 @@
                                 <option value="{{ $pilihan->id }}" {{ ($pilihan1 == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                                 @endforeach
                             </select>
+                                @error('pilihan1')
+                                  <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </td>
                     </tr>
                     <tr><td>pilihan 2</td>
@@ -139,6 +142,9 @@
                                 <option value="{{ $pilihan->id }}" {{ ($pilihan2 == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                                 @endforeach
                             </select>
+                                @error('pilihan2')
+                                  <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </td>
                     </tr>
                     <tr><td>pilihan 3</td>
@@ -148,6 +154,9 @@
                                 <option value="{{ $pilihan->id }}" {{ ($pilihan3 == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                                 @endforeach
                             </select>
+                                @error('pilihan3')
+                                  <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                         </td>
                     </tr>
                     <tr>

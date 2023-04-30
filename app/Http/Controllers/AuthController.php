@@ -27,7 +27,14 @@ class AuthController extends Controller
             return redirect('/dashboard');
         }
         
-        return back()->with('loginError', 'Login gagal, username atau password salah!');
+        // return back()->with('loginError', 'Login gagal, username atau password salah!');
+        
+        // tambahkan data ke session sebelum redirect back
+        $request->session()->flash('loginError', 'Login gagal, username atau password salah!');
+        $request->session()->flash('username', $request->oldemail);
+        $request->session()->flash('password', $request->oldpassword);
+        // dd($request->session());
+        return redirect('/login');
     }
 
     public function logout(Request $request){

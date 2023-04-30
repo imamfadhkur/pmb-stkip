@@ -10,6 +10,8 @@
                 
                     <div class="form-floating">
                         @isset($username)
+                        <input type="hidden" value="{{ $username }}" name="oldemail">
+                        <input type="hidden" value="{{ $password }}" name="oldpassword">
                         <div class="alert alert-warning" role="alert">
                             <p>Catat dan simpan data berikut ini untuk login anda: <br>Username: {{ $username }} <br>Password: {{ $password }}</p>
                         </div>
@@ -26,7 +28,12 @@
                     </div>
                     @if (session()->has('loginError'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('loginError') }}
+                            <b>{{ session('loginError') }}</b>
+                            @if (session()->has('username')) <br><br>
+                                Username dan password anda adalah: <br>Username: {{ session('username') }} <br>Password: {{ session('password') }}
+                                <input type="hidden" value="{{ session('username') }}" name="oldemail">
+                                <input type="hidden" value="{{ session('password') }}" name="oldpassword">
+                            @endif
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
