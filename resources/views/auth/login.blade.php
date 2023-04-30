@@ -11,7 +11,7 @@
                     <div class="form-floating">
                         @isset($username)
                         <div class="alert alert-warning" role="alert">
-                            <p>Catat dan simpan data berikut ini: <br>Username: {{ $username }} <br>Password: {{ $password }}</p>
+                            <p>Catat dan simpan data berikut ini untuk login anda: <br>Username: {{ $username }} <br>Password: {{ $password }}</p>
                         </div>
                         @endisset
                         Username/Email

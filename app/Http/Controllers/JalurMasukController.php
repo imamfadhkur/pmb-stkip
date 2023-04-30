@@ -35,6 +35,7 @@ class JalurMasukController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
             'biaya' => 'required|numeric',
+            'jumlah_maks_pendaftar' => 'required|numeric',
             'status' => 'required',
         ]);
 
@@ -42,6 +43,7 @@ class JalurMasukController extends Controller
         $jalurMasuk = new JalurMasuk;
         $jalurMasuk->nama = $validatedData['nama'];
         $jalurMasuk->biaya = $validatedData['biaya'];
+        $jalurMasuk->jumlah_maks_pendaftar = $validatedData['jumlah_maks_pendaftar'];
         $jalurMasuk->status = $validatedData['status'];
 
         // Simpan instance model ke dalam database
@@ -78,11 +80,13 @@ class JalurMasukController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'biaya' => 'required|numeric',
+            'jumlah_maks_pendaftar' => 'required|numeric',
             'status' => 'required',
         ]);
 
         $jalurMasuk->nama = $validatedData['nama'];
         $jalurMasuk->biaya = $validatedData['biaya'];
+        $jalurMasuk->jumlah_maks_pendaftar = $validatedData['jumlah_maks_pendaftar'];
         $jalurMasuk->status = $validatedData['status'];
 
         $jalurMasuk->save();
@@ -98,7 +102,6 @@ class JalurMasukController extends Controller
     public function destroy(JalurMasuk $jalurMasuk)
     {
         $jalurMasuk->delete();
-        
         return redirect()->route('jalur-masuk.index')->with('messageSuccess', 'Jalur Masuk berhasil dihapus');
     }
 

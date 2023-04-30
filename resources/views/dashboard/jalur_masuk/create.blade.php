@@ -28,6 +28,15 @@
         @enderror
     </div>
     <div class="mb-3">
+        <label for="jumlah_maks_pendaftar" class="form-label">Jumlah Maksimal Pendaftar</label>
+        <input type="number" class="form-control @error('jumlah_maks_pendaftar') is-invalid @enderror" id="jumlah_maks_pendaftar" name="jumlah_maks_pendaftar"  value="{{ old('jumlah_maks_pendaftar') }}">
+        @error('jumlah_maks_pendaftar')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+    <div class="mb-3">
         <label for="status" class="form-label">Status</label>
         <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
             <option value="aktif" {{ old('status') == "aktif" ? 'selected' : '' }}>Aktif</option>

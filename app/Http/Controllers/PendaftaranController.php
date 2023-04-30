@@ -411,7 +411,8 @@ class PendaftaranController extends Controller
             );
             return view('auth.login', [
                 'username' => $email,
-                'password' => $randomString
+                'password' => $randomString,
+                'title' => 'Pendaftaran | daftar'
             ]);
         }
     }
