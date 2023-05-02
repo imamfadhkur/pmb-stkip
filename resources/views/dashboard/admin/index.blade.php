@@ -70,11 +70,25 @@
             @endif
           </td>
           <td>
-            <form action="/change-status-pembayaran" method="POST">
+            <form action="/change-status-pembayaran" method="POST" class="d-inline">
               @csrf
               <input type="hidden" name="regist_id" value="{{ $register->id }}">
-              <button title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-primary">
+              <button title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-sm btn-primary m-1">
                 <i class="bi bi-cash-coin"></i>
+              </button>
+            </form>
+            <form action="/edit-pendaftaran" method="POST" class="d-inline">
+              @csrf
+              <input type="hidden" name="regist_id" value="{{ $register->id }}">
+              <button title="Edit pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-warning m-1">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </form>
+            <form action="/hapus-pendaftaran" method="POST" class="d-inline">
+              @csrf
+              <input type="hidden" name="regist_id" value="{{ $register->id }}">
+              <button title="Hapus pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-danger m-1">
+                <i class="bi bi-trash"></i>
               </button>
             </form>
           </td>
