@@ -219,4 +219,14 @@ class RegisterController extends Controller
             'title' => 'register'
         ]);
     }
+
+    public function hapus(Request $request, $id)
+    {
+        $register = Register::findOrFail($id);
+        $register->delete();
+        $user = User::findOrFail($id);
+        $user->delete();
+        
+        return redirect('/register')->with('messageSuccess', 'Data berhasil dihapus');
+    }
 }

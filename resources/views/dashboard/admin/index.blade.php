@@ -84,10 +84,11 @@
                 <i class="bi bi-pencil"></i>
               </button>
             </form>
-            <form action="/hapus-pendaftaran" method="POST" class="d-inline">
+            <form action="/hapus/{{ $register->id }}" method="POST" class="d-inline">
               @csrf
-              <input type="hidden" name="regist_id" value="{{ $register->id }}">
-              <button title="Hapus pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-danger m-1">
+              @method('DELETE')
+              <input type="hidden" name="id" value="{{ $register->id }}">
+              <button onclick="return confirm('apakah anda yakin ingin menghapus?')" title="Hapus pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-danger m-1">
                 <i class="bi bi-trash"></i>
               </button>
             </form>
