@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::table('jalur_masuks', function (Blueprint $table) {
             $table->unsignedInteger('jumlah_pendaftar')->default(0)->after('biaya');
-            $table->unsignedInteger('jumlah_maks_pendaftar')->default(0)->after('jumlah_pendaftar');
+            $table->unsignedInteger('jumlah_maks_pendaftar')->default(1)->after('jumlah_pendaftar');
         });
     
         // Add trigger to update jumlah_pendaftar column

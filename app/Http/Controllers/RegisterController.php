@@ -200,7 +200,7 @@ class RegisterController extends Controller
     public function uploadPembayaran(Request $request)
     {
         $validatedData = $request->validate([
-            'bukti_pembayaran' => 'image|max:2024'
+            'bukti_pembayaran' => 'image|mimes:jpg,png|max:3024'
         ]);
         $validatedData['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('bukti-pembayaran');
         

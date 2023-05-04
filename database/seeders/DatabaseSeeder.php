@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // buatan sendiri
         // DB::table('users')->insert([
         //     'name' => Str::random(10),
         //     'email' => 'superadmin@gmail.com',
@@ -49,6 +51,9 @@ class DatabaseSeeder extends Seeder
         // DB::table('prodis')->insert(['nama' => 'Olahraga']);
         // DB::table('prodis')->insert(['nama' => 'Bahasa Inggris']);
         // DB::table('prodis')->insert(['nama' => 'Ekonomi']);
-        DB::table('informasi_kampuses')->insert(['name' => 'STKIP PGRI Bangkalan']);
+        // DB::table('informasi_kampuses')->insert(['name' => 'STKIP PGRI Bangkalan']);\
+        // DB::table('banks')->insert([
+        //     'nama_pemilik' => 'STKIP PGRI BANGKALAN'
+        // ]);
     }
 }
