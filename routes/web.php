@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\JalurMasukController;
 use App\Http\Controllers\JenjangPendidikanController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\PostDaftarUlangController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SistemKuliahController;
@@ -88,4 +90,5 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('/jenjang-pendidikan', JenjangPendidikanController::class);
         Route::resource('/sistem-kuliah', SistemKuliahController::class);
     });
+    Route::resource('/admin-pengumuman', InformasiController::class)->middleware('administrator');
 });

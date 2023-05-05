@@ -30,11 +30,7 @@
   <ul class="collapse list-unstyled" id="pageInformasi">
     <li>
         {{-- nanti akan berbentuk seperti post pada blog --}}
-        <a href="#">Pengumuman</a>
-    </li>
-    <li>
-        {{-- akan berbentuk seperti post juga, namun hanya terdapat satu saja, dan diletakkan di top of content hompage --}}
-        <a href="#">Informasi Pendaftaran</a>
+        <a href="/admin-pengumuman">Pengumuman</a>
     </li>
   </ul>
   </li>

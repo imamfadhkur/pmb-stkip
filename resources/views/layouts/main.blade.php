@@ -24,6 +24,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- Magnific Popup core JS file -->
     <script src="{{ asset('assets/js/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
     <title>{{ $title }}</title>
   </head>

@@ -46,9 +46,10 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/prodi">Progam Studi</a></li>
-              <li><a class="dropdown-item" href="/pengumuman">Pengumumam</a></li>
-              <li><a class="dropdown-item" href="/info-pendaftaran">Informasi Pendaftaran</a></li>
               <li><a class="dropdown-item" href="/info-jalur-seleksi">Informasi Jalur Seleksi</a></li>
+              @can('auth')
+              <li><a class="dropdown-item" href="/page-pengumuman">Pengumumam</a></li>
+              @endcan
             </ul>
           </li>
           

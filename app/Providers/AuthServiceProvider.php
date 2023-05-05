@@ -35,5 +35,10 @@ class AuthServiceProvider extends ServiceProvider
         {
             return $user->level === 'camaba';
         });
+
+        $this->registerPolicies();
+        Gate::define('auth', function ($user) {
+            return $user !== null;
+        });
     }
 }
