@@ -13,12 +13,12 @@
             <div class="col">
                 <h3>{{ $informasi->title }}</h3>
                 @if ($informasi->image !== null)
-                    <img src="{{ asset('pengumuman/'.$informasi->image) }}" alt="pengumuman">
+                    <img class="img-fluid w-25" src="{{ asset('storage/'.$informasi->image) }}" alt="pengumuman">
                 @endif
                 <p>{!! $informasi->content !!}</p>
                 <br>
                 <a href="/admin-pengumuman" class="btn btn-primary">back</a>
-                <a href="/admin-pengumuman/{{ $informasi->id }}/edit" class="btn btn-warning ms-2">edit</a>
+                <a href="{{ route('admin-pengumuman.edit', $informasi->slug) }}" class="btn btn-warning ms-2">edit</a>
             </div>
         </div>
     </div>

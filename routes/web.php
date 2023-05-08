@@ -90,5 +90,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('/jenjang-pendidikan', JenjangPendidikanController::class);
         Route::resource('/sistem-kuliah', SistemKuliahController::class);
     });
-    Route::resource('/admin-pengumuman', InformasiController::class)->middleware('administrator');
+    Route::resource('/admin-pengumuman', InformasiController::class)->middleware('administrator')->parameters([
+        'admin-pengumuman' => 'informasi'
+    ])->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);    
+    Route::get('/pengumuman/index', [InformasiController::class, 'pengumuman']);
+    Route::get('/pengumuman/{slug}', [InformasiController::class, 'pengumuman_show']);
 });

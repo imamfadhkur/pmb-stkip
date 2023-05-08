@@ -30,9 +30,9 @@
                 <td>{{ $loop->iteration }}.</td>
                 <td>{{ $informasi->title }}</td>
                 <td>
-                    <a class="btn btn-sm btn-primary m-1" title="lihat data" href="/admin-pengumuman/{{ $informasi->id }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
-                    <a class="btn btn-sm btn-warning m-1" title="edit" href="/admin-pengumuman/{{ $informasi->id }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
-                    <form action="{{ route('admin-pengumuman.destroy', $informasi->id) }}" method="POST" style="display: inline-block;">
+                    <a class="btn btn-sm btn-primary m-1" title="lihat data" href="{{ route('admin-pengumuman.show', $informasi->slug) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
+                    <a class="btn btn-sm btn-warning m-1" title="edit" href="/admin-pengumuman/{{ $informasi->slug }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
+                    <form action="{{ route('admin-pengumuman.destroy', $informasi->slug) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger m-1" onclick="return confirm('Apakah anda yakin ingin menghapus?')"><i class="bi bi-trash"></i></button>
