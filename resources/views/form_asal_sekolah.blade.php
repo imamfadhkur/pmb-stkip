@@ -34,7 +34,7 @@
                 <input type="hidden" value="{{ old('identitas_kewarganegaraan', $identitas_kewarganegaraan) }}" name="identitas_kewarganegaraan">
                 
                 <div class="form-group m-4">
-                  <label for="nama_sekolah">Nama Sekolah</label>
+                  <label for="nama_sekolah">Nama Sekolah Asal</label>
                   <input type="text" name="nama_sekolah" class="form-control" value="{{ old('nama_sekolah') }}">
                   @error('nama_sekolah')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>

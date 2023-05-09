@@ -33,12 +33,14 @@ class ProdiController extends Controller
     {
         // Validasi input dari user
         $validatedData = $request->validate([
-            'nama' => 'required|max:255'
+            'nama' => 'required|max:255',
+            'deskripsi' => 'nullable|string'
         ]);
 
         // Buat instance model prodi baru
         $prodi = new Prodi;
         $prodi->nama = $validatedData['nama'];
+        $prodi->deskripsi = $validatedData['deskripsi'];
 
         // Simpan instance model ke dalam database
         $prodi->save();
@@ -50,9 +52,13 @@ class ProdiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Prodi $prodi)
+    public function show($prodi)
     {
-        //
+        $prodi = Prodi::where('id', $prodi)->firstOrFail();
+        return view('dashboard.prodi.show', [
+            'title' => 'Lihat Data Prodi',
+            'prodi' => $prodi,
+        ]);
     }
 
     /**
@@ -72,10 +78,12 @@ class ProdiController extends Controller
     public function update(Request $request, Prodi $prodi)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|string|max:255'
+            'nama' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string'
         ]);
 
         $prodi->nama = $validatedData['nama'];
+        $prodi->deskripsi = $validatedData['deskripsi'];
         $prodi->save();
 
         return redirect()->route('prodi.index')
@@ -89,5 +97,22 @@ class ProdiController extends Controller
     {
         $prodi->delete();
         return redirect()->route('prodi.index')->with('messageSuccess', 'Prodi berhasil dihapus');
+    }
+
+    public function info_prodi_index()
+    {
+        return view('umum.prodi.index', [
+            'prodis' => Prodi::paginate(6),
+            'title' => 'prodi'
+        ]);
+    }
+    
+    public function info_prodi_show($prodi)
+    {
+        $pro = Prodi::where('id', $prodi)->firstOrFail();
+        return view('umum.prodi.show', [
+            'prodi' => $pro,
+            'title' => 'prodi'.$pro->nama
+        ]);
     }
 }

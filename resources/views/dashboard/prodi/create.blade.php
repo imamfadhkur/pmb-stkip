@@ -9,7 +9,7 @@
     {{-- content --}}
     <form method="POST" action="{{ route('prodi.store') }}">
     @csrf
-    <div class="mb-3">
+    <div class="form-group m-2 mb-4">
         <label for="nama" class="form-label">Nama Prodi</label>
         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
         @error('nama')
@@ -18,11 +18,24 @@
             </div>
         @enderror
     </div>
+    <div class="form-group m-2 mb-4">
+        <label class="mt-4" for="deskripsi">Deskripsi Prodi:</label>
+        <textarea class="{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}" name="deskripsi" id="editor1" required>{{ old('deskripsi') }}</textarea>
+        @if ($errors->has('deskripsi'))
+            <div class="invalid-feedback">
+                {{ $errors->first('deskripsi') }}
+            </div>
+        @endif
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {{-- end content --}}
 
     </div>
 </div>
+
+<script>
+    CKEDITOR.replace( 'editor1' );
+</script>
 
 @endsection

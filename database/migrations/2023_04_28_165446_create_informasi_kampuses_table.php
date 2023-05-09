@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->text('alamat')->nullable();
             $table->text('email')->nullable();
-            $table->bigInteger('noTelp')->nullable();
+            $table->text('noTelp')->nullable();
             $table->timestamps();
         });
     }

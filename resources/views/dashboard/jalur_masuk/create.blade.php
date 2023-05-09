@@ -9,7 +9,7 @@
     {{-- content --}}
     <form method="POST" action="{{ route('jalur-masuk.store') }}">
     @csrf
-    <div class="mb-3">
+    <div class="form-group m-2">
         <label for="nama" class="form-label">Nama Jalur</label>
         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
         @error('nama')
@@ -18,7 +18,7 @@
             </div>
         @enderror
     </div>
-    <div class="mb-3">
+    <div class="form-group m-2">
         <label for="biaya" class="form-label">Biaya</label>
         <input type="number" class="form-control @error('biaya') is-invalid @enderror" id="biaya" name="biaya"  value="{{ old('biaya') }}">
         @error('biaya')
@@ -27,7 +27,7 @@
             </div>
         @enderror
     </div>
-    <div class="mb-3">
+    <div class="form-group m-2">
         <label for="jumlah_maks_pendaftar" class="form-label">Jumlah Maksimal Pendaftar</label>
         <input type="number" class="form-control @error('jumlah_maks_pendaftar') is-invalid @enderror" id="jumlah_maks_pendaftar" name="jumlah_maks_pendaftar"  value="{{ old('jumlah_maks_pendaftar') }}">
         @error('jumlah_maks_pendaftar')
@@ -36,7 +36,7 @@
             </div>
         @enderror
     </div>
-    <div class="mb-3">
+    <div class="form-group m-2">
         <label for="status" class="form-label">Status</label>
         <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
             <option value="aktif" {{ old('status') == "aktif" ? 'selected' : '' }}>Aktif</option>
@@ -48,6 +48,15 @@
             </div>
         @enderror
     </div>
+    <div class="form-group m-2 mb-4">
+        <label class="mt-4" for="deskripsi">Deskripsi Jalur Masuk:</label>
+        <textarea class="{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}" name="deskripsi" id="editor1" required>{{ old('deskripsi') }}</textarea>
+        @if ($errors->has('deskripsi'))
+            <div class="invalid-feedback">
+                {{ $errors->first('deskripsi') }}
+            </div>
+        @endif
+    </div>
     
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -55,5 +64,9 @@
 
     </div>
 </div>
+
+<script>
+    CKEDITOR.replace( 'editor1' );
+</script>
 
 @endsection

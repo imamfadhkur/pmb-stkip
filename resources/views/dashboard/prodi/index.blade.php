@@ -25,6 +25,7 @@
                 <td>{{ $loop->iteration }}.</td>
                 <td>{{ $prodi->nama }}</td>
                 <td>
+                    <a class="btn btn-sm btn-warning m-1" title="lihat" href="{{ route('prodi.show',$prodi->id) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
                     <a class="btn btn-sm btn-warning m-1" title="edit" href="/prodi/{{ $prodi->id }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('prodi.destroy', $prodi->id) }}" method="POST" style="display: inline-block;">
                         @csrf

@@ -33,6 +33,7 @@
                 <td>{{ $jalurMasuk->jumlah_maks_pendaftar }}</td>
                 <td>{{ $jalurMasuk->status }}</td>
                 <td>
+                    <a class="btn btn-sm btn-warning m-1" title="lihat" href="{{ route('jalur-masuk.show',$jalurMasuk->id) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
                     <a class="btn btn-sm btn-warning m-1" title="edit" href="/jalur-masuk/{{ $jalurMasuk->id }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('jalur-masuk.destroy', $jalurMasuk->id) }}" method="POST" style="display: inline-block;">
                         @csrf

@@ -1,6 +1,9 @@
-@if (Auth::user()->register->bukti_pembayaran !== null)
+<div class="container my-4">
+    <div class="row">
+        <div class="col-8">
+            @if (Auth::user()->register->bukti_pembayaran !== null)
     <p>
-        Terimakasih telah melakukan pembayaran, silahkan menunggu maksimal 4x24jam untuk admin memverifikasi pembayaran anda. Lalu login kembali untuk mendapatkan informasi lebih lanjut.
+        Terimakasih telah melakukan pembayaran, silahkan menunggu maksimal 4x24jam untuk admin memverifikasi pembayaran anda. Lalu login kembali untuk mendapatkan informasi lebih lanjut. <br> Refresh secara berkala halaman ini.
     </p>
 @else
     <p>
@@ -45,3 +48,6 @@
         Jika sudah membayar silahkan menunggu maksimal 4x24jam untuk admin memverifikasi pembayaran anda.
     </p>
 @endif
+        </div>
+    </div>
+</div>

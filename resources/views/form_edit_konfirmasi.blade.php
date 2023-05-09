@@ -93,7 +93,7 @@
                           @enderror
                         </td>
                     </tr>
-                    <tr><td>nama sekolah</td>
+                    <tr><td>nama sekolah asal</td>
                         <td><input type="text" name="nama_sekolah" class="form-control" value="{{ old('nama_sekolah',$nama_sekolah) }}">
                             @error('nama_sekolah')
                               <div class="alert alert-danger mt-2">{{ $message }}</div>

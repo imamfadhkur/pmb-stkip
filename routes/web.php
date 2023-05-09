@@ -36,6 +36,12 @@ Route::get('/beranda', function()
     return view('index', ['title' => 'beranda']);
 });
 
+Route::get('/info-prodi', [ProdiController::class, 'info_prodi_index']);
+Route::get('/info-prodi/{prodi}', [ProdiController::class, 'info_prodi_show']);
+
+Route::get('/info-jalur-seleksi', [JalurMasukController::class, 'info_jalur_masuk_index']);
+Route::get('/info-jalur-seleksi/{jalur_masuk}', [JalurMasukController::class, 'info_jalur_masuk_show']);
+
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'auth']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');

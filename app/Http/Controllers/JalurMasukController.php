@@ -34,6 +34,7 @@ class JalurMasukController extends Controller
         // Validasi input dari user
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
+            'deskripsi' => 'nullable|string',
             'biaya' => 'required|numeric',
             'jumlah_maks_pendaftar' => 'required|numeric',
             'status' => 'required',
@@ -42,6 +43,7 @@ class JalurMasukController extends Controller
         // Buat instance model JalurMasuk baru
         $jalurMasuk = new JalurMasuk;
         $jalurMasuk->nama = $validatedData['nama'];
+        $jalurMasuk->deskripsi = $validatedData['deskripsi'];
         $jalurMasuk->biaya = $validatedData['biaya'];
         $jalurMasuk->jumlah_maks_pendaftar = $validatedData['jumlah_maks_pendaftar'];
         $jalurMasuk->status = $validatedData['status'];
@@ -56,9 +58,13 @@ class JalurMasukController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(JalurMasuk $jalurMasuk)
+    public function show($jalurMasuk)
     {
-        // return view()
+        $jalurMasuk = JalurMasuk::where('id', $jalurMasuk)->firstOrFail();
+        return view('dashboard.jalur_masuk.show', [
+            'title' => 'Lihat Data Jalur Masuk',
+            'jalurMasuk' => $jalurMasuk,
+        ]);
     }
 
     /**
@@ -79,12 +85,14 @@ class JalurMasukController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
             'biaya' => 'required|numeric',
             'jumlah_maks_pendaftar' => 'required|numeric',
             'status' => 'required',
         ]);
 
         $jalurMasuk->nama = $validatedData['nama'];
+        $jalurMasuk->deskripsi = $validatedData['deskripsi'];
         $jalurMasuk->biaya = $validatedData['biaya'];
         $jalurMasuk->jumlah_maks_pendaftar = $validatedData['jumlah_maks_pendaftar'];
         $jalurMasuk->status = $validatedData['status'];
@@ -103,6 +111,23 @@ class JalurMasukController extends Controller
     {
         $jalurMasuk->delete();
         return redirect()->route('jalur-masuk.index')->with('messageSuccess', 'Jalur Masuk berhasil dihapus');
+    }
+
+    public function info_jalur_masuk_index()
+    {
+        return view('umum.jalur_masuk.index', [
+            'jalur_masuks' => JalurMasuk::paginate(6),
+            'title' => 'jalur_masuk'
+        ]);
+    }
+    
+    public function info_jalur_masuk_show($jalur_masuk)
+    {
+        $pro = JalurMasuk::where('id', $jalur_masuk)->firstOrFail();
+        return view('umum.jalur_masuk.show', [
+            'jalur_masuk' => $pro,
+            'title' => 'jalur_masuk'.$pro->nama
+        ]);
     }
 
 }

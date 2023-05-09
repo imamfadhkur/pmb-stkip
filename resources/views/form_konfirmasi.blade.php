@@ -84,7 +84,7 @@
                     <tr><td>identitas kewarganegaraan</td>
                         <td>{{ $identitas_kewarganegaraan }}</td>
                     </tr>
-                    <tr><td>nama sekolah</td>
+                    <tr><td>nama sekolah asal</td>
                         <td>{{ $nama_sekolah }}</td>
                     </tr>
                     <tr><td>jenis sekolah</td>

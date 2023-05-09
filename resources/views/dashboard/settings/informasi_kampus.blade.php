@@ -25,7 +25,7 @@
                     <label class="mt-4" for="email">Email:</label>
                     <input type="text" name="email" class="form-control" value="{{ $email }}">
                     <label class="mt-4" for="noTelp">Nomor Telepon:</label>
-                    <input type="number" name="noTelp" class="form-control" value="{{ $noTelp }}">
+                    <input type="text" name="noTelp" class="form-control" value="{{ $noTelp }}">
                     <button type="submit" class="btn btn-primary mt-3">Simpan</button>
                 </form>
             </div>
