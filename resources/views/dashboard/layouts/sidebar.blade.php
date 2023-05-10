@@ -8,6 +8,7 @@
   <li class="{{ Request::is('register') ? 'active' : '' }}">
       <a href="/register">Pendaftar</a>
   </li>
+  @can('superadmin')
   <li class="{{ Request::is('data') ? 'active' : '' }}">
   <a href="#pageData" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Data Pendaftaran</a>
   <ul class="collapse list-unstyled" id="pageData">
@@ -34,9 +35,8 @@
     </li>
   </ul>
   </li>
-  @can('superadmin')
-  <li class="{{ Request::is('admin') ? 'active' : '' }}">
-      <a href="/admin">Admin</a>
+  <li class="{{ Request::is('user') ? 'active' : '' }}">
+      <a href="/user">User</a>
   </li>
   <li class="{{ Request::is('setting*') ? 'active' : '' }}">
   <a href="#pageSettings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
@@ -54,8 +54,10 @@
   </li>
   @endcan
 </ul>
-
-<div class="footer">
+@if (Auth::user()->level === 'admin')
+    <br><br><br>
+@endif
+<div class="footer mt-5">
     {{-- <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p> --}}

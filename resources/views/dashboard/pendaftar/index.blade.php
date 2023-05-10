@@ -14,20 +14,19 @@
     
     <div style="display: flex; align-items: center">
       <a style="margin-right: auto; margin-bottom: 0;" href="/register/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data pendaftar</a>
-      <form style="margin-left: auto; margin-bottom: 0;" action="register-sort" method="POST" class="m-2">
-        @csrf
+      <form style="margin-left: auto; margin-bottom: 0;" action="/register-sort" method="GET" class="m-2">
         <label for="sort">urut berdasarkan: </label>
         <select id="sort" name="sort" class="me-1">
-          <option value="nama" selected>Nama</option>
-          <option value="nama_sekolah">Asal Sekolah</option>
-          <option value="pembayaran">Status Pembayaran</option>
+            <option value="nama" {{ request('sort') == 'nama' ? 'selected' : '' }}>Nama</option>
+            <option value="nama_sekolah" {{ request('sort') == 'nama_sekolah' ? 'selected' : '' }}>Asal Sekolah</option>
+            <option value="pembayaran" {{ request('sort') == 'pembayaran' ? 'selected' : '' }}>Status Pembayaran</option>
         </select>
         <select name="ascdesc" id="ascdesc">
-          <option value="ASC" selected>Naik</option>
-          <option value="DESC">Turun</option>
+            <option value="ASC" {{ request('ascdesc') == 'ASC' ? 'selected' : '' }}>Naik</option>
+            <option value="DESC" {{ request('ascdesc') == 'DESC' ? 'selected' : '' }}>Turun</option>
         </select>
         <button type="submit" class="btn btn-sm text-light" style="background-color: #007bff"><i class="bi bi-filter"></i></button>
-      </form>
+    </form>    
     </div>
 
     <table class="table table-hover">

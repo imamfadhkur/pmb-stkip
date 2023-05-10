@@ -40,6 +40,9 @@
             </tr>
         @endforeach
     </table>
+    <div class="d-flex justify-content-end">
+        {{ $sosmeds->links() }}
+    </div>
     {{-- end content --}}
 
     </div>

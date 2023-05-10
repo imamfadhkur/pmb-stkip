@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Models\SistemKuliah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ use App\Http\Controllers\PostDaftarUlangController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SistemKuliahController;
+use App\Http\Controllers\UserController;
 use App\Models\JenjangPendidikan;
 
 /*
@@ -76,7 +78,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/change-status-pembayaran', [RegisterController::class, 'ubahPembayaran'])->middleware(['administrator']);
     Route::delete('/hapus/{id}', [RegisterController::class, 'hapus'])->middleware(['administrator']);
     Route::post('/upload-bukti-pembayaran-regist', [RegisterController::class, 'uploadPembayaran']);
-    Route::post('/register-sort', [RegisterController::class, 'sort'])->middleware('administrator');
+    Route::get('/register-sort', [RegisterController::class, 'sort'])->middleware('administrator');
     Route::group(['middleware' => ['superadmin']], function () {
         Route::get('/settings/data-bank', [SettingController::class, 'bank']);
         Route::get('/settings/create-data-bank', [SettingController::class, 'create_bank']);
@@ -101,4 +103,6 @@ Route::group(['middleware' => ['auth']], function(){
     ])->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);    
     Route::get('/pengumuman/index', [InformasiController::class, 'pengumuman']);
     Route::get('/pengumuman/{slug}', [InformasiController::class, 'pengumuman_show']);
+    Route::resource('/user', UserController::class);
+    Route::get('/user/reset_password/{user}', [UserController::class, 'reset_password'])->name('user.reset_password');
 });

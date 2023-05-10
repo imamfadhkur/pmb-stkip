@@ -220,8 +220,8 @@ class RegisterController extends Controller
 
     public function sort(Request $request)
     {
-        // dd($request);
-        $registers = Register::orderBy($request->sort, $request->ascdesc)->paginate(7);
+        $registers = Register::orderBy($request->query('sort'), $request->query('ascdesc'))->paginate(17);
+        $registers->appends($request->query());
         return view('dashboard.pendaftar.index', [
             'registers' => $registers,
             'title' => 'register'

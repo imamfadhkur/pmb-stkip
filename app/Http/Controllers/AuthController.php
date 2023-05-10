@@ -34,11 +34,13 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             // Cek apakah user memiliki data terkait di tabel registers
-            if (!$user->register) {
-                Auth::logout();
-                return back()->withErrors([
-                    'email' => 'Maaf, Anda tidak memiliki akses.'
-                ]);
+            if ($user->level === 'camaba') {
+                if (!$user->register) {
+                    Auth::logout();
+                    return back()->withErrors([
+                        'email' => 'Maaf, Anda tidak memiliki akses.'
+                    ]);
+                }
             }
             return redirect('/dashboard');
         }
