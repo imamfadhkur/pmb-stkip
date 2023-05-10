@@ -114,4 +114,26 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('user.index')->with('messageSuccess', 'User berhasil dihapus');
     }
+    
+    public function sort(Request $request)
+    {
+        $level = $request->query('level');
+        if ($level === 'semua') {
+            return redirect('/user');
+        }
+
+        $users = User::where('level', $level)
+                    ->orderBy($request->query('sort', 'name'), $request->query('ascdesc', 'asc'))
+                    ->paginate(17);
+
+        // $users = $users->paginate(17, ['*'], 'page', $request->query('page'));
+
+        $users->appends(['level' => $level, 'sort' => $request->query('sort'), 'ascdesc' => $request->query('ascdesc')]);
+
+        return view('dashboard.user.index', [
+            'users' => $users,
+            'title' => 'users',
+        ]);
+    }
+
 }

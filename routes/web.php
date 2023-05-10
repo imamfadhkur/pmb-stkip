@@ -105,4 +105,5 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/pengumuman/{slug}', [InformasiController::class, 'pengumuman_show']);
     Route::resource('/user', UserController::class);
     Route::get('/user/reset_password/{user}', [UserController::class, 'reset_password'])->name('user.reset_password');
+    Route::get('/user-sort', [UserController::class, 'sort']);
 });

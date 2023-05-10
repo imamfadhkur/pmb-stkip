@@ -20,17 +20,16 @@
     @endif
     <div style="display: flex; align-items: center">
         <a style="margin-right: auto; margin-bottom: 0;" href="/user/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah User</a>
-        {{-- <form style="margin-left: auto; margin-bottom: 0;" action="/user/sort" method="POST" class="m-2">
-            @csrf
+        <form style="margin-left: auto; margin-bottom: 0;" action="/user-sort" method="GET" class="m-2">
             <label for="level">Tampilkan: </label>
             <select id="level" name="level" class="me-1">
-            <option value="semua" {{ (isset($level)) == 'semua' ? 'selected' : '' }}>semua</option>
-            <option value="camaba" {{ (isset($level)) == 'camaba' ? 'selected' : '' }}>camaba</option>
-            <option value="admin" {{ (isset($level)) == 'admin' ? 'selected' : '' }}>admin</option>
-            <option value="superadmin" {{ (isset($level)) == 'superadmin' ? 'selected' : '' }}>superadmin</option>
+            <option value="semua" {{ request('level') == 'semua' ? 'selected' : '' }}>semua</option>
+            <option value="camaba" {{ request('level') == 'camaba' ? 'selected' : '' }}>camaba</option>
+            <option value="admin" {{ request('level') == 'admin' ? 'selected' : '' }}>admin</option>
+            <option value="superadmin" {{ request('level') == 'superadmin' ? 'selected' : '' }}>superadmin</option>
             </select>
             <button type="submit" class="btn btn-sm text-light" style="background-color: #007bff"><i class="bi bi-filter"></i></button>
-        </form> --}}       
+        </form>       
     </div>
     <table class="table table-hover">
         <tr>
