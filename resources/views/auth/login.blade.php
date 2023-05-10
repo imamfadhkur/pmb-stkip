@@ -7,7 +7,9 @@
                 <h1 class="h3 mb-3 fw-normal text-center">Please Login</h1>
                 <form action="/login" method="POST">
                     @csrf
-                
+                    @error('email')
+                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    @enderror</td>
                     <div class="form-floating">
                         @isset($username)
                         <input type="hidden" value="{{ $username }}" name="oldemail">

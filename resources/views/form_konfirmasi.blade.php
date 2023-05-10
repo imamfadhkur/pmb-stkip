@@ -123,7 +123,7 @@
                             {{ $pilihan3->nama }}
                         </td>
                     </tr>
-                  </table>
+                </table>
               
                 <button type="submit" class="btn btn-light ms-4" value="edit" name="type">Edit</button>
                 <button type="submit" class="btn btn-primary me-4" value="save" name="type">Daftar</button>

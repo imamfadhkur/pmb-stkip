@@ -4,7 +4,7 @@
 @if (Auth::user()->level == 'camaba')
     @include('dashboard.layouts.camaba')
 @else
-    @include('dashboard.admin.index')
+    @include('dashboard.pendaftar.index')
 @endif
 
 @endsection

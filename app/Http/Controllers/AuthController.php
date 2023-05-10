@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -21,19 +22,31 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'Email tidak terdaftar.'
+            ]);
+        }
         
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            // Cek apakah user memiliki data terkait di tabel registers
+            if (!$user->register) {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Maaf, Anda tidak memiliki akses.'
+                ]);
+            }
             return redirect('/dashboard');
         }
-        
-        // return back()->with('loginError', 'Login gagal, username atau password salah!');
         
         // tambahkan data ke session sebelum redirect back
         $request->session()->flash('loginError', 'Login gagal, username atau password salah!');
         $request->session()->flash('username', $request->oldemail);
         $request->session()->flash('password', $request->oldpassword);
-        // dd($request->session());
         return redirect('/login');
     }
 

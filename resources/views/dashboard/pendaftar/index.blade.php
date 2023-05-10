@@ -70,6 +70,7 @@
             @endif
           </td>
           <td>
+            <a class="btn btn-warning btn-sm m-1" title="lihat" href="{{ route('register.show',$register->email) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
             <form action="/change-status-pembayaran" method="POST" class="d-inline">
               @csrf
               <input type="hidden" name="regist_id" value="{{ $register->id }}">
@@ -77,13 +78,7 @@
                 <i class="bi bi-cash-coin"></i>
               </button>
             </form>
-            <form action="/edit-pendaftaran" method="POST" class="d-inline">
-              @csrf
-              <input type="hidden" name="regist_id" value="{{ $register->id }}">
-              <button title="Edit pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-warning m-1">
-                <i class="bi bi-pencil"></i>
-              </button>
-            </form>
+            <a class="btn btn-warning btn-sm m-1" title="edit" href="{{ route('register.edit',$register->email) }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
             <form action="/hapus/{{ $register->id }}" method="POST" class="d-inline">
               @csrf
               @method('DELETE')

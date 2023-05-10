@@ -6,9 +6,11 @@ use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Register;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -19,7 +21,7 @@ class RegisterController extends Controller
     public function index()
     {
         $registers = Register::paginate(10);
-        return view('dashboard.admin.index', [
+        return view('dashboard.pendaftar.index', [
             'registers' => $registers,
             'title' => 'register'
         ]);
@@ -30,7 +32,7 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.create',[
+        return view('dashboard.pendaftar.create',[
             'title' => 'create camaba',
 
         ]);
@@ -84,40 +86,6 @@ class RegisterController extends Controller
             'pilihan3' => 'required|different:pilihan1,pilihan2',
         ]);
 
-        // $errorProdi = 'salah';
-        // if ($request->pilihan1 === $request->pilihan2 || $request->pilihan1 === $request->pilihan3 || $request->pilihan2 === $request->pilihan3) {
-        //     $errorProdi = 'Pilihan prodi tidak boleh sama.';
-        // }
-
-        // if ($errorProdi !== 'salah') {
-        //     $prodis = Prodi::all();
-        //     return view('form_edit_konfirmasi', [
-        //         'jenjang_pendidikan' => $jenjang_pendidikan,
-        //         'sistem_kuliah' => $sistem_kuliah,
-        //         'jalur_masuk' => $jalur_masuk,
-        //         'nama' => $nama,
-        //         'jk' => $jk,
-        //         'hp' => $hp,
-        //         'email' => $email,
-        //         'password' => $password,
-        //         'tempat_lahir' => $tempat_lahir,
-        //         'tanggal_lahir' => $tanggal_lahir,
-        //         'alamat' => $alamat,
-        //         'kewarganegaraan' => $kewarganegaraan,
-        //         'identitas_kewarganegaraan' => $identitas_kewarganegaraan,
-        //         'nama_sekolah' => $nama_sekolah,
-        //         'jenis_sekolah' => $jenis_sekolah,
-        //         'jurusan_sekolah' => $jurusan_sekolah,
-        //         'tahun_lulus' => $tahun_lulus,
-        //         'alamat_sekolah' => $alamat_sekolah,
-        //         'pilihan1' => $request->pilihan1,
-        //         'pilihan2' => $request->pilihan2,
-        //         'pilihan3' => $request->pilihan3,
-        //         'prodis' => $prodis,
-        //         'title' => 'Pendaftaran | konfirmasi'
-        //     ])->with('errorProdi', 'Pilihan prodi tidak boleh sama.');
-        // }
-
         $user = new User;
         $reg = new Register;
         $length = 5; // jumlah karakter yang diinginkan
@@ -125,7 +93,6 @@ class RegisterController extends Controller
         $randomString = substr(str_shuffle($characters), 0, $length);
         $user->name = $nama;
         $user->email = $email;
-        // $user->password = Hash::make($randomString);
         $user->password = $password;
         $user->level = 'camaba';
         $user->save();
@@ -159,17 +126,25 @@ class RegisterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Register $register)
+    public function show($register)
     {
-        //
+        $reg = Register::where('email', $register)->firstOrFail();
+        return view('dashboard.pendaftar.show', [
+            'title' => 'Lihat Data'.$reg->nama,
+            'register' => $reg,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Register $register)
+    public function edit($register)
     {
-        //
+        $reg = Register::where('email', $register)->firstOrFail();
+        return view('dashboard.pendaftar.edit', [
+            'title' => 'Lihat Data'.$reg->nama,
+            'register' => $reg,
+        ]);
     }
 
     /**
@@ -177,7 +152,40 @@ class RegisterController extends Controller
      */
     public function update(Request $request, Register $register)
     {
-        //
+        $register->update($request->validate([
+            'nama' => 'required|max:255',
+            'jk' => 'required',
+            'hp' => 'required|numeric',
+            'email' => 'required|email|unique:users,email,'.$register->user_id,
+            'tanggal_lahir' => 'required|date|before:today',
+            'alamat' => 'required',
+            'kewarganegaraan' => 'required',
+            'identitas_kewarganegaraan' => 'required|numeric',
+            'jenjang_pendidikan_id' => 'required',
+            'sistem_kuliah_id' => 'required',
+            'jalur_masuk_id' => 'required',
+            'nama_sekolah' => 'required|max:255',
+            'jenis_sekolah' => 'required|max:255',
+            'jurusan_sekolah' => 'required|max:255',
+            'tahun_lulus' => 'required|date_format:Y|before_or_equal:now|after_or_equal:' . (date('Y')-100),
+            'alamat_sekolah' => 'required',
+            'pilihan1' => 'required|different:pilihan2,pilihan3',
+            'pilihan2' => 'required|different:pilihan1,pilihan3',
+            'pilihan3' => 'required|different:pilihan1,pilihan2',
+            'pembayaran' => ['required', Rule::in(['sudah', 'belum'])],
+        ]));
+        
+        if ($request->hasFile('bukti_pembayaran')) {
+            // Menghapus gambar lama
+            if ($register->bukti_pembayaran) {
+                Storage::delete($register->bukti_pembayaran);
+            }
+            // Menyimpan gambar baru
+            $va = $request->file('bukti_pembayaran')->store('bukti-pembayaran');
+            $register->update(['bukti_pembayaran' => $va]);
+        }
+
+        return redirect()->route('register.index')->with('messageSuccess', 'Pendaftar berhasil diedit');
     }
 
     /**
@@ -214,18 +222,16 @@ class RegisterController extends Controller
     {
         // dd($request);
         $registers = Register::orderBy($request->sort, $request->ascdesc)->paginate(7);
-        return view('dashboard.admin.index', [
+        return view('dashboard.pendaftar.index', [
             'registers' => $registers,
             'title' => 'register'
         ]);
     }
 
-    public function hapus(Request $request, $id)
+    public function hapus($id)
     {
         $register = Register::findOrFail($id);
         $register->delete();
-        $user = User::findOrFail($id);
-        $user->delete();
         
         return redirect('/register')->with('messageSuccess', 'Data berhasil dihapus');
     }

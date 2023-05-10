@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->enum('jk', ['L', 'P']);
             $table->string('hp');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->text('alamat');

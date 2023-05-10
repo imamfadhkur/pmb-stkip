@@ -315,7 +315,9 @@ class PendaftaranController extends Controller
             ]);
 
             if ($validator->fails()) {
-                // dd($validator);
+                // if ($validator->fails()) {
+                //     dd($validator->messages());
+                // }
                 return view('form_edit_konfirmasi', [
                     'jenjang_pendidikan' => $jenjang_pendidikan,
                     'sistem_kuliah' => $sistem_kuliah,
