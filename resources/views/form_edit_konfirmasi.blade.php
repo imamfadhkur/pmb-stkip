@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
 
-<div class="container my-4">
+<div class="container my-5">
     <div class="row">
         <div class="col">
             <h4 class="mx-4 mt-3">Edit Data Anda:</h4>

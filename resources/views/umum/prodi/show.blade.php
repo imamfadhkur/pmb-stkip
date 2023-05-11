@@ -4,6 +4,7 @@
 <div class="container my-5 p-5"> 
     <div class="row">
         <div class="col">
+            <h4 class="m-3"><a href="/" class="text-decoration-none text-dark"><i class="bi bi-house-door"></i>:</a> <a href="/info-prodi">Prodi</a> / <a href="/info-prodi/{{ $prodi->id }}" class="">{{ $prodi->nama }}</a></h4>
             <div class="card m-3">
                 <div class="card-body">
                     <div class="mb-3">

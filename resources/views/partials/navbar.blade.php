@@ -2,13 +2,13 @@
     <div class="container-fluid">
       
       <!-- Navbar Brand / Logo -->
-      <a class="navbar-brand" href="#" style="display: flex; align-items: center;">
+      <a class="navbar-brand" href="/" style="display: flex; align-items: center;">
         <img src="{{ asset('assets/images/logo-stkipbkl.png') }}" alt="Logo Kampus" width="50" height="50" class="d-inline-block align-text-top me-2">
         <div style="display: flex; flex-direction: column;">
-          <h6 style="margin: 0;">Seleksi Penerimaan Mahasiswa Baru</h6>
+          <h6 style="margin: 0;">Penerimaan Mahasiswa Baru</h6>
           <span style="font-size: 0.8rem;">STKIP PGRI Bangkalan</span>
         </div>
-      </a>      
+      </a>
       
       <!-- Navbar Toggler -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,9 +16,8 @@
       </button>
       
       <!-- Navbar Menu -->
-      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-
           @auth
           <!-- Menu Item 1 -->
           <li class="nav-item">
@@ -39,7 +38,7 @@
           @endauth
           
           <!-- Menu Item 3 -->
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown me-3">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               informasi
             </a>
@@ -52,19 +51,16 @@
             </ul>
           </li>
           
+          <!-- Login Button -->
+          @auth
+            <form action="/logout" method="POST" class="ms-2">
+              @csrf
+              <button type="submit" class="btn btn-outline-light ms-2" onclick="return confirm('are you sure?')"><i class="bi bi-box-arrow-right"></i> Logout</button>
+            </form>
+          @else
+            <a class="btn btn-outline-light ms-2" href="/login"><i class="bi bi-box-arrow-left"></i> Login</a>
+          @endauth
         </ul>
-      </div>
-      
-      <!-- Login Button -->
-      <div class="d-flex">
-        @auth
-          <form action="/logout" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-outline-light ms-2" onclick="return confirm('are you sure?')"><i class="bi bi-box-arrow-right"></i> Logout</button>
-          </form>
-        @else
-          <a class="btn btn-outline-light ms-2" href="/login"><i class="bi bi-box-arrow-left"></i> Login</a>
-        @endauth
       </div>
       
     </div>

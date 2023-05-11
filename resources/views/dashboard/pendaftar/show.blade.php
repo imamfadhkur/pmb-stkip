@@ -96,9 +96,25 @@
             {{ $pilihan3->nama }}
         </td>
     </tr>
+    <tr><td>Status Pembayaran</td>
+        <td>
+            @if ($register->pembayaran === "belum")
+                <p class="text-danger"><b>belum</b></p>
+            @else
+                <p class="text-success"><b>sudah</b></p>
+            @endif
+        </td>
+    </tr>
+    <tr><td>Bukti Pembayaran</td>
+        <td>
+            <img style="max-width: 100%;" src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="{{ $register->nama }}">
+        </td>
+    </tr>
 </table>
 <a href="{{ route('register.index') }}" class="btn btn-primary ms-4">back</a>
-<a href="{{ route('register.edit', $register->email) }}" class="btn btn-warning ms-2">edit</a>
+@can('superadmin')    
+    <a href="{{ route('register.edit', $register->email) }}" class="btn btn-warning ms-2">edit</a>
+@endcan
 
 
     </div>

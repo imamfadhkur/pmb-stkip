@@ -9,7 +9,7 @@
 @endif
 
 
-<div class="container my-4">
+<div class="container my-5">
     <div class="row">
         <div class="col">
             <h3 class="mx-4 mt-2">Data Diri</h3>
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="form-group m-4">
-                  <label for="identitas_kewarganegaraan">Nomor NIK/Pasport</label>
+                  <label for="identitas_kewarganegaraan">Nomor NIK</label>
                   <input type="number" name="identitas_kewarganegaraan" class="form-control" value="{{ old('identitas_kewarganegaraan') }}">
                   @error('identitas_kewarganegaraan')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>

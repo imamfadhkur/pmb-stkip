@@ -77,15 +77,17 @@
                 <i class="bi bi-cash-coin"></i>
               </button>
             </form>
-            <a class="btn btn-warning btn-sm m-1" title="edit" href="{{ route('register.edit',$register->email) }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
-            <form action="/hapus/{{ $register->id }}" method="POST" class="d-inline">
-              @csrf
-              @method('DELETE')
-              <input type="hidden" name="id" value="{{ $register->id }}">
-              <button onclick="return confirm('apakah anda yakin ingin menghapus?')" title="Hapus pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-danger m-1">
-                <i class="bi bi-trash"></i>
-              </button>
-            </form>
+            @can('superadmin')
+              <a class="btn btn-warning btn-sm m-1" title="edit" href="{{ route('register.edit',$register->email) }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
+              <form action="/hapus/{{ $register->id }}" method="POST" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id" value="{{ $register->id }}">
+                <button onclick="return confirm('apakah anda yakin ingin menghapus?')" title="Hapus pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-danger m-1">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </form>
+            @endcan
           </td>
         </tr>
       @endforeach

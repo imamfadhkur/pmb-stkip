@@ -2,6 +2,11 @@
 @section('container')
 
 <div class="container my-5 p-5">
+  <div class="row">
+    <div class="col">
+      <h2 class="m-3 text-center"><a class="text-decoration-none" href="/info-prodi">Semua Prodi</a></h2>
+    </div>
+  </div>
     @foreach ($prodis as $prodi)    
         <div class="row">
             <div class="col">
