@@ -11,7 +11,7 @@
         @method('PUT')
     @csrf
     <div class="mb-3">
-        <label for="name" class="form-label">Nama {{ $username }}</label>
+        <label for="name" class="form-label">Nama</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}">
         @error('name')
             <div class="invalid-feedback">
