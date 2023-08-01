@@ -200,6 +200,22 @@
             </td>
         </tr>
         <tr>
+            <td>Status Penerimaan</td>
+            <td>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="diterima" {{ old('status_diterima', $register->status_diterima) === 'diterima' ? 'checked' : '' }}>
+                    <label class="form-check-label">diterima</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="tidak diterima" {{ old('status_diterima', $register->status_diterima) === 'tidak diterima' ? 'checked' : '' }}>
+                    <label class="form-check-label">tidak diterima</label>
+                </div>
+                @error('pembayaran')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
+            </td>
+        </tr>
+        <tr>
             <td></td>
             <td><i class="text-danger">3 pilihan tidak boleh sama.</i><br></td>
         </tr>

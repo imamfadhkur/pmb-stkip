@@ -40,6 +40,7 @@
         <th>Biaya Pendaftaran</th>
         <th>Bukti Pembayaran</th>
         <th>Status Pembayaran</th>
+        <th>Status Diterima</th>
         <th>Action</th>
       </tr>
       @foreach ($registers as $register)
@@ -69,13 +70,39 @@
             @endif
           </td>
           <td>
+            @if ($register->status_diterima === "diterima")
+              <p class="text-success"><b>{{ $register->status_diterima }}</b></p>
+            @else
+              <p class="text-danger"><b>{{ $register->status_diterima }}</b></p>
+            @endif
+          </td>
+          <td>
             <a class="btn btn-warning btn-sm m-1" title="lihat" href="{{ route('register.show',$register->email) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
             <form action="/change-status-pembayaran" method="POST" class="d-inline">
               @csrf
               <input type="hidden" name="regist_id" value="{{ $register->id }}">
+              @if ($register->pembayaran === "belum")
               <button title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-sm btn-primary m-1">
                 <i class="bi bi-cash-coin"></i>
               </button>
+              @else
+              <button disabled title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-sm btn-primary m-1">
+                <i class="bi bi-cash-coin"></i>
+              </button>
+              @endif
+            </form>
+            <form action="/change-status-diterima" method="POST" class="d-inline">
+              @csrf
+              <input type="hidden" name="regist_id" value="{{ $register->id }}">
+              @if ($register->status_diterima === "diterima")
+              <button disabled title="Rubah Status Diterima {{ $register->nama }}" type="submit" onclick="return confirm('Apakah Anda yakin?')" class="btn btn-sm btn-warning m-1">
+                <i class="bi bi-check2-square"></i>
+              </button>
+              @else
+              <button title="Rubah Status Diterima {{ $register->nama }}" type="submit" onclick="return confirm('Apakah Anda yakin?')" class="btn btn-sm btn-warning m-1">
+                <i class="bi bi-check2-square"></i>
+              </button>
+              @endif
             </form>
             @can('superadmin')
               <a class="btn btn-warning btn-sm m-1" title="edit" href="{{ route('register.edit',$register->email) }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>

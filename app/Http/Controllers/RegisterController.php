@@ -51,7 +51,7 @@ class RegisterController extends Controller
         $jk = $request->jk;
         $hp = $request->hp;
         $email = $request->email;
-        $password = $request->password;
+        $password = bcrypt($request->password);
         $tempat_lahir = $request->tempat_lahir;
         $tanggal_lahir = $request->tanggal_lahir;
         $alamat = $request->alamat;
@@ -173,6 +173,7 @@ class RegisterController extends Controller
             'pilihan2' => 'required|different:pilihan1,pilihan3',
             'pilihan3' => 'required|different:pilihan1,pilihan2',
             'pembayaran' => ['required', Rule::in(['sudah', 'belum'])],
+            'status_diterima' => ['required', Rule::in(['diterima', 'tidak diterima'])],
         ]));
         
         if ($request->hasFile('bukti_pembayaran')) {
@@ -201,6 +202,15 @@ class RegisterController extends Controller
         // dd($request);
         $register_id = $request->regist_id;
         Register::where('id', '=', $register_id)->update(['pembayaran' => 'sudah']);
+
+        return redirect('/register')->with('messageSuccess', 'Data berhasil dirubah');
+    }
+    
+    public function ubahPenerimaan(Request $request)
+    {
+        // dd($request);
+        $register_id = $request->regist_id;
+        Register::where('id', '=', $register_id)->update(['status_diterima' => 'diterima']);
 
         return redirect('/register')->with('messageSuccess', 'Data berhasil dirubah');
     }

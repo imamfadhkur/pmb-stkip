@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('/register', RegisterController::class)->middleware('administrator');
     Route::post('/change-password', [AuthController::class, 'changePw']);
     Route::post('/change-status-pembayaran', [RegisterController::class, 'ubahPembayaran'])->middleware(['administrator']);
+    Route::post('/change-status-diterima', [RegisterController::class, 'ubahPenerimaan'])->middleware(['administrator']);
     Route::delete('/hapus/{id}', [RegisterController::class, 'hapus'])->middleware(['administrator']);
     Route::post('/upload-bukti-pembayaran-regist', [RegisterController::class, 'uploadPembayaran']);
     Route::get('/register-sort', [RegisterController::class, 'sort'])->middleware('administrator');

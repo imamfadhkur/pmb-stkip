@@ -105,6 +105,15 @@
             @endif
         </td>
     </tr>
+    <tr><td>Status Penerimaan</td>
+        <td>
+            @if ($register->status_diterima === "diterima")
+                <p class="text-success"><b>{{ $register->status_diterima }}</b></p>
+            @else
+                <p class="text-danger"><b>{{ $register->status_diterima }}</b></p>
+            @endif
+        </td>
+    </tr>
     <tr><td>Bukti Pembayaran</td>
         <td>
             <img style="max-width: 100%;" src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="{{ $register->nama }}">
