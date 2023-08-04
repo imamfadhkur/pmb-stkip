@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Register::class);
     }
+    
+    public function berkas()
+    {
+        return $this->belongsTo(BerkasPendaftar::class);
+    }
 }

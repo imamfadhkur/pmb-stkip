@@ -38,7 +38,7 @@
           @endauth
           
           <!-- Menu Item 3 -->
-          <li class="nav-item dropdown me-3">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               informasi
             </a>
@@ -50,6 +50,18 @@
               @endcan
             </ul>
           </li>
+
+          @can('auth')
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              profil
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profil">data diri</a></li>
+              <li><a class="dropdown-item" href="/pemberkasan">pemberkasan</a></li>
+            </ul>
+          </li>
+          @endcan
           
           <!-- Login Button -->
           @auth

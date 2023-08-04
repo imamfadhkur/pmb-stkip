@@ -119,6 +119,73 @@
             <img style="max-width: 100%;" src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="{{ $register->nama }}">
         </td>
     </tr>
+</tr>
+<tr>
+    <td>Pas Foto 3*4
+    </td>
+    <td>
+        @if (isset($berkas->pas_foto_file) && $berkas->pas_foto_file !== null)
+            <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->pas_foto_file) }}" download="{{ $berkas->pas_foto }}">{{ $berkas->pas_foto }}</a>
+        @else
+        <i class="text-secondary">belum upload</i>
+        @endif        
+    </td>
+</tr>
+<tr>
+    <td>ijazah/skl
+    </td>
+    <td>
+        @if (isset($berkas->ijazah_skl_file) && $berkas->ijazah_skl_file !== null)
+            <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->ijazah_skl_file) }}" download="{{ $berkas->ijazah_skl }}">{{ $berkas->ijazah_skl }}</a>
+        @else
+        <i class="text-secondary">belum upload</i>
+        @endif        
+    </td>
+</tr>
+<tr>
+    <td>SKHUN
+    </td>
+    <td>
+        @if (isset($berkas->skhun_file) && $berkas->skhun_file !== null)
+            <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->skhun_file) }}" download="{{ $berkas->skhun }}">{{ $berkas->skhun }}</a>
+        @else
+        <i class="text-secondary">belum upload</i>
+        @endif        
+    </td>
+</tr>
+<tr>
+    <td>KK 
+    </td>
+    <td>
+        @if (isset($berkas->kk_file) && $berkas->kk_file !== null)
+            <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->kk_file) }}" download="{{ $berkas->kk }}">{{ $berkas->kk }}</a>
+        @else
+        <i class="text-secondary">belum upload</i>
+        @endif        
+    </td>
+</tr>
+<tr>
+    <td>KTP 
+    </td>
+    <td>
+        @if (isset($berkas->ktp_file) && $berkas->ktp_file !== null)
+            <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->ktp_file) }}" download="{{ $berkas->ktp }}">{{ $berkas->ktp }}</a>
+        @else
+        <i class="text-secondary">belum upload</i>
+        @endif        
+    </td>
+</tr>
+<tr>
+    <td>Akta Kelahiran 
+    </td>
+    <td>
+        @if (isset($berkas->akta_file) && $berkas->akta_file !== null)
+            <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->akta_file) }}" download="{{ $berkas->akta }}">{{ $berkas->akta }}</a>
+        @else
+        <i class="text-secondary">belum upload</i>
+        @endif        
+    </td>
+</tr>
 </table>
 <a href="{{ route('register.index') }}" class="btn btn-primary ms-4">back</a>
 @can('superadmin')    

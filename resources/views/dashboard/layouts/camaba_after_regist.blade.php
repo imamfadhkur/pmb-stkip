@@ -3,7 +3,7 @@
         <div class="col-8">
             @if (Auth::user()->register->bukti_pembayaran !== null)
     <p>
-        Terimakasih telah melakukan pembayaran, silahkan menunggu maksimal 4x24jam untuk admin memverifikasi pembayaran anda. Lalu login kembali untuk mendapatkan informasi lebih lanjut. <br> Refresh secara berkala halaman ini.
+        Terimakasih telah melakukan pembayaran, silahkan menunggu maksimal 3x24jam untuk admin memverifikasi pembayaran anda. Lalu login kembali untuk mendapatkan informasi lebih lanjut. <br> Refresh secara berkala halaman ini. <br>Sembari menunggu sambil lengkapi berkas-berkas yang diminta di halaman profil.
     </p>
 @else
     <p>
@@ -45,7 +45,7 @@
         <input type="submit" value="upload" class="btn btn-primary my-2">
     </form>
     <p>
-        Jika sudah membayar silahkan menunggu maksimal 4x24jam untuk admin memverifikasi pembayaran anda.
+        Jika sudah membayar silahkan menunggu maksimal 3x24jam untuk admin memverifikasi pembayaran anda.
     </p>
 @endif
         </div>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BerkasPendaftarController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\JalurMasukController;
 use App\Http\Controllers\JenjangPendidikanController;
@@ -74,6 +75,9 @@ Route::group(['middleware' => ['auth']], function(){
         }
     })->name('dashboard');
     Route::resource('/register', RegisterController::class)->middleware('administrator');
+    Route::resource('/profil', BerkasPendaftarController::class);
+    Route::get('/pemberkasan', [BerkasPendaftarController::class, 'pemberkasan']);
+    Route::post('/simpan-pemberkasan', [BerkasPendaftarController::class, 'pemberkasan_store']);
     Route::post('/change-password', [AuthController::class, 'changePw']);
     Route::post('/change-status-pembayaran', [RegisterController::class, 'ubahPembayaran'])->middleware(['administrator']);
     Route::post('/change-status-diterima', [RegisterController::class, 'ubahPenerimaan'])->middleware(['administrator']);

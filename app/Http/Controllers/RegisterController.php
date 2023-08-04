@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Register;
 use Illuminate\Http\Request;
+use App\Models\BerkasPendaftar;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -132,6 +133,7 @@ class RegisterController extends Controller
         return view('dashboard.pendaftar.show', [
             'title' => 'Lihat Data'.$reg->nama,
             'register' => $reg,
+            'berkas' => BerkasPendaftar::where('user_id', $reg->user_id)->first(),
         ]);
     }
 
@@ -144,6 +146,7 @@ class RegisterController extends Controller
         return view('dashboard.pendaftar.edit', [
             'title' => 'Lihat Data'.$reg->nama,
             'register' => $reg,
+            'berkas' => BerkasPendaftar::where('user_id', $reg->user_id)->first(),
         ]);
     }
 
@@ -184,6 +187,25 @@ class RegisterController extends Controller
             // Menyimpan gambar baru
             $va = $request->file('bukti_pembayaran')->store('bukti-pembayaran');
             $register->update(['bukti_pembayaran' => $va]);
+        }
+
+        $berkas = new BerkasPendaftar;
+        if ($berkas::where('user_id',$register->user_id)->first()) {
+            $berkas = $berkas::where('user_id',$register->user_id)->first();
+        }
+        $berkas->user_id = $register->user_id;
+        foreach ($request->file() as $key => $file) {
+            if ($request->hasFile('bukti_pembayaran')) {
+                # code...
+            } else {
+                $key_file = $key."_file";
+                if ($berkas->$key_file !== null) {
+                    Storage::delete($berkas->$key_file);
+                }
+                $berkas->$key = $file->getClientOriginalName();
+                $berkas->$key_file = $file->store('berkas');
+                $berkas->save();
+            }
         }
 
         return redirect()->route('register.index')->with('messageSuccess', 'Pendaftar berhasil diedit');

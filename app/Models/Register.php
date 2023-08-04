@@ -16,6 +16,21 @@ class Register extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function pilihan1Prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'pilihan1');
+    }
+
+    public function pilihan2Prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'pilihan2');
+    }
+
+    public function pilihan3Prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'pilihan3');
+    }
 
     public function jalurMasuk()
     {

@@ -167,6 +167,10 @@
             </td>
         </tr>
         <tr>
+            <td></td>
+            <td><i class="text-danger">3 pilihan tidak boleh sama.</i><br></td>
+        </tr>
+        <tr>
             <td>Pembayaran</td>
             <td>
                 <div class="form-check">
@@ -200,6 +204,72 @@
             </td>
         </tr>
         <tr>
+            <td>Pas Foto 3*4
+            </td>
+            <td>
+                @if (isset($berkas->pas_foto_file) && $berkas->pas_foto_file !== null)
+                    <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->pas_foto_file) }}" download="{{ $berkas->pas_foto }}">{{ $berkas->pas_foto }}</a>
+                @endif
+                <br>
+                <input type="file" name="pas_foto" class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td>ijazah/skl
+            </td>
+            <td>
+                @if (isset($berkas->ijazah_skl_file) && $berkas->ijazah_skl_file !== null)
+                    <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->ijazah_skl_file) }}" download="{{ $berkas->ijazah_skl }}">{{ $berkas->ijazah_skl }}</a>
+                @endif
+                <br>
+                <input type="file" name="ijazah_skl" class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td>SKHUN
+            </td>
+            <td>
+                @if (isset($berkas->skhun_file) && $berkas->skhun_file !== null)
+                    <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->skhun_file) }}" download="{{ $berkas->skhun }}">{{ $berkas->skhun }}</a>
+                @endif
+                <br>
+                <input type="file" name="skhun" class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td>KK 
+            </td>
+            <td>
+                @if (isset($berkas->kk_file) && $berkas->kk_file !== null)
+                    <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->kk_file) }}" download="{{ $berkas->kk }}">{{ $berkas->kk }}</a>
+                @endif
+                <br>
+                <input type="file" name="kk" class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td>KTP 
+            </td>
+            <td>
+                @if (isset($berkas->ktp_file) && $berkas->ktp_file !== null)
+                    <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->ktp_file) }}" download="{{ $berkas->ktp }}">{{ $berkas->ktp }}</a>
+                @endif
+                <br>
+                <input type="file" name="ktp" class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td>Akta Kelahiran 
+            </td>
+            <td>
+                @if (isset($berkas->akta_file) && $berkas->akta_file !== null)
+                    <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->akta_file) }}" download="{{ $berkas->akta }}">{{ $berkas->akta }}</a>
+                @endif
+                <br>
+                <input type="file" name="akta" class="form-control">
+            </td>
+        </tr>
+        <tr>
             <td>Status Penerimaan</td>
             <td>
                 <div class="form-check">
@@ -214,10 +284,6 @@
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
             </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><i class="text-danger">3 pilihan tidak boleh sama.</i><br></td>
         </tr>
         </table>
     <a href="{{ route('register.index') }}" class="btn btn-danger">cancel</a>
