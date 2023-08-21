@@ -24,8 +24,10 @@
                       <a href="/info-prodi/{{ $prodi->id }}" class="">Selengkapnya</a>
                     </div>
                     <div class="card-footer text-body-secondary">
-                      {{ $prodi->updated_at->format('d F Y H:i:s') }}
-                    </div>
+                        @if($prodi->updated_at)
+                            {{ $prodi->updated_at->format('d F Y H:i:s') }}
+                        @endif
+                    </div>                  
                 </div>
             </div>
         </div>

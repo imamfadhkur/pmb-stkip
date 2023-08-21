@@ -24,7 +24,9 @@
                       <a href="/info-jalur-seleksi/{{ $jalur_masuk->id }}" class="">Selengkapnya</a>
                     </div>
                     <div class="card-footer text-body-secondary">
-                      {{ $jalur_masuk->updated_at->format('d F Y H:i:s') }}
+                      @if($jalur_masuk->updated_at)
+                          {{ $jalur_masuk->updated_at->format('d F Y H:i:s') }}
+                      @endif
                     </div>
                 </div>
             </div>

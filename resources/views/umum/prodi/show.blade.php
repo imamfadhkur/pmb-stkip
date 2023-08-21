@@ -9,7 +9,9 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <h3 class="card-title">{{ $prodi->nama }}</h3>
-                        <i class="text-secondary">Di update pada: {{ $prodi->updated_at->format('d F Y H:i:s') }}</i>
+                        @if($prodi->updated_at)
+                            <i class="text-secondary">Di update pada: {{ $prodi->updated_at->format('d F Y H:i:s') }}</i>
+                        @endif
                     </div>
                     <div>
                         <p class="card-text mt-3">{!! $prodi->deskripsi !!}</p>
