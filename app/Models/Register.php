@@ -32,6 +32,16 @@ class Register extends Model
         return $this->belongsTo(Prodi::class, 'pilihan3');
     }
 
+    public function jenjangPendidikan()
+    {
+        return $this->belongsTo(JenjangPendidikan::class);
+    }
+
+    public function sistemKuliah()
+    {
+        return $this->belongsTo(SistemKuliah::class);
+    }
+
     public function jalurMasuk()
     {
         return $this->belongsTo(JalurMasuk::class);

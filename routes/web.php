@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth']], function(){
             return redirect('/register');
         }
     })->name('dashboard');
+    Route::get('/register/export', [RegisterController::class, 'export'])->name('export.register');
     Route::resource('/register', RegisterController::class)->middleware('administrator');
     Route::resource('/profil', BerkasPendaftarController::class);
     Route::get('/pemberkasan', [BerkasPendaftarController::class, 'pemberkasan']);

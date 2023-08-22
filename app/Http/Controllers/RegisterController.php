@@ -6,12 +6,14 @@ use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Register;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\BerkasPendaftar;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -266,5 +268,48 @@ class RegisterController extends Controller
         $register->delete();
         
         return redirect('/register')->with('messageSuccess', 'Data berhasil dihapus');
+    }
+
+    public function export()
+    {
+        // return 'did it';
+        $collections = Register::all();
+        $filename = 'data_camaba.csv';
+        $output = fopen('php://output', 'w');
+        fputcsv($output, ['no', 'nama', 'jenis kelamin', 'hp', 'email', 'tempat tanggal lahir', 'alamat', 'kewarganegaraan', 'identitas kewarganegaraan', 'jenjang pendidikan', 'sistem kuliah', 'jalur masuk', 'asal sekolah', 'jenis sekolah', 'jurusan', 'tahun lulus', 'alamat sekolah', 'pilihan 1', 'pilihan 2', 'pilihan 3', 'pembayaran', 'status di terima']);
+        foreach ($collections as $index => $item) {
+            fputcsv($output, [
+                $index + 1,
+                $item->nama,
+                $item->jk,
+                $item->hp,
+                $item->email,
+                $item->tempat_lahir.', '.Carbon::parse($item->tanggal_lahir)->format('d-m-Y'),
+                $item->alamat,
+                $item->kewarganegaraan,
+                $item->identitas_kewarganegaraan,
+                $item->jenjangPendidikan->nama,
+                $item->sistemKuliah->nama,
+                $item->jalurMasuk->nama,
+                $item->nama_sekolah,
+                $item->jenis_sekolah,
+                $item->jurusan_sekolah,
+                $item->tahun_lulus,
+                $item->alamat_sekolah,
+                $item->pilihan1Prodi->nama,
+                $item->pilihan2Prodi->nama,
+                $item->pilihan3Prodi->nama,
+                $item->pembayaran,
+                $item->status_diterima
+            ]);
+        }
+
+        fclose($output);
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ];
+
+        return Response::make('', 200, $headers);
     }
 }

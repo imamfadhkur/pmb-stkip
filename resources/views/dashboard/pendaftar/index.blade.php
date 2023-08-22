@@ -13,7 +13,10 @@
     @endif
     
     <div style="display: flex; align-items: center">
-      <a style="margin-right: auto; margin-bottom: 0;" href="/register/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data pendaftar</a>
+      <div style="margin-right: auto; margin-bottom: 0;">
+        <a href="/register/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data pendaftar</a>
+        <a href="{{ route('export.register') }}" class="btn btn-success mb-2"><i class="bi bi-box-arrow-up-right"></i> Ekspor data</a>
+      </div>
       <form style="margin-left: auto; margin-bottom: 0;" action="/register-sort" method="GET" class="m-2">
         <label for="sort">urut berdasarkan: </label>
         <select id="sort" name="sort" class="me-1">
