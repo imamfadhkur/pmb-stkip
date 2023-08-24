@@ -11,4 +11,9 @@ class Prodi extends Model
     protected $guarded = [
         'id'
     ];
+
+    // public function registers()
+    // {
+    //     return $this->hasMany(Register::class);
+    // }
 }

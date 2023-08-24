@@ -32,6 +32,14 @@
     </form>    
     </div>
 
+    @isset($success_data_diterima)
+      <div class="alert alert-success">
+        {{ $success_data_diterima }}
+      </div>
+    @endisset
+    @error('diterima_di')
+      <div class="alert alert-danger mt-2">{{ $message }}</div>
+    @enderror
     <table class="table table-hover">
       <tr>
         <th>No.</th>
@@ -74,7 +82,7 @@
           </td>
           <td>
             @if ($register->status_diterima === "diterima")
-              <p class="text-success"><b>{{ $register->status_diterima }}</b></p>
+              <p><b class="text-success">{{ $register->status_diterima }}</b> - {{ $register->diterima_di !== null ? $register->diterimadi->nama : '(prodi belum ditentukan)' }}</p>
             @else
               <p class="text-danger"><b>{{ $register->status_diterima }}</b></p>
             @endif
@@ -94,19 +102,62 @@
               </button>
               @endif
             </form>
-            <form action="/change-status-diterima" method="POST" class="d-inline">
-              @csrf
-              <input type="hidden" name="regist_id" value="{{ $register->id }}">
-              @if ($register->status_diterima === "diterima")
-              <button disabled title="Rubah Status Diterima {{ $register->nama }}" type="submit" onclick="return confirm('Apakah Anda yakin?')" class="btn btn-sm btn-warning m-1">
-                <i class="bi bi-check2-square"></i>
-              </button>
-              @else
-              <button title="Rubah Status Diterima {{ $register->nama }}" type="submit" onclick="return confirm('Apakah Anda yakin?')" class="btn btn-sm btn-warning m-1">
-                <i class="bi bi-check2-square"></i>
-              </button>
-              @endif
-            </form>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-sm btn-warning m-1" data-bs-toggle="modal" data-bs-target="#createModal{{ $register->id }}">
+              <i class="bi bi-check2-square"></i>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="createModal{{ $register->id }}" tabindex="-1" aria-labelledby="createModal{{ $register->id }}Label" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createModal{{ $register->id }}Label">Penempatan Prodi</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                <form method="POST" action="/change-status-diterima">
+                @csrf
+                  <div class="modal-body">
+                      <div class="form-group">
+                        <input type="hidden" name="regist_id" value="{{ $register->id }}">
+                          <label for="diterima_di"><b>{{ $register->nama }} diterima di prodi?</b></label>
+                          @if ($register->pilihan1Prodi)
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan1Prodi->id }}" id="diterima_1{{ $register->id }}" {{ $register->diterima_di === $register->pilihan1Prodi->id ? 'checked' : '' }}>
+                              <label class="form-check-label" for="diterima_1{{ $register->id }}">
+                                {{ $register->pilihan1Prodi->nama }}
+                              </label>
+                            </div>
+                          @endif
+                          @if ($register->pilihan2Prodi)
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan2Prodi->id }}" id="diterima_2{{ $register->id }}" {{ $register->diterima_di === $register->pilihan2Prodi->id ? 'checked' : '' }}>
+                              <label class="form-check-label" for="diterima_2{{ $register->id }}">
+                                {{ $register->pilihan2Prodi->nama }}
+                              </label>
+                            </div>
+                          @endif
+                          @if ($register->pilihan3Prodi)
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan3Prodi->id }}" id="diterima_3{{ $register->id }}" {{ $register->diterima_di === $register->pilihan3Prodi->id ? 'checked' : '' }}>
+                              <label class="form-check-label" for="diterima_3{{ $register->id }}">
+                                {{ $register->pilihan3Prodi->nama }}
+                              </label>
+                            </div>
+                          @endif
+                      </div>
+                      <!-- ... other input fields ... -->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="createSubmit" type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+
             @can('superadmin')
               <a class="btn btn-warning btn-sm m-1" title="edit" href="{{ route('register.edit',$register->email) }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
               <form action="/hapus/{{ $register->id }}" method="POST" class="d-inline">
@@ -128,6 +179,9 @@
 
   </div>
 </div>
+
+  <script>
+  </script>
 
   <script>
     $(document).ready(function() {

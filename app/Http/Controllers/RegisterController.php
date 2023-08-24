@@ -232,11 +232,20 @@ class RegisterController extends Controller
     
     public function ubahPenerimaan(Request $request)
     {
-        // dd($request);
-        $register_id = $request->regist_id;
-        Register::where('id', '=', $register_id)->update(['status_diterima' => 'diterima']);
+        $register = Register::where('id', '=', $request->regist_id)->first();
+        // dd('Update berhasil, '.$register->nama.' diterima di prodi '.$request->input('diterima_di'));
+        $validatedData = $request->validate(['diterima_di' => 'required']);
+        // $register->diterima_di = null;
+        // $register_id = $request->regist_id;
+        $register->diterima_di = $request->input('diterima_di');
+        $register->save();
+        $registers = Register::paginate(10);
 
-        return redirect('/register')->with('messageSuccess', 'Data berhasil dirubah');
+        return view('dashboard.pendaftar.index', [
+            'registers' => $registers,
+            'title' => 'register',
+            'success_data_diterima' => 'Update berhasil, '.$register->nama.' diterima di prodi '.$register->diterimadi->nama,
+        ]);
     }
 
     public function uploadPembayaran(Request $request)
