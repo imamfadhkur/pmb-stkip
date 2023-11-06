@@ -21,6 +21,7 @@
             <th>Biaya</th>
             <th>Jumlah Pendaftar</th>
             <th>Jumlah Maksimal Pendaftar</th>
+            <th>Sisa Kouta</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -31,6 +32,7 @@
                 <td>{{ $jalurMasuk->biaya }}</td>
                 <td>{{ $jalurMasuk->jumlah_pendaftar }}</td>
                 <td>{{ $jalurMasuk->jumlah_maks_pendaftar }}</td>
+                <td>{{ ($jalurMasuk->jumlah_maks_pendaftar - $jalurMasuk->jumlah_pendaftar) }}</td>
                 <td>{{ $jalurMasuk->status }}</td>
                 <td>
                     <a class="btn btn-sm btn-warning m-1" title="lihat" href="{{ route('jalur-masuk.show',$jalurMasuk->id) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>

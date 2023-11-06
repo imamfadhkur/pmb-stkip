@@ -21,6 +21,7 @@
                             $desk = Str::limit($deskripsi, rand(160, 200)); // membatasi jumlah karakter secara random
                         @endphp
                         <p class="card-text">{!! $desk !!}</p>
+                        <p class="card-text">sisa kuota: {{ ($jalur_masuk->jumlah_maks_pendaftar - $jalur_masuk->jumlah_pendaftar) }}</p>
                       <a href="/info-jalur-masuk/{{ $jalur_masuk->id }}" class="">Selengkapnya</a>
                     </div>
                     <div class="card-footer text-body-secondary">
