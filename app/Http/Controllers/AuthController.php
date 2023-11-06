@@ -19,15 +19,28 @@ class AuthController extends Controller
     public function auth(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
-        $user = User::where('email', $credentials['email'])->first();
+        $user = null;
+        if ($request->input('role') == 'camaba') {
+            $user = User::where('email', $credentials['email'])
+                        ->where('level', '=', 'camaba')
+                        ->first();
+        }
+        if ($request->input('role') == 'admin') {
+            $user = User::where('email', $credentials['email'])
+                        ->where(function($query) {
+                            $query->where('level','=', 'admin')
+                            ->orWhere('level','=','superadmin');
+                        })->first();
+        }
 
         if (!$user) {
+            // error tidak berlaku ketika username atau input tidak berformat email
             return back()->withErrors([
-                'email' => 'Email tidak terdaftar.'
+                'email' => 'Email atau password tidak benar.'
             ]);
         }
         
@@ -49,7 +62,12 @@ class AuthController extends Controller
         $request->session()->flash('loginError', 'Login gagal, username atau password salah!');
         $request->session()->flash('username', $request->oldemail);
         $request->session()->flash('password', $request->oldpassword);
-        return redirect('/login');
+        if ($request->input('role') === 'camaba') {
+            return redirect('/login');
+        } else {
+            return redirect('/8080:2024');
+        }
+        
     }
 
     public function logout(Request $request){

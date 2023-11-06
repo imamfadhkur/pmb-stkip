@@ -37,7 +37,9 @@
         @include('partials.navbar')
       @endif
     @else
-    @include('partials.navbar')
+    @if (Route::currentRouteName() != 'administrator-login-page')
+        @include('partials.navbar')
+    @endif
     @endisset
 
       <div class="container-fluid" id="content">
@@ -74,21 +76,6 @@
         }
         document.getElementById("demo").innerHTML = text;
       }
-      function showPassword() {
-        var x = document.getElementById("password");
-        var y = document.getElementById("password_confirmation");
-        var z = document.getElementById("current_password");
-        if (x.type === "password") {
-          x.type = "text";
-          y.type = "text";
-          z.type = "text";
-        } else {
-          x.type = "password";
-          y.type = "password";
-          z.type = "password";
-        }
-      }
-
       function showPassword() {
         var x = document.getElementById("password");
         var y = document.getElementById("password_confirmation");

@@ -44,7 +44,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/info-prodi">Progam Studi</a></li>
-              <li><a class="dropdown-item" href="/info-jalur-seleksi">Informasi Jalur Seleksi</a></li>
+              <li><a class="dropdown-item" href="/info-jalur-masuk">Informasi Jalur Masuk</a></li>
               @can('auth')
               <li><a class="dropdown-item" href="/pengumuman/index">Pengumumam</a></li>
               @endcan

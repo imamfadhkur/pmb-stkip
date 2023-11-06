@@ -9,7 +9,7 @@
                     @csrf
                     @error('email')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
-                    @enderror</td>
+                    @enderror
                     <div class="form-group mt-4">
                         @isset($username)
                         <input type="hidden" value="{{ $username }}" name="oldemail">
@@ -19,7 +19,7 @@
                         </div>
                         @endisset
                         Username/Email
-                        <input type="email" class="form-control my-2 @error('email')
+                        <input type="text" class="form-control my-2 @error('email')
                             is-invalid
                         @enderror" name="email" id="email" required value="{{ old('email') }}">
                     </div>
@@ -39,6 +39,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
+                    <input type="hidden" value="camaba" name="role">
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
                 </form>
                 </main>

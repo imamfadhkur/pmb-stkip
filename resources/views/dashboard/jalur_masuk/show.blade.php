@@ -13,7 +13,7 @@
                 <h3>{{ $jalurMasuk->nama }}</h3>
                 <p>biaya: {{ $jalurMasuk->biaya }}</p>
                 <p>jumlah pendaftar: {{ $jalurMasuk->jumlah_pendaftar }}</p>
-                <p>jumlah maks pendaftar: {{ $jalurMasuk->jumlah_maks_pendaftar }}</p>
+                <p>jumlah maksimum pendaftar: {{ $jalurMasuk->jumlah_maks_pendaftar }}</p>
                 <p>status: {{ $jalurMasuk->status }}</p>
                 <p class="mb-1">{!! $jalurMasuk->deskripsi !!}</p>
                 <a href="/jalur-masuk" class="btn btn-primary">back</a>

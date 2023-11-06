@@ -42,11 +42,17 @@ Route::get('/beranda', function()
 Route::get('/info-prodi', [ProdiController::class, 'info_prodi_index']);
 Route::get('/info-prodi/{prodi}', [ProdiController::class, 'info_prodi_show']);
 
-Route::get('/info-jalur-seleksi', [JalurMasukController::class, 'info_jalur_masuk_index']);
-Route::get('/info-jalur-seleksi/{jalur_masuk}', [JalurMasukController::class, 'info_jalur_masuk_show']);
+Route::get('/info-jalur-masuk', [JalurMasukController::class, 'info_jalur_masuk_index']);
+Route::get('/info-jalur-masuk/{jalur_masuk}', [JalurMasukController::class, 'info_jalur_masuk_show']);
 
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'auth']);
+
+Route::get('/8080:2024', function () {
+    return view('auth.login_administrator', ['title' => 'administrator login']);
+})->name('administrator-login-page')->middleware('guest');
+Route::post('/8080:2024', [AuthController::class, 'auth'])->middleware('guest');
+
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::group(['middleware' => ['guest']], function () {

@@ -34,6 +34,14 @@
             @endforeach
         </div>
     </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col text-md-center">
+            @auth
+            @else
+                <a class="text-light" href="/8080:2024">admin login</a>
+            @endauth
+        </div>
+    </div>
 </div>
 
   </footer>

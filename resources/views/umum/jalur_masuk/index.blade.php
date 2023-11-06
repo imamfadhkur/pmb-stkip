@@ -4,7 +4,7 @@
 <div class="container my-5 p-5">
   <div class="row">
     <div class="col">
-      <h2 class="m-3 text-center"><a class="text-decoration-none" href="/info-jalur-seleksi">Semua Jalur Seleksi</a></h2>
+      <h2 class="m-3 text-center"><a class="text-decoration-none" href="/info-jalur-masuk">Semua Jalur Masuk</a></h2>
     </div>
   </div>
     @foreach ($jalur_masuks as $jalur_masuk)    
@@ -21,7 +21,7 @@
                             $desk = Str::limit($deskripsi, rand(160, 200)); // membatasi jumlah karakter secara random
                         @endphp
                         <p class="card-text">{!! $desk !!}</p>
-                      <a href="/info-jalur-seleksi/{{ $jalur_masuk->id }}" class="">Selengkapnya</a>
+                      <a href="/info-jalur-masuk/{{ $jalur_masuk->id }}" class="">Selengkapnya</a>
                     </div>
                     <div class="card-footer text-body-secondary">
                       @if($jalur_masuk->updated_at)
