@@ -18,12 +18,16 @@
         <tr>
             <th>No.</th>
             <th>Nama Prodi</th>
+            <th>Kuota diterima</th>
+            <th>Sisa</th>
             <th>Action</th>
         </tr>
         @foreach ($prodis as $prodi)
             <tr>
                 <td>{{ $loop->iteration }}.</td>
                 <td>{{ $prodi->nama }}</td>
+                <td>{{ $prodi->kuota }}</td>
+                <td>{{ $prodi->sisa_kuota }}</td>
                 <td>
                     <a class="btn btn-sm btn-warning m-1" title="lihat" href="{{ route('prodi.show',$prodi->id) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
                     <a class="btn btn-sm btn-warning m-1" title="edit" href="/prodi/{{ $prodi->id }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>

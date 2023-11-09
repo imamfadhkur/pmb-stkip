@@ -38,11 +38,16 @@
                 <input type="hidden" value="{{ $tahun_lulus }}" name="tahun_lulus">
                 <input type="hidden" value="{{ $alamat_sekolah }}" name="alamat_sekolah">
                 
+                @if (session('errorProdi'))
+                    <div class="alert alert-danger">{{ session('errorProdi') }}</div>
+                @endif
                 <div class="form-group m-4">
                 <label>Pilihan 1</label>
                 <select class="form-control" id="pilihan1" name="pilihan1">
                     @foreach($prodis as $pilihan)
-                    <option value="{{ $pilihan->id }}">{{ $pilihan->nama }}</option>
+                    @if ($pilihan->sisa_kuota > 0)
+                        <option value="{{ $pilihan->id }}">{{ $pilihan->nama }}</option>
+                    @endif
                     @endforeach
                 </select>
                 </div>
@@ -51,7 +56,9 @@
                 <label>Pilihan 2</label>
                 <select class="form-control" id="pilihan2" name="pilihan2">
                     @foreach($prodis as $pilihan2)
-                    <option value="{{ $pilihan2->id }}">{{ $pilihan2->nama }}</option>
+                    @if ($pilihan2->sisa_kuota > 0)
+                        <option value="{{ $pilihan2->id }}">{{ $pilihan2->nama }}</option>
+                    @endif
                     @endforeach
                 </select>
                 </div>
@@ -60,7 +67,9 @@
                 <label>Pilihan 3</label>
                 <select class="form-control" id="pilihan3" name="pilihan3">
                     @foreach($prodis as $pilihan3)
-                    <option value="{{ $pilihan3->id }}">{{ $pilihan3->nama }}</option>
+                    @if ($pilihan3->sisa_kuota > 0)
+                        <option value="{{ $pilihan3->id }}">{{ $pilihan3->nama }}</option>
+                    @endif
                     @endforeach
                 </select>
                 <i class="text-danger">3 pilihan tidak boleh sama.</i><br>

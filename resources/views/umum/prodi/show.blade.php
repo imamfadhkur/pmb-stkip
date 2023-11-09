@@ -12,6 +12,8 @@
                         @if($prodi->updated_at)
                             <i class="text-secondary">Di update pada: {{ $prodi->updated_at->format('d F Y H:i:s') }}</i>
                         @endif
+                        <p class="mt-3">kuota: {{ $prodi->kuota }} <br>
+                        sisa: {{ $prodi->sisa_kuota }}</p>
                     </div>
                     <div>
                         <p class="card-text mt-3">{!! $prodi->deskripsi !!}</p>

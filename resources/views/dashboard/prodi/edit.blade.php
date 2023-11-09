@@ -19,6 +19,15 @@
             </div>
         @enderror
     </div>
+    <div class="form-group m-2">
+        <label for="kuota" class="form-label">Kuota</label>
+        <input type="text" class="form-control @error('kuota') is-invalid @enderror" id="kuota" name="kuota" value="{{ old('kuota', $prodi->kuota) }}">
+        @error('kuota')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
     <div class="form-group m-2 mb-4">
         <label class="mt-4" for="deskripsi">Deskripsi Prodi:</label>
         <textarea class="{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}" name="deskripsi" id="editor1" required>{{ old('deskripsi', $prodi->deskripsi) }}</textarea>

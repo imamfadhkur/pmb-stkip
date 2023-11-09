@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prodi;
+use App\Models\Register;
 use Illuminate\Http\Request;
 
 class ProdiController extends Controller
@@ -34,12 +35,14 @@ class ProdiController extends Controller
         // Validasi input dari user
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
+            'kuota' => 'required|integer|min:0',
             'deskripsi' => 'nullable|string'
         ]);
 
         // Buat instance model prodi baru
         $prodi = new Prodi;
         $prodi->nama = $validatedData['nama'];
+        $prodi->kuota = $validatedData['kuota'];
         $prodi->deskripsi = $validatedData['deskripsi'];
 
         // Simpan instance model ke dalam database
@@ -79,11 +82,12 @@ class ProdiController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
+            'kuota' => 'required|integer|min:0',
             'deskripsi' => 'nullable|string'
         ]);
+        $prodi->update($validatedData);
 
-        $prodi->nama = $validatedData['nama'];
-        $prodi->deskripsi = $validatedData['deskripsi'];
+        $prodi->sisa_kuota = ($prodi->kuota - Register::where('diterima_di', $prodi->id)->count());
         $prodi->save();
 
         return redirect()->route('prodi.index')

@@ -238,10 +238,11 @@ class RegisterController extends Controller
         // $register->diterima_di = null;
         // $register_id = $request->regist_id;
         $register->diterima_di = $request->input('diterima_di');
+        $register->status_diterima = "diterima";
         $register->save();
         $registers = Register::paginate(10);
 
-        return view('dashboard.pendaftar.index', [
+        return redirect()->route('register.index')->with([
             'registers' => $registers,
             'title' => 'register',
             'success_data_diterima' => 'Update berhasil, '.$register->nama.' diterima di prodi '.$register->diterimadi->nama,

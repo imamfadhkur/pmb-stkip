@@ -133,7 +133,7 @@
                         <tr><td>pilihan 1</td>
                             <td>
                                 <select class="form-control" id="pilihan1" name="pilihan1">
-                                    @foreach(DB::table('prodis')->get() as $pilihan)
+                                    @foreach(DB::table('prodis')->where('sisa_kuota', '>', 0)->get() as $pilihan)
                                     <option value="{{ $pilihan->id }}" {{ (old('pilihan1') == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                                     @endforeach
                                 </select>
@@ -145,7 +145,7 @@
                         <tr><td>pilihan 2</td>
                             <td>
                                 <select class="form-control" id="pilihan2" name="pilihan2">
-                                    @foreach(DB::table('prodis')->get() as $pilihan)
+                                    @foreach(DB::table('prodis')->where('sisa_kuota', '>', 0)->get() as $pilihan)
                                     <option value="{{ $pilihan->id }}" {{ (old('pilihan2') == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                                     @endforeach
                                 </select>
@@ -157,7 +157,7 @@
                         <tr><td>pilihan 3</td>
                             <td>
                                 <select class="form-control" id="pilihan3" name="pilihan3">
-                                    @foreach(DB::table('prodis')->get() as $pilihan)
+                                    @foreach(DB::table('prodis')->where('sisa_kuota', '>', 0)->get() as $pilihan)
                                     <option value="{{ $pilihan->id }}" {{ (old('pilihan3') == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                                     @endforeach
                                 </select>

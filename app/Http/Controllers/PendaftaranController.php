@@ -143,7 +143,7 @@ class PendaftaranController extends Controller
         }
         
 
-        $prodis = Prodi::all();
+        $prodis = Prodi::where('sisa_kuota', '>', 0)->get();
 
         return view('form_prodi', [
             'jenjang_pendidikan' => $jenjang_pendidikan,
@@ -197,7 +197,7 @@ class PendaftaranController extends Controller
         }
 
         if ($errorProdi !== 'salah') {
-            $prodis = Prodi::all();
+            $prodis = Prodi::where('sisa_kuota', '>', 0)->get();
             return view('form_prodi', [
                 'jenjang_pendidikan' => $jenjang_pendidikan,
                 'sistem_kuliah' => $sistem_kuliah,

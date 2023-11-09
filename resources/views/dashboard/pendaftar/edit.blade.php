@@ -133,7 +133,7 @@
         <tr><td>pilihan 1</td>
             <td>
                 <select class="form-control" id="pilihan1" name="pilihan1">
-                    @foreach(DB::table('prodis')->get() as $pilihan)
+                    @foreach(DB::table('prodis')->where('sisa_kuota', '>', 0)->get() as $pilihan)
                     <option value="{{ $pilihan->id }}" {{ (old('pilihan1', $register->pilihan1) == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                     @endforeach
                 </select>
@@ -145,7 +145,7 @@
         <tr><td>pilihan 2</td>
             <td>
                 <select class="form-control" id="pilihan2" name="pilihan2">
-                    @foreach(DB::table('prodis')->get() as $pilihan)
+                    @foreach(DB::table('prodis')->where('sisa_kuota', '>', 0)->get() as $pilihan)
                     <option value="{{ $pilihan->id }}" {{ (old('pilihan2', $register->pilihan2) == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                     @endforeach
                 </select>
@@ -157,7 +157,7 @@
         <tr><td>pilihan 3</td>
             <td>
                 <select class="form-control" id="pilihan3" name="pilihan3">
-                    @foreach(DB::table('prodis')->get() as $pilihan)
+                    @foreach(DB::table('prodis')->where('sisa_kuota', '>', 0)->get() as $pilihan)
                     <option value="{{ $pilihan->id }}" {{ (old('pilihan3', $register->pilihan3) == $pilihan->id) ? 'selected' : '' }}>{{ $pilihan->nama }}</option>
                     @endforeach
                 </select>
@@ -273,12 +273,12 @@
             <td>Status Penerimaan</td>
             <td>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="diterima" {{ old('status_diterima', $register->status_diterima) === 'diterima' ? 'checked' : '' }}>
-                    <label class="form-check-label">diterima</label>
+                    <input id="diterima" type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="diterima" {{ old('status_diterima', $register->status_diterima) === 'diterima' ? 'checked' : '' }}>
+                    <label for="diterima" class="form-check-label">diterima</label>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="tidak diterima" {{ old('status_diterima', $register->status_diterima) === 'tidak diterima' ? 'checked' : '' }}>
-                    <label class="form-check-label">tidak diterima</label>
+                    <input id="tidak" type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="tidak diterima" {{ old('status_diterima', $register->status_diterima) === 'tidak diterima' ? 'checked' : '' }}>
+                    <label for="tidak" class="form-check-label">tidak diterima</label>
                 </div>
                 @error('pembayaran')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>

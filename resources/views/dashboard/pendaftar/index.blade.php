@@ -104,7 +104,7 @@
             </form>
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-sm btn-warning m-1" data-bs-toggle="modal" data-bs-target="#createModal{{ $register->id }}">
+            <button type="button" title="Diterima di?" class="btn btn-sm btn-warning m-1" data-bs-toggle="modal" data-bs-target="#createModal{{ $register->id }}">
               <i class="bi bi-check2-square"></i>
             </button>
 

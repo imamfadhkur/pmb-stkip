@@ -15,7 +15,7 @@
                         <input type="hidden" value="{{ $username }}" name="oldemail">
                         <input type="hidden" value="{{ $password }}" name="oldpassword">
                         <div class="alert alert-warning" role="alert">
-                            <p>Catat dan simpan data berikut ini untuk login anda: <br>Username: {{ $username }} <br>Password: {{ $password }}</p>
+                            <p>Catat dan simpan data berikut ini untuk login anda: <br>Username: {{ $username }} <br>Password: {{ $password }} <br>dan rubah password anda ketika login</p>
                         </div>
                         @endisset
                         Username/Email
