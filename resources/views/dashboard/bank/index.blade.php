@@ -13,26 +13,34 @@
             {{ session('messageSuccess') }}
         </div>
     @endif
-    @if($bank === null)
-        <a href="/settings/create-data-bank" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data bank</a>
-    @endif
+    <a href="/settings/create-data-bank" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data bank</a>
     <table class="table table-hover">
         <tr>
+            <th>No.</th>
             <th>Nama Bank</th>
             <th>Nomor Rekening</th>
             <th>Nama Pemilik</th>
+            <th>Action</th>
         </tr>
-        @if($bank !== null)
-        <tr>
-            <td>{{ $bank->nama_bank }}</td>
-            <td>{{ $bank->nomor_rekening }}</td>
-            <td>{{ $bank->nama_pemilik }}</td>
-        </tr>
-        @endif
+        @foreach ($banks as $bank)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $bank->nama_bank }}</td>
+                <td>{{ $bank->nomor_rekening }}</td>
+                <td>{{ $bank->nama_pemilik }}</td>
+                <td>
+                    <a href="/settings/edit-data-bank/{{ $bank->id }}" class="btn btn-sm btn-warning mb-2"><i class="bi bi-pencil"></i></a>
+                    <form class="d-inline" action="/settings/delete-data-bank/{{ $bank->id }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('yakin ingin dihapus?')"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
     </table>
-    @if($bank !== null)
-        <a href="/settings/edit-data-bank" class="btn btn-warning mb-2"><i class="bi bi-pencil-square"></i> Edit data bank</a>
-    @endif
+    <div class="d-flex justify-content-end">
+        {{ $banks->links() }}
+    </div>
     {{-- end content --}}
 
     </div>

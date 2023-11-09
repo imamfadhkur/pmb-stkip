@@ -100,8 +100,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/settings/data-bank', [SettingController::class, 'bank']);
         Route::get('/settings/create-data-bank', [SettingController::class, 'create_bank']);
         Route::post('/settings/tambah-data-bank', [SettingController::class, 'store_bank']);
-        Route::get('/settings/edit-data-bank', [SettingController::class, 'edit_bank']);
-        Route::post('/settings/update-data-bank', [SettingController::class, 'update_bank']);
+        Route::get('/settings/edit-data-bank/{id}', [SettingController::class, 'edit_bank']);
+        Route::post('/settings/update-data-bank/{id}', [SettingController::class, 'update_bank']);
+        Route::post('/settings/delete-data-bank/{id}', [SettingController::class, 'delete_bank']);
         Route::get('/settings/informasi-kampus', [SettingController::class, 'informasi_kampus']);
         Route::get('/settings/sosmed', [SettingController::class, 'informasi_sosmed']);
         Route::get('/settings/create_sosmed', [SettingController::class, 'create_sosmed']);

@@ -12,24 +12,23 @@
             $register = App\Models\Register::where('user_id', $user_id)->first();
             $biaya = $register->jalurMasuk->biaya;
         @endphp
-        Silahkan membayar uang pendaftaran sebesar <b>Rp.{{ number_format($biaya, 0, ',', '.') }}</b> ke rekening berikut ini:
+        Silahkan membayar uang pendaftaran sebesar <b>Rp.{{ number_format($biaya, 0, ',', '.') }}</b> ke salah satu rekening berikut ini:
     </p>
-    <table class="mb-3">
+    <table class="mb-3 table table-bordered">
         <tr>
-            <td>Nomor Rekening</td>
-            <td>:</td>
-            <td>{{ App\Models\Bank::first()->nomor_rekening }}</td>
+            <th>#</th>
+            <th>Bank</th>
+            <th>Nomor Rekening</th>
+            <th>Nama Akun</th>
         </tr>
-        <tr>
-            <td>Bank</td>
-            <td>:</td>
-            <td>{{ App\Models\Bank::first()->nama_bank }}</td>
-        </tr>
-        <tr>
-            <td>Nama Account</td>
-            <td>:</td>
-            <td>{{ App\Models\Bank::first()->nama_pemilik }}</td>
-        </tr>
+        @foreach (App\Models\Bank::all() as $bank)
+            <tr>
+                <th>{{ $loop->iteration }}</th>
+                <td>{{ $bank->nama_bank }}</td>
+                <td>{{ $bank->nomor_rekening }}</td>
+                <td>{{ $bank->nama_pemilik }}</td>
+            </tr>
+        @endforeach
     </table>
     <form action="/upload-bukti-pembayaran-regist" method="POST" enctype="multipart/form-data">
         @csrf

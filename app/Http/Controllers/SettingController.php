@@ -11,10 +11,8 @@ class SettingController extends Controller
 {
     public function bank()
     {
-        $banks = new Bank;
-        // dd($banks->first());
         return view('dashboard.bank.index', [
-            'bank' => $banks->first(),
+            'banks' => Bank::paginate(10),
             'title' => 'Settings - data bank'
         ]);
     }
@@ -35,11 +33,12 @@ class SettingController extends Controller
         return redirect('/settings/data-bank')->with('messageSuccess', 'Data berhasil ditambahkan');
     }
     
-    public function edit_bank()
+    public function edit_bank($id)
     {
-        $banks = Bank::first();
+        $banks = Bank::find($id);
 
         return view('dashboard.bank.edit', [
+            'id' => $id,
             'nama_pemilik' => $banks->nama_pemilik,
             'nomor_rekening' => $banks->nomor_rekening,
             'nama_bank' => $banks->nama_bank,
@@ -47,9 +46,9 @@ class SettingController extends Controller
         ]);
     }
     
-    public function update_bank(Request $request)
+    public function update_bank(Request $request, $id)
     {
-        $banks = Bank::first();
+        $banks = Bank::find($id);
         $banks->nama_pemilik = $request->nama_pemilik;
         $banks->nomor_rekening = $request->nomor_rekening;
         $banks->nama_bank = $request->nama_bank;
@@ -58,6 +57,16 @@ class SettingController extends Controller
         return redirect('/settings/data-bank')->with('messageSuccess', 'Data berhasil dirubah');
     }
     
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function delete_bank($id)
+    {
+        $bank = Bank::find($id);
+        $bank->delete();
+        return redirect('/settings/data-bank')->with('messageSuccess', 'Data berhasil dihapus');
+    }
+
     public function informasi_kampus()
     {
         $banks = InformasiKampus::first();
