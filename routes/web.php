@@ -1,24 +1,25 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Models\SistemKuliah;
 use Illuminate\Http\Request;
+use App\Models\JenjangPendidikan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BerkasPendaftarController;
-use App\Http\Controllers\InformasiController;
-use App\Http\Controllers\JalurMasukController;
-use App\Http\Controllers\JenjangPendidikanController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\PostDaftarUlangController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\JalurMasukController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\SistemKuliahController;
-use App\Http\Controllers\UserController;
-use App\Models\JenjangPendidikan;
+use App\Http\Controllers\BerkasPendaftarController;
+use App\Http\Controllers\PostDaftarUlangController;
+use App\Http\Controllers\JenjangPendidikanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,11 @@ use App\Models\JenjangPendidikan;
 |
 */
 
-Route::get('/', function () {return view('index', ['title' => 'home']);});
-Route::get('/home', function () {return view('index', ['title' => 'home']);});
-
+Route::get('/', function () {return view('index', ['title' => 'home']);})->middleware('guest');
+Route::get('/home', function () {return view('index', ['title' => 'home']);})->middleware('guest');
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+});
 Route::get('/beranda', function()
 {
     return view('index', ['title' => 'beranda']);

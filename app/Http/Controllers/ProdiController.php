@@ -43,6 +43,7 @@ class ProdiController extends Controller
         $prodi = new Prodi;
         $prodi->nama = $validatedData['nama'];
         $prodi->kuota = $validatedData['kuota'];
+        $prodi->sisa_kuota = $validatedData['kuota'];
         $prodi->deskripsi = $validatedData['deskripsi'];
 
         // Simpan instance model ke dalam database
