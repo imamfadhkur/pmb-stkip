@@ -100,6 +100,12 @@
                               @enderror
                             </td>
                         </tr>
+                        <tr><td>nama ibu</td>
+                            <td><input type="text" name="nama_ibu" class="form-control" value="{{ old('nama_ibu') }}" required>@error('nama_ibu')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                              @enderror
+                            </td>
+                        </tr>
                         <tr><td>nama sekolah asal</td>
                             <td><input type="text" name="nama_sekolah" class="form-control" value="{{ old('nama_sekolah') }}" required>
                                 @error('nama_sekolah')
@@ -121,6 +127,12 @@
                         <tr><td>tahun lulus</td>
                             <td><input type="number" name="tahun_lulus" class="form-control" value="{{ old('tahun_lulus') }}" required>
                                 @error('tahun_lulus')
+                                  <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror</td>
+                        </tr>
+                        <tr><td>nisn</td>
+                            <td><input type="number" name="nisn" class="form-control" value="{{ old('nisn') }}" required>
+                                @error('nisn')
                                   <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror</td>
                         </tr>

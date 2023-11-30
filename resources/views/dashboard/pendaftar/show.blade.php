@@ -32,6 +32,9 @@
     <tr><td>identitas kewarganegaraan</td>
         <td>{{ $register->identitas_kewarganegaraan }}</td>
     </tr>
+    <tr><td>nama ibu</td>
+        <td>{{ $register->nama_ibu }}</td>
+    </tr>
     <tr><td>nama sekolah asal</td>
         <td>{{ $register->nama_sekolah }}</td>
     </tr>
@@ -46,9 +49,6 @@
     </tr>
     <tr><td>NISN</td>
         <td>{{ $register->nisn }}</td>
-    </tr>
-    <tr><td>nama ibu</td>
-        <td>{{ $register->nama_ibu }}</td>
     </tr>
     <tr><td>alamat sekolah</td>
         <td>{{ $register->alamat_sekolah }}</td>

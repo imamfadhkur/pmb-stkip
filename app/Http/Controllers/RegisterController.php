@@ -64,6 +64,8 @@ class RegisterController extends Controller
         $jenis_sekolah = $request->jenis_sekolah;
         $jurusan_sekolah = $request->jurusan_sekolah;
         $tahun_lulus = $request->tahun_lulus;
+        $nama_ibu = $request->nama_ibu;
+        $nisn = $request->nisn;
         $alamat_sekolah = $request->alamat_sekolah;
         $pilihan1 = $request->pilihan1;
         $pilihan2 = $request->pilihan2;
@@ -84,6 +86,8 @@ class RegisterController extends Controller
             'jurusan_sekolah' => 'required|max:255',
             'tahun_lulus' => 'required|date_format:Y|before_or_equal:now|after_or_equal:' . (date('Y')-100),
             'alamat_sekolah' => 'required',
+            'nama_ibu' => 'required',
+            'nisn' => 'required|numeric',
             'pilihan1' => 'required|different:pilihan2,pilihan3',
             'pilihan2' => 'required|different:pilihan1,pilihan3',
             'pilihan3' => 'required|different:pilihan1,pilihan2',
@@ -118,6 +122,8 @@ class RegisterController extends Controller
         $reg->jenis_sekolah = $jenis_sekolah;
         $reg->jurusan_sekolah = $jurusan_sekolah;
         $reg->tahun_lulus = $tahun_lulus;
+        $reg->nama_ibu = $nama_ibu;
+        $reg->nisn = $nisn;
         $reg->alamat_sekolah = $alamat_sekolah;
         $reg->pilihan1 = $pilihan1;
         $reg->pilihan2 = $pilihan2;
@@ -173,6 +179,8 @@ class RegisterController extends Controller
             'jenis_sekolah' => 'required|max:255',
             'jurusan_sekolah' => 'required|max:255',
             'tahun_lulus' => 'required|date_format:Y|before_or_equal:now|after_or_equal:' . (date('Y')-100),
+            'nama_ibu' => 'required',
+            'nisn' => 'required|numeric',
             'alamat_sekolah' => 'required',
             'pilihan1' => 'required|different:pilihan2,pilihan3',
             'pilihan2' => 'required|different:pilihan1,pilihan3',
