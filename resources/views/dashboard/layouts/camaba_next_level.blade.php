@@ -1,5 +1,15 @@
 <div class="container mb-5">
     <div class="row">
+        @php
+            $pendaftar = App\Models\Register::where('user_id', Auth::user()->id)->first();
+        @endphp
+        @if ($pendaftar->status_diterima == 'diterima')
+            <p class="text-success">Selamat, anda diterima di prodi 
+                @isset($pendaftar->diterimadi->nama)
+                    {{ $pendaftar->diterimadi->nama }}
+                @endisset
+            </p>
+        @endif
         <h3 class="m-2">
             Informasi Terbaru:
         </h3>
