@@ -32,6 +32,8 @@
                 <input type="hidden" value="{{ old('alamat', $alamat) }}" name="alamat">
                 <input type="hidden" value="{{ old('kewarganegaraan', $kewarganegaraan) }}" name="kewarganegaraan">
                 <input type="hidden" value="{{ old('identitas_kewarganegaraan', $identitas_kewarganegaraan) }}" name="identitas_kewarganegaraan">
+                <input type="hidden" value="{{ old('nisn', $nisn) }}" name="nisn">
+                <input type="hidden" value="{{ old('nama_ibu', $nama_ibu) }}" name="nama_ibu">
                 
                 <div class="form-group m-4">
                   <label for="nama_sekolah">Nama Sekolah Asal</label>

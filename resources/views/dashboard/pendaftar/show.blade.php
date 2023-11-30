@@ -44,6 +44,12 @@
     <tr><td>tahun lulus</td>
         <td>{{ $register->tahun_lulus }}</td>
     </tr>
+    <tr><td>NISN</td>
+        <td>{{ $register->nisn }}</td>
+    </tr>
+    <tr><td>nama ibu</td>
+        <td>{{ $register->nama_ibu }}</td>
+    </tr>
     <tr><td>alamat sekolah</td>
         <td>{{ $register->alamat_sekolah }}</td>
     </tr>

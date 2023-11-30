@@ -57,6 +57,8 @@ class PendaftaranController extends Controller
         $alamat = $request->alamat;
         $kewarganegaraan = $request->kewarganegaraan;
         $identitas_kewarganegaraan = $request->identitas_kewarganegaraan;
+        $nisn = $request->nisn;
+        $nama_ibu = $request->nama_ibu;
 
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
@@ -66,7 +68,9 @@ class PendaftaranController extends Controller
             'tanggal_lahir' => 'required|date|before:today',
             'alamat' => 'required',
             'kewarganegaraan' => 'required',
-            'identitas_kewarganegaraan' => 'required|numeric'
+            'identitas_kewarganegaraan' => 'required|numeric',
+            'nisn' => 'required|numeric',
+            'nama_ibu' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -86,6 +90,8 @@ class PendaftaranController extends Controller
             'alamat' => $alamat,
             'kewarganegaraan' => $kewarganegaraan,
             'identitas_kewarganegaraan' => $identitas_kewarganegaraan,
+            'nisn' => $nisn,
+            'nama_ibu' => $nama_ibu,
             'title' => 'Pendaftaran | asal sekolah'
         ]);
     }
@@ -110,6 +116,8 @@ class PendaftaranController extends Controller
         $jurusan_sekolah = $request->jurusan_sekolah;
         $tahun_lulus = $request->tahun_lulus;
         $alamat_sekolah = $request->alamat_sekolah;
+        $nisn = $request->nisn;
+        $nama_ibu = $request->nama_ibu;
 
         $validator = Validator::make($request->all(),[
             'nama_sekolah' => 'required|max:255',
@@ -137,6 +145,8 @@ class PendaftaranController extends Controller
                 'jenis_sekolah' => $jenis_sekolah,
                 'jurusan_sekolah' => $jurusan_sekolah,
                 'tahun_lulus' => $tahun_lulus,
+                'nisn' => $nisn,
+                'nama_ibu' => $nama_ibu,
                 'alamat_sekolah' => $alamat_sekolah,
                 'title' => 'Pendaftaran | asal sekolah'
             ])->withErrors($validator);
@@ -162,6 +172,8 @@ class PendaftaranController extends Controller
             'jenis_sekolah' => $jenis_sekolah,
             'jurusan_sekolah' => $jurusan_sekolah,
             'tahun_lulus' => $tahun_lulus,
+            'nisn' => $nisn,
+            'nama_ibu' => $nama_ibu,
             'alamat_sekolah' => $alamat_sekolah,
             'prodis' => $prodis,
             'title' => 'Pendaftaran | prodi'
@@ -186,6 +198,8 @@ class PendaftaranController extends Controller
         $jenis_sekolah = $request->jenis_sekolah;
         $jurusan_sekolah = $request->jurusan_sekolah;
         $tahun_lulus = $request->tahun_lulus;
+        $nisn = $request->nisn;
+        $nama_ibu = $request->nama_ibu;
         $alamat_sekolah = $request->alamat_sekolah;
         $pilihan1 = $request->pilihan1;
         $pilihan2 = $request->pilihan2;
@@ -215,6 +229,8 @@ class PendaftaranController extends Controller
                 'jenis_sekolah' => $jenis_sekolah,
                 'jurusan_sekolah' => $jurusan_sekolah,
                 'tahun_lulus' => $tahun_lulus,
+                'nisn' => $nisn,
+                'nama_ibu' => $nama_ibu,
                 'alamat_sekolah' => $alamat_sekolah,
                 'prodis' => $prodis,
                 'title' => 'Pendaftaran | prodi'
@@ -238,6 +254,8 @@ class PendaftaranController extends Controller
             'jenis_sekolah' => $jenis_sekolah,
             'jurusan_sekolah' => $jurusan_sekolah,
             'tahun_lulus' => $tahun_lulus,
+            'nisn' => $nisn,
+            'nama_ibu' => $nama_ibu,
             'alamat_sekolah' => $alamat_sekolah,
             'pilihan1' => $pilihan1,
             'pilihan2' => $pilihan2,
@@ -264,6 +282,8 @@ class PendaftaranController extends Controller
         $jenis_sekolah = $request->jenis_sekolah;
         $jurusan_sekolah = $request->jurusan_sekolah;
         $tahun_lulus = $request->tahun_lulus;
+        $nisn = $request->nisn;
+        $nama_ibu = $request->nama_ibu;
         $alamat_sekolah = $request->alamat_sekolah;
         $pilihan1 = $request->pilihan1;
         $pilihan2 = $request->pilihan2;
@@ -287,6 +307,8 @@ class PendaftaranController extends Controller
                 'jenis_sekolah' => $jenis_sekolah,
                 'jurusan_sekolah' => $jurusan_sekolah,
                 'tahun_lulus' => $tahun_lulus,
+                'nisn' => $nisn,
+                'nama_ibu' => $nama_ibu,
                 'alamat_sekolah' => $alamat_sekolah,
                 'pilihan1' => $pilihan1,
                 'pilihan2' => $pilihan2,
@@ -308,6 +330,8 @@ class PendaftaranController extends Controller
                 'jenis_sekolah' => 'required|max:255',
                 'jurusan_sekolah' => 'required|max:255',
                 'tahun_lulus' => 'required|date_format:Y|before_or_equal:now|after_or_equal:' . (date('Y')-100),
+                'nisn' => 'required|numeric',
+                'nama_ibu' => 'required',
                 'alamat_sekolah' => 'required',
                 'pilihan1' => 'required|different:pilihan2,pilihan3',
                 'pilihan2' => 'required|different:pilihan1,pilihan3',
@@ -335,6 +359,8 @@ class PendaftaranController extends Controller
                     'jenis_sekolah' => $jenis_sekolah,
                     'jurusan_sekolah' => $jurusan_sekolah,
                     'tahun_lulus' => $tahun_lulus,
+                    'nisn' => $nisn,
+                    'nama_ibu' => $nama_ibu,
                     'alamat_sekolah' => $alamat_sekolah,
                     'pilihan1' => $pilihan1,
                     'pilihan2' => $pilihan2,
@@ -372,6 +398,8 @@ class PendaftaranController extends Controller
             $reg->jenis_sekolah = $jenis_sekolah;
             $reg->jurusan_sekolah = $jurusan_sekolah;
             $reg->tahun_lulus = $tahun_lulus;
+            $reg->nisn = $nisn;
+            $reg->nama_ibu = $nama_ibu;
             $reg->alamat_sekolah = $alamat_sekolah;
             $reg->pilihan1 = $pilihan1;
             $reg->pilihan2 = $pilihan2;

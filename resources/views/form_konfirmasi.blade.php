@@ -29,6 +29,8 @@
                 <input type="hidden" value="{{ $jenis_sekolah }}" name="jenis_sekolah">
                 <input type="hidden" value="{{ $jurusan_sekolah }}" name="jurusan_sekolah">
                 <input type="hidden" value="{{ $tahun_lulus }}" name="tahun_lulus">
+                <input type="hidden" value="{{ $nisn }}" name="nisn">
+                <input type="hidden" value="{{ $nama_ibu }}" name="nama_ibu">
                 <input type="hidden" value="{{ $alamat_sekolah }}" name="alamat_sekolah">
                 <input type="hidden" value="{{ $pilihan1 }}" name="pilihan1">
                 <input type="hidden" value="{{ $pilihan2 }}" name="pilihan2">
@@ -84,6 +86,9 @@
                     <tr><td>identitas kewarganegaraan</td>
                         <td>{{ $identitas_kewarganegaraan }}</td>
                     </tr>
+                    <tr><td>nama ibu</td>
+                        <td>{{ $nama_ibu }}</td>
+                    </tr>
                     <tr><td>nama sekolah asal</td>
                         <td>{{ $nama_sekolah }}</td>
                     </tr>
@@ -95,6 +100,9 @@
                     </tr>
                     <tr><td>tahun lulus</td>
                         <td>{{ $tahun_lulus }}</td>
+                    </tr>
+                    <tr><td>nisn</td>
+                        <td>{{ $nisn }}</td>
                     </tr>
                     <tr><td>alamat sekolah</td>
                         <td>{{ $alamat_sekolah }}</td>

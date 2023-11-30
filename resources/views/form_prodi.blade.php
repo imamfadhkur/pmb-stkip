@@ -37,6 +37,8 @@
                 <input type="hidden" value="{{ $jurusan_sekolah }}" name="jurusan_sekolah">
                 <input type="hidden" value="{{ $tahun_lulus }}" name="tahun_lulus">
                 <input type="hidden" value="{{ $alamat_sekolah }}" name="alamat_sekolah">
+                <input type="hidden" value="{{ $nisn }}" name="nisn">
+                <input type="hidden" value="{{ $nama_ibu }}" name="nama_ibu">
                 
                 @if (session('errorProdi'))
                     <div class="alert alert-danger">{{ session('errorProdi') }}</div>

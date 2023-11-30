@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2023 at 02:29 AM
+-- Generation Time: Nov 30, 2023 at 08:09 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -172,6 +172,13 @@ CREATE TABLE `jalur_masuks` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `jalur_masuks`
+--
+
+INSERT INTO `jalur_masuks` (`id`, `nama`, `deskripsi`, `biaya`, `jumlah_pendaftar`, `jumlah_maks_pendaftar`, `status`, `created_at`, `updated_at`) VALUES
+(5, 'yrtyrt ', 'tyry', 100000, 0, 50, 'aktif', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -184,6 +191,13 @@ CREATE TABLE `jenjang_pendidikans` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `jenjang_pendidikans`
+--
+
+INSERT INTO `jenjang_pendidikans` (`id`, `nama`, `created_at`, `updated_at`) VALUES
+(2, 's1 PKN', '2023-11-29 00:23:56', '2023-11-29 00:23:56');
 
 -- --------------------------------------------------------
 
@@ -228,7 +242,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2023_08_03_021644_create_name_on_pemberkasan_table', 8),
 (28, '2023_08_24_034357_create_diterima_di_at_registers_table', 9),
 (29, '2023_11_09_002635_create_kuota_to_prodis_table', 10),
-(30, '2023_11_09_005615_add_sisa_kuota_column_and_trigger_to_prodis_table', 11);
+(30, '2023_11_09_005615_add_sisa_kuota_column_and_trigger_to_prodis_table', 11),
+(31, '2023_11_29_084001_insert_columns_to_registers_table', 12);
 
 -- --------------------------------------------------------
 
@@ -277,6 +292,14 @@ CREATE TABLE `prodis` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `prodis`
+--
+
+INSERT INTO `prodis` (`id`, `nama`, `deskripsi`, `kuota`, `sisa_kuota`, `created_at`, `updated_at`) VALUES
+(5, 'Teknik Informatika', NULL, 10, 0, '2023-11-29 01:20:49', '2023-11-29 01:20:49'),
+(6, 'tempo dulu', NULL, 200, 200, '2023-11-29 01:22:15', '2023-11-29 01:22:15');
+
 -- --------------------------------------------------------
 
 --
@@ -287,6 +310,7 @@ CREATE TABLE `registers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL,
+  `nama_ibu` varchar(255) DEFAULT NULL,
   `jk` enum('L','P') NOT NULL,
   `hp` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -302,6 +326,7 @@ CREATE TABLE `registers` (
   `jenis_sekolah` varchar(255) NOT NULL,
   `jurusan_sekolah` varchar(255) NOT NULL,
   `tahun_lulus` year(4) NOT NULL,
+  `nisn` varchar(255) DEFAULT NULL,
   `alamat_sekolah` text NOT NULL,
   `pilihan1` bigint(20) UNSIGNED NOT NULL,
   `pilihan2` bigint(20) UNSIGNED NOT NULL,
@@ -375,6 +400,13 @@ CREATE TABLE `sistem_kuliahs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sistem_kuliahs`
+--
+
+INSERT INTO `sistem_kuliahs` (`id`, `nama`, `created_at`, `updated_at`) VALUES
+(2, 'eytte', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -565,19 +597,19 @@ ALTER TABLE `informasi_kampuses`
 -- AUTO_INCREMENT for table `jalur_masuks`
 --
 ALTER TABLE `jalur_masuks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jenjang_pendidikans`
 --
 ALTER TABLE `jenjang_pendidikans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -589,7 +621,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `prodis`
 --
 ALTER TABLE `prodis`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `registers`
@@ -601,7 +633,7 @@ ALTER TABLE `registers`
 -- AUTO_INCREMENT for table `sistem_kuliahs`
 --
 ALTER TABLE `sistem_kuliahs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sosmeds`

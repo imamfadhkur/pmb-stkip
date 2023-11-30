@@ -89,6 +89,22 @@
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                   @enderror
                 </div>
+
+                <div class="form-group m-4">
+                  <label for="nisn">NISN</label>
+                  <input type="number" name="nisn" class="form-control" value="{{ old('nisn') }}">
+                  @error('nisn')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                  @enderror
+                </div>
+
+                <div class="form-group m-4">
+                  <label for="nama_ibu">Nama Ibu</label>
+                  <input type="text" name="nama_ibu" class="form-control" value="{{ old('nama_ibu') }}">
+                  @error('nama_ibu')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                  @enderror
+                </div>
               
                 <button type="submit" class="btn btn-primary mx-4">Selanjutnya</button>
               </form>              
