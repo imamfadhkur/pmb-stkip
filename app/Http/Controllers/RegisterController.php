@@ -290,11 +290,10 @@ class RegisterController extends Controller
 
     public function export()
     {
-        // return 'did it';
         $collections = Register::all();
         $filename = 'data_camaba.csv';
         $output = fopen('php://output', 'w');
-        fputcsv($output, ['no', 'nama', 'jenis kelamin', 'hp', 'email', 'tempat tanggal lahir', 'alamat', 'kewarganegaraan', 'identitas kewarganegaraan', 'jenjang pendidikan', 'sistem kuliah', 'jalur masuk', 'asal sekolah', 'jenis sekolah', 'jurusan', 'tahun lulus', 'alamat sekolah', 'pilihan 1', 'pilihan 2', 'pilihan 3', 'pembayaran', 'status di terima']);
+        fputcsv($output, ['no', 'nama', 'jenis kelamin', 'hp', 'email', 'tempat tanggal lahir', 'alamat', 'kewarganegaraan',  'nik', 'nama ibu', 'jenjang pendidikan', 'sistem kuliah', 'jalur masuk', 'asal sekolah', 'jenis sekolah', 'jurusan', 'tahun lulus', 'nisn', 'alamat sekolah', 'pilihan 1', 'pilihan 2', 'pilihan 3', 'pembayaran', 'status di terima']);
         foreach ($collections as $index => $item) {
             fputcsv($output, [
                 $index + 1,
@@ -306,6 +305,7 @@ class RegisterController extends Controller
                 $item->alamat,
                 $item->kewarganegaraan,
                 $item->identitas_kewarganegaraan,
+                $item->nama_ibu,
                 $item->jenjangPendidikan->nama,
                 $item->sistemKuliah->nama,
                 $item->jalurMasuk->nama,
@@ -313,6 +313,7 @@ class RegisterController extends Controller
                 $item->jenis_sekolah,
                 $item->jurusan_sekolah,
                 $item->tahun_lulus,
+                $item->nisn,
                 $item->alamat_sekolah,
                 $item->pilihan1Prodi->nama,
                 $item->pilihan2Prodi->nama,

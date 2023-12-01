@@ -56,7 +56,13 @@ Route::get('/8080:2024', function () {
 })->name('administrator-login-page')->middleware('guest');
 Route::post('/8080:2024', [AuthController::class, 'auth'])->middleware('guest');
 
+Route::get('/page-not-found',  function(){
+    abort(404);
+})->name('not-found');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/logout', function(){
+    return redirect()->route('not-found');
+});
 
 Route::group(['middleware' => ['guest']], function () {
     Route::controller(PendaftaranController::class)->group(function () {

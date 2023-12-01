@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\BerkasPendaftar;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 
 class BerkasPendaftarController extends Controller
@@ -93,7 +95,8 @@ class BerkasPendaftarController extends Controller
                 if ($berkas->$key_file !== null) {
                     Storage::delete($berkas->$key_file);
                 }
-                $berkas->$key = $file->getClientOriginalName();
+                $naming = $key."_".Auth::user()->name."_".Carbon::now()->format('Ymd_His').".".$file->getClientOriginalExtension();
+                $berkas->$key = $naming;
                 $berkas->$key_file = $file->store('berkas');
                 $berkas->save();
             }
