@@ -293,7 +293,7 @@ class RegisterController extends Controller
         $collections = Register::all();
         $filename = 'data_camaba.csv';
         $output = fopen('php://output', 'w');
-        fputcsv($output, ['no', 'nama', 'jenis kelamin', 'hp', 'email', 'tempat tanggal lahir', 'alamat', 'kewarganegaraan',  'nik', 'nama ibu', 'jenjang pendidikan', 'sistem kuliah', 'jalur masuk', 'asal sekolah', 'jenis sekolah', 'jurusan', 'tahun lulus', 'nisn', 'alamat sekolah', 'pilihan 1', 'pilihan 2', 'pilihan 3', 'pembayaran', 'status di terima']);
+        fputcsv($output, ['no', 'nama', 'jenis kelamin', 'hp', 'email', 'tempat tanggal lahir', 'alamat', 'kewarganegaraan',  'nik', 'nama ibu', 'jenjang pendidikan', 'sistem kuliah', 'jalur masuk', 'asal sekolah', 'jenis sekolah', 'jurusan', 'tahun lulus', 'nisn', 'alamat sekolah', 'pilihan 1', 'pilihan 2', 'pilihan 3', 'pembayaran', 'status di terima', 'periode pendaftaran']);
         foreach ($collections as $index => $item) {
             fputcsv($output, [
                 $index + 1,
@@ -319,7 +319,8 @@ class RegisterController extends Controller
                 $item->pilihan2Prodi->nama,
                 $item->pilihan3Prodi->nama,
                 $item->pembayaran,
-                $item->status_diterima
+                $item->status_diterima,
+                $item->created_at->format('Y'),
             ]);
         }
 

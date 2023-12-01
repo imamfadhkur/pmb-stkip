@@ -192,6 +192,13 @@
         @endif        
     </td>
 </tr>
+<tr>
+    <td>Periode Pendaftaran 
+    </td>
+    <td>
+        {{ $register->created_at->format('Y') }}
+    </td>
+</tr>
 </table>
 <a href="{{ route('register.index') }}" class="btn btn-primary ms-4">back</a>
 @can('superadmin')    

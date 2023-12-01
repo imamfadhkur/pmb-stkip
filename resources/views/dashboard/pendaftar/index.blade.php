@@ -48,10 +48,10 @@
         <th>Alamat</th>
         <th>Asal Sekolah</th>
         <th>Jalur Masuk</th>
-        <th>Biaya Pendaftaran</th>
         <th>Bukti Pembayaran</th>
         <th>Status Pembayaran</th>
         <th>Status Diterima</th>
+        <th>Periode Pendaftaran</th>
         <th>Action</th>
       </tr>
       @foreach ($registers as $register)
@@ -62,7 +62,6 @@
           <td>{{ $register->alamat }}</td>
           <td>{{ $register->nama_sekolah }}</td>
           <td>{{ $register->jalurMasuk->nama }}</td>
-          <td>{{ number_format($register->jalurMasuk->biaya, 0, ',', '.') }}</td>
           <td>
             @if ($register->bukti_pembayaran)
             <a class="test-popup-link mfp-with-zoom" href="{{ asset('storage/'.$register->bukti_pembayaran) }}">
@@ -87,6 +86,7 @@
               <p class="text-danger"><b>{{ $register->status_diterima }}</b></p>
             @endif
           </td>
+          <td>{{ $register->created_at->format('Y') }}</td>
           <td>
             <a class="btn btn-warning btn-sm m-1" title="lihat" href="{{ route('register.show',$register->email) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
             <form action="/change-status-pembayaran" method="POST" class="d-inline">
