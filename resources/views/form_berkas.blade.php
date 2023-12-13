@@ -11,14 +11,22 @@
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <h3 class="mx-4 mt-2">Prodi</h3>
+            <h3 class="mx-4 mt-2">Pemberkasan</h3>
+            <p class="mx-4"><span class="text-danger">*</span>Lengkapi berkas dibawah ini</p>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <form action="berkas" method="POST">
+            <form action="daftar" method="POST" enctype="multipart/form-data">
                 @csrf
                 
+                @if ($errors->any())
+                    <ul class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 {{-- data hidden --}}
                 <input type="hidden" value="{{ $jenjang_pendidikan }}" name="jenjang_pendidikan">
                 <input type="hidden" value="{{ $sistem_kuliah }}" name="sistem_kuliah">
@@ -39,45 +47,41 @@
                 <input type="hidden" value="{{ $alamat_sekolah }}" name="alamat_sekolah">
                 <input type="hidden" value="{{ $nisn }}" name="nisn">
                 <input type="hidden" value="{{ $nama_ibu }}" name="nama_ibu">
+                <input type="hidden" value="{{ $pilihan1 }}" name="pilihan1">
+                <input type="hidden" value="{{ $pilihan2 }}" name="pilihan2">
+                <input type="hidden" value="{{ $pilihan3 }}" name="pilihan3">
                 
-                @if (session('errorProdi'))
-                    <div class="alert alert-danger">{{ session('errorProdi') }}</div>
-                @endif
                 <div class="form-group m-4">
-                <label>Pilihan 1</label>
-                <select class="form-control" id="pilihan1" name="pilihan1">
-                    @foreach($prodis as $pilihan)
-                    @if ($pilihan->sisa_kuota > 0)
-                        <option value="{{ $pilihan->id }}">{{ $pilihan->nama }}</option>
-                    @endif
-                    @endforeach
-                </select>
+                    <label><span class="text-danger">*</span>Pas Foto</label>
+                    <input type="file" name="pas_foto" class="form-control" required>
                 </div>
-            
+                
                 <div class="form-group m-4">
-                <label>Pilihan 2</label>
-                <select class="form-control" id="pilihan2" name="pilihan2">
-                    @foreach($prodis as $pilihan2)
-                    @if ($pilihan2->sisa_kuota > 0)
-                        <option value="{{ $pilihan2->id }}">{{ $pilihan2->nama }}</option>
-                    @endif
-                    @endforeach
-                </select>
+                    <label><span class="text-danger">*</span>Ijazah/SKL</label>
+                    <input type="file" name="ijazah_skl" class="form-control" required>
                 </div>
-            
+                
                 <div class="form-group m-4">
-                <label>Pilihan 3</label>
-                <select class="form-control" id="pilihan3" name="pilihan3">
-                    @foreach($prodis as $pilihan3)
-                    @if ($pilihan3->sisa_kuota > 0)
-                        <option value="{{ $pilihan3->id }}">{{ $pilihan3->nama }}</option>
-                    @endif
-                    @endforeach
-                </select>
-                <i class="text-danger">3 pilihan tidak boleh sama.</i><br>
+                    <label><span class="text-danger">*</span>SKHUN</label>
+                    <input type="file" name="skhun" class="form-control" required>
+                </div>
+                
+                <div class="form-group m-4">
+                    <label><span class="text-danger">*</span>KK</label>
+                    <input type="file" name="kk" class="form-control" required>
+                </div>
+                
+                <div class="form-group m-4">
+                    <label><span class="text-danger">*</span>KTP</label>
+                    <input type="file" name="ktp" class="form-control" required>
+                </div>
+                
+                <div class="form-group m-4">
+                    <label><span class="text-danger">*</span>Akta Kelahiran</label>
+                    <input type="file" name="akta" class="form-control" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary mx-4">Selanjutnya</button>
+                <button type="submit" class="btn btn-primary mx-4" value="save" name="type" onclick="return confirm('Apakah anda yakin data yang anda masukkan benar?')">Daftar</button>
               </form>              
         </div>
     </div>

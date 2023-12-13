@@ -76,6 +76,7 @@ Route::group(['middleware' => ['guest']], function () {
             $errors = $request->session()->get('errors');
             return view('form_asal_sekolah', compact('data', 'errors'));
         })->name('get-asal-sekolah');
+        Route::post('/berkas', 'berkas')->name('berkas');
         Route::post('/konfirmasi', 'konfirmasi')->name('konfirmasi');
         Route::post('/daftar', 'daftar')->name('daftar');
     });

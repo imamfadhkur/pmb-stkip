@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JalurMasuk;
-use App\Models\JenjangPendidikan;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Register;
-use App\Models\SistemKuliah;
-use App\Models\User;
+use App\Models\JalurMasuk;
 use App\Rules\ThreeDiffVal;
+use App\Models\SistemKuliah;
 use Illuminate\Http\Request;
+use App\Models\BerkasPendaftar;
+use App\Models\JenjangPendidikan;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PendaftaranController extends Controller
@@ -180,6 +183,90 @@ class PendaftaranController extends Controller
         ]);
     }
 
+    public function berkas(Request $request)
+    {
+        $jenjang_pendidikan = $request->jenjang_pendidikan;
+        $sistem_kuliah = $request->sistem_kuliah;
+        $jalur_masuk = $request->jalur_masuk;
+        $nama = $request->nama;
+        $jk = $request->jk;
+        $hp = $request->hp;
+        $email = $request->email;
+        $tempat_lahir = $request->tempat_lahir;
+        $tanggal_lahir = $request->tanggal_lahir;
+        $alamat = $request->alamat;
+        $kewarganegaraan = $request->kewarganegaraan;
+        $identitas_kewarganegaraan = $request->identitas_kewarganegaraan;
+        $nama_sekolah = $request->nama_sekolah;
+        $jenis_sekolah = $request->jenis_sekolah;
+        $jurusan_sekolah = $request->jurusan_sekolah;
+        $tahun_lulus = $request->tahun_lulus;
+        $nisn = $request->nisn;
+        $nama_ibu = $request->nama_ibu;
+        $alamat_sekolah = $request->alamat_sekolah;
+        $pilihan1 = $request->pilihan1;
+        $pilihan2 = $request->pilihan2;
+        $pilihan3 = $request->pilihan3;
+
+        $errorProdi = 'salah';
+        if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
+            $errorProdi = 'Pilihan prodi tidak boleh sama.';
+        }
+
+        if ($errorProdi !== 'salah') {
+            $prodis = Prodi::where('sisa_kuota', '>', 0)->get();
+            return view('form_prodi', [
+                'jenjang_pendidikan' => $jenjang_pendidikan,
+                'sistem_kuliah' => $sistem_kuliah,
+                'jalur_masuk' => $jalur_masuk,
+                'nama' => $nama,
+                'jk' => $jk,
+                'hp' => $hp,
+                'email' => $email,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $tanggal_lahir,
+                'alamat' => $alamat,
+                'kewarganegaraan' => $kewarganegaraan,
+                'identitas_kewarganegaraan' => $identitas_kewarganegaraan,
+                'nama_sekolah' => $nama_sekolah,
+                'jenis_sekolah' => $jenis_sekolah,
+                'jurusan_sekolah' => $jurusan_sekolah,
+                'tahun_lulus' => $tahun_lulus,
+                'nisn' => $nisn,
+                'nama_ibu' => $nama_ibu,
+                'alamat_sekolah' => $alamat_sekolah,
+                'prodis' => $prodis,
+                'title' => 'Pendaftaran | prodi'
+            ])->with('errorProdi', 'Pilihan prodi tidak boleh sama.');
+        }
+
+        return view('form_berkas', [
+            'jenjang_pendidikan' => $jenjang_pendidikan,
+            'sistem_kuliah' => $sistem_kuliah,
+            'jalur_masuk' => $jalur_masuk,
+            'nama' => $nama,
+            'jk' => $jk,
+            'hp' => $hp,
+            'email' => $email,
+            'tempat_lahir' => $tempat_lahir,
+            'tanggal_lahir' => $tanggal_lahir,
+            'alamat' => $alamat,
+            'kewarganegaraan' => $kewarganegaraan,
+            'identitas_kewarganegaraan' => $identitas_kewarganegaraan,
+            'nama_sekolah' => $nama_sekolah,
+            'jenis_sekolah' => $jenis_sekolah,
+            'jurusan_sekolah' => $jurusan_sekolah,
+            'tahun_lulus' => $tahun_lulus,
+            'nisn' => $nisn,
+            'nama_ibu' => $nama_ibu,
+            'alamat_sekolah' => $alamat_sekolah,
+            'pilihan1' => $pilihan1,
+            'pilihan2' => $pilihan2,
+            'pilihan3' => $pilihan3,
+            'title' => 'Pendaftaran | Pemberkasan'
+        ]);
+    }
+
     public function konfirmasi(Request $request)
     {
         $jenjang_pendidikan = $request->jenjang_pendidikan;
@@ -342,7 +429,7 @@ class PendaftaranController extends Controller
                 // if ($validator->fails()) {
                 //     dd($validator->messages());
                 // }
-                return view('form_edit_konfirmasi', [
+                return view('form_berkas', [
                     'jenjang_pendidikan' => $jenjang_pendidikan,
                     'sistem_kuliah' => $sistem_kuliah,
                     'jalur_masuk' => $jalur_masuk,
@@ -365,7 +452,7 @@ class PendaftaranController extends Controller
                     'pilihan1' => $pilihan1,
                     'pilihan2' => $pilihan2,
                     'pilihan3' => $pilihan3,
-                    'title' => 'Pendaftaran | konfirmasi 3'
+                    'title' => 'Pendaftaran | konfirmasi berkas'
                 ])->withErrors($validator);
             }
     
@@ -406,10 +493,25 @@ class PendaftaranController extends Controller
             $reg->pilihan3 = $pilihan3;
             $reg->save();
 
-            $data = array(
-                'username' => $email,
-                'password' => $randomString,
-            );
+            $berkas = new BerkasPendaftar;
+            $user_id = $user->id;
+            if ($berkas::where('user_id',$user_id)->first()) {
+                $berkas = $berkas::where('user_id',$user_id)->first();
+            }
+            $berkas->user_id = $user_id;
+            foreach ($request->file() as $key => $file) {
+                if ($request->hasFile($key)) {
+                    $key_file = $key."_file";
+                    if ($berkas->$key_file !== null) {
+                        Storage::delete($berkas->$key_file);
+                    }
+                    $naming = $key."_".$nama."_".Carbon::now()->format('Ymd_His').".".$file->getClientOriginalExtension();
+                    $berkas->$key = $naming;
+                    $berkas->$key_file = $file->store('berkas');
+                    $berkas->save();
+                }
+            }
+
             return view('auth.login', [
                 'username' => $email,
                 'password' => $randomString,
