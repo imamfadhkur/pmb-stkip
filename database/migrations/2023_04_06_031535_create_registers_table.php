@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('nama');
+            $table->string('nama')->default('');
             $table->enum('jk', ['L', 'P']);
             $table->string('hp');
             $table->string('email')->unique();
