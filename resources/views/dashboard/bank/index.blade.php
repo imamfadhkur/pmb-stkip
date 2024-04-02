@@ -13,7 +13,7 @@
             {{ session('messageSuccess') }}
         </div>
     @endif
-    <a href="/settings/create-data-bank" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data bank</a>
+    <a href="{{ url('/settings/create-data-bank') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data bank</a>
     <table class="table table-hover">
         <tr>
             <th>No.</th>
@@ -29,7 +29,7 @@
                 <td>{{ $bank->nomor_rekening }}</td>
                 <td>{{ $bank->nama_pemilik }}</td>
                 <td>
-                    <a href="/settings/edit-data-bank/{{ $bank->id }}" class="btn btn-sm btn-warning mb-2"><i class="bi bi-pencil"></i></a>
+                    <a href="{{ url('/settings/edit-data-bank/' . $bank->id) }}" class="btn btn-sm btn-warning mb-2"><i class="bi bi-pencil"></i></a>
                     <form class="d-inline" action="/settings/delete-data-bank/{{ $bank->id }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('yakin ingin dihapus?')"><i class="bi bi-trash"></i></button>

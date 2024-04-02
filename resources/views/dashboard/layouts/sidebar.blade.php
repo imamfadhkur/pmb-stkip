@@ -6,23 +6,23 @@
         {{ Auth::user()->name }}!</p>
 <ul class="list-unstyled components mb-5">
   <li class="{{ Request::is('register') ? 'active' : '' }}">
-      <a href="/register">Pendaftar</a>
+      <a href="{{ url('register') }}">Pendaftar</a>
   </li>
   @can('superadmin')
   <li class="{{ Request::is('data') ? 'active' : '' }}">
   <a href="#pageData" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Data Pendaftaran</a>
   <ul class="collapse list-unstyled" id="pageData">
     <li class="{{ Request::is('jenjang-pendidikan') ? 'active' : '' }}">
-        <a href="/jenjang-pendidikan">Jenjang Pendidikan</a>
+        <a href="{{ url('jenjang-pendidikan') }}">Jenjang Pendidikan</a>
     </li>
     <li class="{{ Request::is('sistem-kuliah') ? 'active' : '' }}">
-        <a href="/sistem-kuliah">Sistem Kuliah</a>
+        <a href="{{ url('sistem-kuliah') }}">Sistem Kuliah</a>
     </li>
     <li class="{{ Request::is('jalur-masuk') ? 'active' : '' }}">
-        <a href="/jalur-masuk">Jalur Masuk</a>
+        <a href="{{ url('jalur-masuk') }}">Jalur Masuk</a>
     </li>
     <li class="{{ Request::is('prodi') ? 'active' : '' }}">
-        <a href="/prodi">Prodi</a>
+        <a href="{{ url('prodi') }}">Prodi</a>
     </li>
   </ul>
   </li>
@@ -31,24 +31,24 @@
   <ul class="collapse list-unstyled" id="pageInformasi">
     <li>
         {{-- nanti akan berbentuk seperti post pada blog --}}
-        <a href="/admin-pengumuman">Pengumuman</a>
+        <a href="{{ url('admin-pengumuman') }}">Pengumuman</a>
     </li>
   </ul>
   </li>
   <li class="{{ Request::is('user') ? 'active' : '' }}">
-      <a href="/user">User</a>
+      <a href="{{ url('user') }}">User</a>
   </li>
   <li class="{{ Request::is('setting*') ? 'active' : '' }}">
   <a href="#pageSettings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
   <ul class="collapse list-unstyled" id="pageSettings">
     <li class="{{ Request::is('settings/data-bank') ? 'active' : '' }}">
-        <a href="/settings/data-bank">Data Bank</a>
+        <a href="{{ url('settings/data-bank') }}">Data Bank</a>
     </li>
     <li class="{{ Request::is('settings/sosmed') ? 'active' : '' }}">
-        <a href="/settings/sosmed">Sosial Media</a>
+        <a href="{{ url('settings/sosmed') }}">Sosial Media</a>
     </li>
     <li class="{{ Request::is('settings/informasi-kampus') ? 'active' : '' }}">
-        <a href="/settings/informasi-kampus">Informasi Kampus</a>
+        <a href="{{ url('settings/informasi-kampus') }}">Informasi Kampus</a>
     </li>
   </ul>
   </li>

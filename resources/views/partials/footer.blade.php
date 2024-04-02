@@ -30,7 +30,7 @@
     <div class="row justify-content-center mt-4">
         <div class="col text-md-center">
             @foreach ($footerSosmed as $sosmed)
-            <a href="{{ $sosmed->link }}" class="text-decoration-none m-1 text-light" target="_blank">{!! $sosmed->icon !!}</a>
+            <a href="{{ url($sosmed->link) }}" class="text-decoration-none m-1 text-light" target="_blank">{!! $sosmed->icon !!}</a>
             @endforeach
         </div>
     </div>
@@ -38,7 +38,7 @@
         <div class="col text-md-center">
             @auth
             @else
-                <a class="text-light" href="/8080:2024">admin login</a>
+                <a class="text-light" href="{{ url('8080:2024') }}">admin login</a>
             @endauth
         </div>
     </div>

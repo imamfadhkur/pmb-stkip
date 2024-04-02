@@ -6,9 +6,9 @@
     <h1 style="display: flex; flex-direction: column;"> Penerimaan Mahasiswa Baru <br>STKIP PGRI Bangkalan <br>
         <center>
         @auth
-            <a class="btn btn-my-primary text-light btn-lg mt-4" href="/dashboard" role="button" style="display: inline-block; max-width: max-content;">Dashboard</a>
+            <a class="btn btn-my-primary text-light btn-lg mt-4" href="{{ url('dashboard') }}" role="button" style="display: inline-block; max-width: max-content;">Dashboard</a>
         @else
-            <a class="btn btn-my-primary text-light btn-lg mt-4" href="/jalur-pendaftaran" role="button" style="display: inline-block; max-width: max-content;">Daftar Sekarang</a>
+            <a class="btn btn-my-primary text-light btn-lg mt-4" href="{{ url('jalur-pendaftaran') }}" role="button" style="display: inline-block; max-width: max-content;">Daftar Sekarang</a>
         @endauth
         </center>
     </h1>

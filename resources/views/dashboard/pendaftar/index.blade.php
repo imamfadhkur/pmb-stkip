@@ -14,7 +14,7 @@
     
     <div style="display: flex; align-items: center">
       <div style="margin-right: auto; margin-bottom: 0;">
-        <a href="/register/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data pendaftar</a>
+        <a href="{{ url('register/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data pendaftar</a>
         <a href="{{ route('export.register') }}" class="btn btn-success mb-2"><i class="bi bi-box-arrow-up-right"></i> Ekspor data</a>
       </div>
       <form style="margin-left: auto; margin-bottom: 0;" action="/register-sort" method="GET" class="m-2">
@@ -57,11 +57,21 @@
       @foreach ($registers as $register)
         <tr>
           <td>{{ $loop->iteration }}.</td>
-          <td>{{ $register->nama }}</td>
-          <td>{{ $register->jk }}</td>
-          <td>{{ $register->alamat }}</td>
-          <td>{{ $register->nama_sekolah }}</td>
-          <td>{{ $register->jalurMasuk->nama }}</td>
+          <td>@isset($register->nama)
+              {{$register->nama}}
+          @endisset</td>
+          <td>@isset($register->jk)
+              {{$register->jk}}
+          @endisset</td>
+          <td>@isset($register->alamat)
+              {{$register->alamat}}
+          @endisset</td>
+          <td>@isset($register->nama_sekolah)
+              {{$register->nama_sekolah}}
+          @endisset</td>
+          <td>@isset($register->jalurMasuk->nama)
+              {{$register->jalurMasuk->nama}}
+          @endisset</td>
           <td>
             @if ($register->bukti_pembayaran)
             <a class="test-popup-link mfp-with-zoom" href="{{ asset('storage/'.$register->bukti_pembayaran) }}">

@@ -17,7 +17,7 @@
                 @endif
                 <p>{!! $informasi->content !!}</p>
                 <br>
-                <a href="/admin-pengumuman" class="btn btn-primary">back</a>
+                <a href="{{ url('admin-pengumuman') }}" class="btn btn-primary">back</a>
                 <a href="{{ route('admin-pengumuman.edit', $informasi->slug) }}" class="btn btn-warning ms-2">edit</a>
             </div>
         </div>

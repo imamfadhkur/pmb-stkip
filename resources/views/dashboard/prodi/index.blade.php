@@ -13,7 +13,7 @@
             {{ session('messageSuccess') }}
         </div>
     @endif
-    <a href="/prodi/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data prodi</a>
+    <a href="{{ url('prodi/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data prodi</a>
     <table class="table table-hover">
         <tr>
             <th>No.</th>
@@ -30,7 +30,7 @@
                 <td>{{ $prodi->sisa_kuota }}</td>
                 <td>
                     <a class="btn btn-sm btn-warning m-1" title="lihat" href="{{ route('prodi.show',$prodi->id) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
-                    <a class="btn btn-sm btn-warning m-1" title="edit" href="/prodi/{{ $prodi->id }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
+                    <a class="btn btn-sm btn-warning m-1" title="edit" href="{{ url('prodi/'. $prodi->id .'/edit') }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('prodi.destroy', $prodi->id) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')

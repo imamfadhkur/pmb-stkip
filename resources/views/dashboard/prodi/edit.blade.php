@@ -37,7 +37,7 @@
             </div>
         @endif
     </div>
-    <a href="/prodi" class="btn btn-danger ms-2">cancel</a>
+    <a href="{{ url('prodi') }}" class="btn btn-danger ms-2">cancel</a>
     <button type="submit" class="btn btn-primary ms-2">Submit</button>
 </form>
 {{-- end content --}}

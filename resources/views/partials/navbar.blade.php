@@ -2,7 +2,7 @@
     <div class="container-fluid">
       
       <!-- Navbar Brand / Logo -->
-      <a class="navbar-brand" href="/" style="display: flex; align-items: center;">
+      <a class="navbar-brand" href="{{ url('/') }}" style="display: flex; align-items: center;">
         <img src="{{ asset('assets/images/logo-stkipbkl.png') }}" alt="Logo Kampus" width="50" height="50" class="d-inline-block align-text-top me-2">
         <div style="display: flex; flex-direction: column;">
           <h6 style="margin: 0;">Penerimaan Mahasiswa Baru</h6>
@@ -21,19 +21,19 @@
           @auth
           <!-- Menu Item 1 -->
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard">Dashboard</a>
+            <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
           </li>
           @can('auth')
-            <li><a class="nav-link" href="/pengumuman/index">Pengumumam</a></li>
+            <li><a class="nav-link" href="{{ url('pengumuman/index') }}">Pengumumam</a></li>
           @endcan
           @else
           <!-- Menu Item 1 -->
           <li class="nav-item">
-            <a class="nav-link" href="/beranda">Beranda</a>
+            <a class="nav-link" href="{{ url('beranda') }}">Beranda</a>
           </li>
           <!-- Menu Item 2 -->
           <li class="nav-item">
-            <a class="nav-link" href="/jalur-pendaftaran">Pendaftaran</a>
+            <a class="nav-link" href="{{ url('jalur-pendaftaran') }}">Pendaftaran</a>
           </li>
           @endauth
           
@@ -43,10 +43,10 @@
               Informasi
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/info-prodi">Progam Studi</a></li>
-              <li><a class="dropdown-item" href="/info-jalur-masuk">Informasi Jalur Masuk</a></li>
+              <li><a class="dropdown-item" href="{{ url('info-prodi') }}">Progam Studi</a></li>
+              <li><a class="dropdown-item" href="{{ url('info-jalur-masuk') }}">Informasi Jalur Masuk</a></li>
               @can('auth')
-              <li><a class="dropdown-item" href="/pengumuman/index">Pengumumam</a></li>
+              <li><a class="dropdown-item" href="{{ url('pengumuman/index') }}">Pengumumam</a></li>
               @endcan
             </ul>
           </li>
@@ -57,8 +57,8 @@
               profil
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/profil">data diri</a></li>
-              <li><a class="dropdown-item" href="/pemberkasan">pemberkasan</a></li>
+              <li><a class="dropdown-item" href="{{ url('profil') }}">data diri</a></li>
+              <li><a class="dropdown-item" href="{{ url('pemberkasan') }}">pemberkasan</a></li>
             </ul>
           </li>
           @endcan
@@ -70,7 +70,7 @@
               <button type="submit" class="btn btn-outline-light ms-2" onclick="return confirm('are you sure?')"><i class="bi bi-box-arrow-right"></i> Logout</button>
             </form>
           @else
-            <a class="btn btn-outline-light ms-2" href="/login"><i class="bi bi-box-arrow-left"></i> Login</a>
+            <a class="btn btn-outline-light ms-2" href="{{ url('login') }}"><i class="bi bi-box-arrow-left"></i> Login</a>
           @endauth
         </ul>
       </div>

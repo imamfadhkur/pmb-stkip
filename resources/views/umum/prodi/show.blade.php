@@ -4,7 +4,7 @@
 <div class="container my-5 p-5"> 
     <div class="row">
         <div class="col">
-            <h4 class="m-3"><a href="/" class="text-decoration-none text-dark"><i class="bi bi-house-door"></i>:</a> <a href="/info-prodi">Prodi</a> / <a href="/info-prodi/{{ $prodi->id }}" class="">{{ $prodi->nama }}</a></h4>
+            <h4 class="m-3"><a href="{{ url('/') }}" class="text-decoration-none text-dark"><i class="bi bi-house-door"></i>:</a> <a href="{{ url('info-prodi') }}">Prodi</a> / <a href="{{ url('info-prodi/'. $prodi->id) }}" class="">{{ $prodi->nama }}</a></h4>
             <div class="card m-3">
                 <div class="card-body">
                     <div class="mb-3">
@@ -17,7 +17,7 @@
                     </div>
                     <div>
                         <p class="card-text mt-3">{!! $prodi->deskripsi !!}</p>
-                        <i><a href="/info-prodi">Kembali...</a></i>
+                        <i><a href="{{ url('info-prodi') }}">Kembali...</a></i>
                     </div>
                 </div>
             </div>

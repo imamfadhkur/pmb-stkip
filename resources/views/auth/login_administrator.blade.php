@@ -31,7 +31,7 @@
                         </div>
                         <input type="hidden" value="admin" name="role">
                         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-                        <center class="mt-2"><a href="/" class="text-decoration-none">/home</a></center>
+                        <center class="mt-2"><a href="{{ url('/') }}" class="text-decoration-none">/home</a></center>
                     </form>
                 </main>
             </div>

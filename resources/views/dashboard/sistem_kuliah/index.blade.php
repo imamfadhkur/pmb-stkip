@@ -13,7 +13,7 @@
             {{ session('messageSuccess') }}
         </div>
     @endif
-    <a href="/sistem-kuliah/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data sistemKuliah</a>
+    <a href="{{ url('sistem-kuliah/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data sistemKuliah</a>
     <table class="table table-hover">
         <tr>
             <th>No.</th>
@@ -25,7 +25,7 @@
                 <td>{{ $loop->iteration }}.</td>
                 <td>{{ $sistemKuliah->nama }}</td>
                 <td>
-                    <a class="btn btn-sm btn-warning m-1" title="edit" href="/sistem-kuliah/{{ $sistemKuliah->id }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
+                    <a class="btn btn-sm btn-warning m-1" title="edit" href="{{ url('sistem-kuliah/'. $sistemKuliah->id .'/edit') }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('sistem-kuliah.destroy', $sistemKuliah->id) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')

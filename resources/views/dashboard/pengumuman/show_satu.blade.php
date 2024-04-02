@@ -11,7 +11,7 @@
                 @endif
                 <p>{!! $informasi->content !!}</p>
                 <br>
-                <a href="/pengumuman/index" class="btn btn-primary">kembali</a>
+                <a href="{{ url('pengumuman/index') }}" class="btn btn-primary">kembali</a>
             </div>
         </div>
     </div>

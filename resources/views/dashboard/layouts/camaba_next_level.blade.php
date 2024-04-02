@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $informasi->title }}</h5>
                     <p class="card-text">{!! Str::limit($informasi->content,50) !!}</p>
-                    <a href="/pengumuman/{{ $informasi->slug }}" class="btn btn-primary">Lihat</a>
+                    <a href="{{ url('pengumuman/'. $informasi->slug) }}" class="btn btn-primary">Lihat</a>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <a href="/pengumuman/index" class="btn btn-primary">Semua Pengumuman</a>
+            <a href="{{ url('pengumuman/index') }}" class="btn btn-primary">Semua Pengumuman</a>
         </div>
     </div>
 </div>

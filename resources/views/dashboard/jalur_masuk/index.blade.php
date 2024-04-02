@@ -13,7 +13,7 @@
             {{ session('messageSuccess') }}
         </div>
     @endif
-    <a href="/jalur-masuk/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data jalur masuk</a>
+    <a href="{{ url('jalur-masuk/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data jalur masuk</a>
     <table class="table table-hover">
         <tr>
             <th>No.</th>
@@ -36,7 +36,7 @@
                 <td>{{ $jalurMasuk->status }}</td>
                 <td>
                     <a class="btn btn-sm btn-warning m-1" title="lihat" href="{{ route('jalur-masuk.show',$jalurMasuk->id) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
-                    <a class="btn btn-sm btn-warning m-1" title="edit" href="/jalur-masuk/{{ $jalurMasuk->id }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
+                    <a class="btn btn-sm btn-warning m-1" title="edit" href="{{ url('jalur-masuk/' . $jalurMasuk->id . '/edit') }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('jalur-masuk.destroy', $jalurMasuk->id) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')

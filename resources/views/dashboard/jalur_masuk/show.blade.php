@@ -17,7 +17,7 @@
                 <p>sisa kuota: {{ ($jalurMasuk->jumlah_maks_pendaftar - $jalurMasuk->jumlah_pendaftar) }}</p>
                 <p>status: {{ $jalurMasuk->status }}</p>
                 <p class="mb-1">{!! $jalurMasuk->deskripsi !!}</p>
-                <a href="/jalur-masuk" class="btn btn-primary">back</a>
+                <a href="{{ url('jalur-masuk') }}" class="btn btn-primary">back</a>
                 <a href="{{ route('jalur-masuk.edit', $jalurMasuk->id) }}" class="btn btn-warning ms-2">edit</a>
             </div>
         </div>

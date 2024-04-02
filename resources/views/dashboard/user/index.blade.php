@@ -19,7 +19,7 @@
         </div>
     @endif
     <div style="display: flex; align-items: center">
-        <a style="margin-right: auto; margin-bottom: 0;" href="/user/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah User</a>
+        <a style="margin-right: auto; margin-bottom: 0;" href="{{ url('user/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah User</a>
         <form style="margin-left: auto; margin-bottom: 0;" action="/user-sort" method="GET" class="m-2">
             <label for="level">Tampilkan: </label>
             <select id="level" name="level" class="me-1">

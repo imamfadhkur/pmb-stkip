@@ -49,7 +49,7 @@
                             </div>
                         @endif
                     </div>
-                    <a href="/admin-pengumuman" class="btn btn-danger">cancel</a>
+                    <a href="{{ url('admin-pengumuman') }}" class="btn btn-danger">cancel</a>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>

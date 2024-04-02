@@ -4,7 +4,7 @@
 <div class="container my-5 p-5"> 
     <div class="row">
         <div class="col">
-            <h4 class="m-3"><a href="/" class="text-decoration-none text-dark"><i class="bi bi-house-door"></i>:</a> <a href="/info-jalur-masuk">Jalur Masuk</a> / <a href="/info-jalur-masuk/{{ $jalur_masuk->id }}" class="">{{ $jalur_masuk->nama }}</a></h4>
+            <h4 class="m-3"><a href="{{ url('/') }}" class="text-decoration-none text-dark"><i class="bi bi-house-door"></i>:</a> <a href="{{ url('info-jalur-masuk') }}">Jalur Masuk</a> / <a href="{{ url('info-jalur-masuk/'. $jalur_masuk->id) }}" class="">{{ $jalur_masuk->nama }}</a></h4>
             <div class="card m-3">
                 <div class="card-body">
                     <div class="mb-4">
@@ -20,7 +20,7 @@
                         <p>sisa kuota: {{ ($jalur_masuk->jumlah_maks_pendaftar - $jalur_masuk->jumlah_pendaftar) }}</p>
                         <p>status: {{ $jalur_masuk->status }}</p>
                         <p class="card-text mt-3">{!! $jalur_masuk->deskripsi !!}</p>
-                        <i><a href="/info-jalur-masuk">Kembali...</a></i>
+                        <i><a href="{{ url('info-jalur-masuk') }}">Kembali...</a></i>
                     </div>
                 </div>
             </div>

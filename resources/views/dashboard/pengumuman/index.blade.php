@@ -18,7 +18,7 @@
             {{ session('messageFailed') }}
         </div>
     @endif
-    <a href="/admin-pengumuman/create" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Buat pengumuman</a>
+    <a href="{{ url('admin-pengumuman/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Buat pengumuman</a>
     <table class="table table-hover">
         <tr>
             <th>No.</th>
@@ -31,7 +31,7 @@
                 <td>{{ $informasi->title }}</td>
                 <td>
                     <a class="btn btn-sm btn-primary m-1" title="lihat data" href="{{ route('admin-pengumuman.show', $informasi->slug) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
-                    <a class="btn btn-sm btn-warning m-1" title="edit" href="/admin-pengumuman/{{ $informasi->slug }}/edit" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
+                    <a class="btn btn-sm btn-warning m-1" title="edit" href="{{ url('admin-pengumuman/'. $informasi->slug .'/edit') }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('admin-pengumuman.destroy', $informasi->slug) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')

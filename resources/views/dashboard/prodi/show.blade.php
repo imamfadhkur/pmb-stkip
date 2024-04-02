@@ -12,7 +12,7 @@
 <b>sisa :</b> {{ $prodi->sisa_kuota }}</p>
 {{-- end content --}}
 <p class="mb-3">{!! $prodi->deskripsi !!}</p>
-<a href="/prodi" class="btn btn-primary">back</a>
+<a href="{{ url('prodi') }}" class="btn btn-primary">back</a>
 <a href="{{ route('prodi.edit', $prodi->id) }}" class="btn btn-warning ms-2">edit</a>
     </div>
 </div>

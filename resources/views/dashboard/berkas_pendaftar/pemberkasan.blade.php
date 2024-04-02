@@ -88,7 +88,7 @@
                         <td></td>
                         <td class="text-start">
                             <i class="text-danger">*Jika sudah mengisi dan ada preview file yang bisa di download, MOHON untuk TIDAK di upload ulang KECUALI salah file.</i> <br><br>
-                            <a href="/pemberkasan" class="btn btn-primary">Refresh</a>
+                            <a href="{{ url('pemberkasan') }}" class="btn btn-primary">Refresh</a>
                             <input type="submit" class="btn btn-success" value="Simpan">
                         </td>
                     </tr>

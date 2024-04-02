@@ -18,7 +18,7 @@
             {{ session('messageError') }}
         </div>
     @endif
-    <a href="/settings/create_sosmed" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah sosmed</a>
+    <a href="{{ url('settings/create_sosmed') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah sosmed</a>
     <table class="table table-hover">
         <tr>
             <th></th>
@@ -31,7 +31,7 @@
             <tr>
                 <td>{{ $loop->iteration }}.</td>
                 <td>{{ $sosmed->nama_platform }}</td>
-                <td><a href="{{ $sosmed->link }}" class="text-decoration-none" target="_blank">{{ $sosmed->link }}</a></td>
+                <td><a href="{{ url($sosmed->link) }}" class="text-decoration-none" target="_blank">{{ $sosmed->link }}</a></td>
                 <td>{!! $sosmed->icon !!}</td>
                 <td style="display: flex; gap: 10px;">
                     <form action="/settings/edit-sosmed" method="POST"> @csrf <input type="hidden" value="{{ $sosmed->id }}" name="id"><button type="submit" title="edit {{ $sosmed->nama_platform }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button></form>
