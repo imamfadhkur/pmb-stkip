@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action="asal-sekolah" method="POST">
+            <form action="{{ URL('asal-sekolah') }}" method="POST">
                 @csrf
                   <input type="text" value="{{ old('jenjang_pendidikan', $jenjang_pendidikan) }}" name="jenjang_pendidikan">
                   <input type="text" value="{{ old('sistem_kuliah', $sistem_kuliah) }}" name="sistem_kuliah">

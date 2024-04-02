@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-10">
                 <h3>Buat Pengumuman</h3>
-                <form action="/admin-pengumuman" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('admin-pengumuman') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <label class="mt-4" for="title">Judul:</label>
                     <input type="text" name="title" id="title" class="form-control" required>

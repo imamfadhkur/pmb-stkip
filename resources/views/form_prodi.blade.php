@@ -16,7 +16,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action="berkas" method="POST">
+            <form action="{{ url('berkas') }}" method="POST">
                 @csrf
                 
                 {{-- data hidden --}}

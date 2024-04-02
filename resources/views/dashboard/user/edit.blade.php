@@ -7,7 +7,7 @@
     @include('dashboard.layouts.navbar')
     
     {{-- content --}}
-    <form method="POST" action="/user/{{ $user->id }}">
+    <form method="POST" action="{{ url('user/'. $user->id) }}">
         @method('PUT')
     @csrf
     <div class="mb-3">

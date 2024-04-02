@@ -12,7 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav navbar-nav ml-auto">
           <li class="nav-item">
-              <form action="/logout" method="POST">
+              <form action="{{ url('logout') }}" method="POST">
                   @csrf
                   <button type="submit" class="btn btn-outline-dark ms-2" onclick="return confirm('are you sure?')"><i class="bi bi-box-arrow-right"></i> Logout</button>
               </form>

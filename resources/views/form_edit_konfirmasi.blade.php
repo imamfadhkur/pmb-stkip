@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action="daftar" method="POST">
+            <form action="{{ url('daftar') }}" method="POST">
                 @csrf
 
                 <table class="table mx-4">

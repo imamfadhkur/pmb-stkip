@@ -17,7 +17,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action="asal-sekolah" method="POST">
+            <form action="{{ url('asal-sekolah') }}" method="POST">
                 @csrf
                   <input type="hidden" value="{{ old('jenjang_pendidikan', $jenjang_pendidikan) }}" name="jenjang_pendidikan">
                   <input type="hidden" value="{{ old('sistem_kuliah', $sistem_kuliah) }}" name="sistem_kuliah">

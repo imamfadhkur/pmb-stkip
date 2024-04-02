@@ -5,7 +5,7 @@
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col">
             <table class="table" style="border-collapse: separate; border-spacing: 10px">
-                <form action="/simpan-pemberkasan" enctype="multipart/form-data" method="POST">
+                <form action="{{ url('simpan-pemberkasan') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <tr>
                         <td colspan="3">

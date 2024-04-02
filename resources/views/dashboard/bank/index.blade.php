@@ -30,7 +30,7 @@
                 <td>{{ $bank->nama_pemilik }}</td>
                 <td>
                     <a href="{{ url('/settings/edit-data-bank/' . $bank->id) }}" class="btn btn-sm btn-warning mb-2"><i class="bi bi-pencil"></i></a>
-                    <form class="d-inline" action="/settings/delete-data-bank/{{ $bank->id }}" method="post">
+                    <form class="d-inline" action="{{ url('settings/delete-data-bank/'.$bank->id) }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-danger mb-2" onclick="return confirm('yakin ingin dihapus?')"><i class="bi bi-trash"></i></button>
                     </form>

@@ -7,7 +7,7 @@
     @include('dashboard.layouts.navbar')
     
     {{-- content --}}
-    <form method="POST" action="/settings/update-sosmed">
+    <form method="POST" action="{{ url('settings/update-sosmed') }}">
     @csrf
     <input type="hidden" name="id" value="{{ $sosmed->id }}">
     <div class="mb-3">

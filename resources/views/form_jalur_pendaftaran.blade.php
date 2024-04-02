@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action="data-diri" method="POST">
+            <form action="{{ url('data-diri') }}" method="POST">
                 @csrf
                 <div class="form-group m-4">
                   <label for="jenjang_pendidikan">Jenjang Pendidikan</label>

@@ -65,7 +65,7 @@
           
           <!-- Login Button -->
           @auth
-            <form action="/logout" method="POST" class="ms-2">
+            <form action="{{ url('logout') }}" method="POST" class="ms-2">
               @csrf
               <button type="submit" class="btn btn-outline-light ms-2" onclick="return confirm('are you sure?')"><i class="bi bi-box-arrow-right"></i> Logout</button>
             </form>

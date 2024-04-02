@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-8">
       <h4>Silahkan rubah password anda terlebih dahulu</h4>
-<form action="/change-password" method="POST">
+<form action="{{ url('change-password') }}" method="POST">
     @csrf
     <div class="mb-3">
       <label class="form-label">Password</label>

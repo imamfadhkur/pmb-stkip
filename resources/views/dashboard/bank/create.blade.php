@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <form action="/settings/tambah-data-bank" method="POST">
+                <form action="{{ URL('settings/tambah-data-bank') }}" method="POST">
                     @csrf
                     <label class="mt-4" for="nama_bank">Nama Bank:</label>
                     <input type="text" name="nama_bank" class="form-control" required>

@@ -30,7 +30,7 @@
             </tr>
         @endforeach
     </table>
-    <form action="/upload-bukti-pembayaran-regist" method="POST" enctype="multipart/form-data">
+    <form action="{{ url('upload-bukti-pembayaran-regist') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="bukti_pembayaran" class="form-label text-danger">Upload Bukti Pembayaran* (Harus berupa gambar jenis png/jpg, maks. 5mb)</label>
         <input type="file" name="bukti_pembayaran" class="form-control @error('bukti_pembayaran')

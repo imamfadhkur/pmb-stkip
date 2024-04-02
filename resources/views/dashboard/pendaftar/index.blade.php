@@ -17,7 +17,7 @@
         <a href="{{ url('register/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data pendaftar</a>
         <a href="{{ route('export.register') }}" class="btn btn-success mb-2"><i class="bi bi-box-arrow-up-right"></i> Ekspor data</a>
       </div>
-      <form style="margin-left: auto; margin-bottom: 0;" action="/register-sort" method="GET" class="m-2">
+      <form style="margin-left: auto; margin-bottom: 0;" action="{{ url('register-sort') }}" method="GET" class="m-2">
         <label for="sort">urut berdasarkan: </label>
         <select id="sort" name="sort" class="me-1">
             <option value="nama" {{ request('sort') == 'nama' ? 'selected' : '' }}>Nama</option>
@@ -99,7 +99,7 @@
           <td>{{ $register->created_at->format('Y') }}</td>
           <td>
             <a class="btn btn-warning btn-sm m-1" title="lihat" href="{{ route('register.show',$register->email) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
-            <form action="/change-status-pembayaran" method="POST" class="d-inline">
+            <form action="{{ url('change-status-pembayaran') }}" method="POST" class="d-inline">
               @csrf
               <input type="hidden" name="regist_id" value="{{ $register->id }}">
               @if ($register->pembayaran === "belum")
@@ -126,7 +126,7 @@
                     <h1 class="modal-title fs-5" id="createModal{{ $register->id }}Label">Penempatan Prodi</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                <form method="POST" action="/change-status-diterima">
+                <form method="POST" action="{{ url('change-status-diterima') }}">
                 @csrf
                   <div class="modal-body">
                       <div class="form-group">
@@ -170,7 +170,7 @@
 
             @can('superadmin')
               <a class="btn btn-warning btn-sm m-1" title="edit" href="{{ route('register.edit',$register->email) }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
-              <form action="/hapus/{{ $register->id }}" method="POST" class="d-inline">
+              <form action="{{ url('hapus/'. $register->id) }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')
                 <input type="hidden" name="id" value="{{ $register->id }}">

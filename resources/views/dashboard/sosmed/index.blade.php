@@ -34,8 +34,8 @@
                 <td><a href="{{ url($sosmed->link) }}" class="text-decoration-none" target="_blank">{{ $sosmed->link }}</a></td>
                 <td>{!! $sosmed->icon !!}</td>
                 <td style="display: flex; gap: 10px;">
-                    <form action="/settings/edit-sosmed" method="POST"> @csrf <input type="hidden" value="{{ $sosmed->id }}" name="id"><button type="submit" title="edit {{ $sosmed->nama_platform }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button></form>
-                    <form action="/settings/delete-sosmed" method="POST"> @csrf <input type="hidden" value="{{ $sosmed->id }}" name="id"><button type="submit" title="hapus {{ $sosmed->nama_platform }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')"><i class="bi bi-trash"></i></button></form>
+                    <form action="{{ url('settings/edit-sosmed') }}" method="POST"> @csrf <input type="hidden" value="{{ $sosmed->id }}" name="id"><button type="submit" title="edit {{ $sosmed->nama_platform }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button></form>
+                    <form action="{{ url('settings/delete-sosmed') }}" method="POST"> @csrf <input type="hidden" value="{{ $sosmed->id }}" name="id"><button type="submit" title="hapus {{ $sosmed->nama_platform }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')"><i class="bi bi-trash"></i></button></form>
                 </td>                
             </tr>
         @endforeach

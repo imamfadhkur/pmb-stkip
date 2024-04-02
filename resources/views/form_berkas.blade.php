@@ -17,7 +17,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action="daftar" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('daftar') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                 @if ($errors->any())

@@ -16,7 +16,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action="/data-prodi" method="POST">
+            <form action="{{ url('data-prodi') }}" method="POST">
                 @csrf
                 
                 {{-- data hidden --}}

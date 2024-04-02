@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <form action="/settings/update-data-info-kampus" method="POST">
+                <form action="{{ url('settings/update-data-info-kampus') }}" method="POST">
                     @csrf
                     <label class="mt-4" for="name">Nama Kampus:</label>
                     <input type="text" name="name" class="form-control" value="{{ $name }}">

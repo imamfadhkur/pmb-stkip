@@ -7,7 +7,7 @@
     @include('dashboard.layouts.navbar')
     
     {{-- content --}}
-    <form method="POST" action="/user">
+    <form method="POST" action="{{ url('user') }}">
     @csrf
     <div class="mb-3">
         <label for="name" class="form-label">Nama</label>

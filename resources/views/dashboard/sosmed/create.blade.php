@@ -7,7 +7,7 @@
     @include('dashboard.layouts.navbar')
     
     {{-- content --}}
-    <form method="POST" action="/settings/store_sosmed">
+    <form method="POST" action="{{ url('settings/store_sosmed') }}">
     @csrf
     <div class="mb-3">
         <label for="nama_platform" class="form-label">Nama Platform</label>
