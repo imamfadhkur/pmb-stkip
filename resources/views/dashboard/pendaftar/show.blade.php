@@ -148,7 +148,7 @@
         @endif        
     </td>
 </tr>
-<tr>
+{{-- <tr>
     <td>SKHUN
     </td>
     <td>
@@ -158,7 +158,7 @@
         <i class="text-secondary">belum upload</i>
         @endif        
     </td>
-</tr>
+</tr> --}}
 <tr>
     <td>KK 
     </td>

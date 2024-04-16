@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Prodi;
@@ -244,6 +245,7 @@ class PendaftaranController extends Controller
             'jenjang_pendidikan' => $jenjang_pendidikan,
             'sistem_kuliah' => $sistem_kuliah,
             'jalur_masuk' => $jalur_masuk,
+            'banks' => Bank::all(),
             'nama' => $nama,
             'jk' => $jk,
             'hp' => $hp,
@@ -303,6 +305,7 @@ class PendaftaranController extends Controller
                 'jenjang_pendidikan' => $jenjang_pendidikan,
                 'sistem_kuliah' => $sistem_kuliah,
                 'jalur_masuk' => $jalur_masuk,
+                'banks' => Bank::all(),
                 'nama' => $nama,
                 'jk' => $jk,
                 'hp' => $hp,
@@ -328,6 +331,7 @@ class PendaftaranController extends Controller
             'jenjang_pendidikan' => $jenjang_pendidikan,
             'sistem_kuliah' => $sistem_kuliah,
             'jalur_masuk' => $jalur_masuk,
+            'banks' => Bank::all(),
             'nama' => $nama,
             'jk' => $jk,
             'hp' => $hp,
@@ -381,6 +385,7 @@ class PendaftaranController extends Controller
                 'jenjang_pendidikan' => $jenjang_pendidikan,
                 'sistem_kuliah' => $sistem_kuliah,
                 'jalur_masuk' => $jalur_masuk,
+                'banks' => Bank::all(),
                 'nama' => $nama,
                 'jk' => $jk,
                 'hp' => $hp,
@@ -423,6 +428,13 @@ class PendaftaranController extends Controller
                 'pilihan1' => 'required|different:pilihan2,pilihan3',
                 'pilihan2' => 'required|different:pilihan1,pilihan3',
                 'pilihan3' => 'required|different:pilihan1,pilihan2',
+                'pas_foto' => 'required|mimes:pdf|max:2048', 
+                'ijazah_skl' => 'required|mimes:pdf|max:2048',
+                // 'skhun' => 'required|mimes:pdf|max:2048',
+                'kk' => 'required|mimes:pdf|max:2048',
+                'ktp' => 'required|mimes:pdf|max:2048',
+                'akta' => 'required|mimes:pdf|max:2048',
+                'bukti_pembayaran' => 'required|image|mimes:png,jpgz|max:2048',
             ]);
 
             if ($validator->fails()) {
@@ -433,6 +445,7 @@ class PendaftaranController extends Controller
                     'jenjang_pendidikan' => $jenjang_pendidikan,
                     'sistem_kuliah' => $sistem_kuliah,
                     'jalur_masuk' => $jalur_masuk,
+                    'banks' => Bank::all(),
                     'nama' => $nama,
                     'jk' => $jk,
                     'hp' => $hp,
@@ -491,6 +504,7 @@ class PendaftaranController extends Controller
             $reg->pilihan1 = $pilihan1;
             $reg->pilihan2 = $pilihan2;
             $reg->pilihan3 = $pilihan3;
+            $reg->bukti_pembayaran = $request->file('bukti_pembayaran')->store('bukti-pembayaran');
             $reg->save();
 
             $berkas = new BerkasPendaftar;
@@ -500,7 +514,7 @@ class PendaftaranController extends Controller
             }
             $berkas->user_id = $user_id;
             foreach ($request->file() as $key => $file) {
-                if ($request->hasFile($key)) {
+                if ($request->hasFile($key) && $key !== 'bukti_pembayaran') {
                     $key_file = $key."_file";
                     if ($berkas->$key_file !== null) {
                         Storage::delete($berkas->$key_file);

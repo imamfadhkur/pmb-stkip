@@ -43,7 +43,7 @@
                         <td>:</td>
                         <td><input type="file" name="ijazah_skl" class="form-control"></td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td>SKHUN
                             <br>
                             @if (isset($berkas->skhun_file) && $berkas->skhun_file !== null)
@@ -52,7 +52,7 @@
                         </td>
                         <td>:</td>
                         <td><input type="file" name="skhun" class="form-control"></td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td>KK 
                             <br>

@@ -237,7 +237,7 @@
                 <input type="file" name="ijazah_skl" class="form-control">
             </td>
         </tr>
-        <tr>
+        {{-- <tr>
             <td>SKHUN
             </td>
             <td>
@@ -247,7 +247,7 @@
                 <br>
                 <input type="file" name="skhun" class="form-control">
             </td>
-        </tr>
+        </tr> --}}
         <tr>
             <td>KK 
             </td>

@@ -30,7 +30,7 @@
                 {{-- data hidden --}}
                 <input type="hidden" value="{{ $jenjang_pendidikan }}" name="jenjang_pendidikan">
                 <input type="hidden" value="{{ $sistem_kuliah }}" name="sistem_kuliah">
-                <input type="hidden" value="{{ $jalur_masuk }}" name="jalur_masuk">
+                <input type="hidden" value="{{ $jalur_masuk }}" name="jalur_masuk" id="jalur_masuk">
                 <input type="hidden" value="{{ $nama }}" name="nama">
                 <input type="hidden" value="{{ $jk }}" name="jk">
                 <input type="hidden" value="{{ $hp }}" name="hp">
@@ -54,31 +54,60 @@
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>Pas Foto</label>
                     <input type="file" name="pas_foto" class="form-control" required>
+                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
                 </div>
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>Ijazah/SKL</label>
                     <input type="file" name="ijazah_skl" class="form-control" required>
+                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
                 </div>
                 
-                <div class="form-group m-4">
-                    <label><span class="text-danger">*</span>SKHUN</label>
+                {{-- <div class="form-group m-4">
+                    <label><span class="text-danger">*</span>SKHUN (Surat Keterangan Hasil Ujian Nasional)</label>
                     <input type="file" name="skhun" class="form-control" required>
-                </div>
+                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
+                </div> --}}
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>KK</label>
                     <input type="file" name="kk" class="form-control" required>
+                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
                 </div>
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>KTP</label>
                     <input type="file" name="ktp" class="form-control" required>
+                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
                 </div>
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>Akta Kelahiran</label>
                     <input type="file" name="akta" class="form-control" required>
+                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
+                </div>
+                
+                <div class="form-group m-4">
+                    <p>Lakukan pembayaran sejumlah <span id="biaya_number"></span> ke salah satu rekening berikut ini:</p>
+                    <table border="1">
+                        <tr style="border: 1px solid black">
+                            <th style="border: 1px solid black; padding: 5px">#</th>
+                            <th style="border: 1px solid black; padding: 5px">Bank</th>
+                            <th style="border: 1px solid black; padding: 5px">Nama Rekening</th>
+                            <th style="border: 1px solid black; padding: 5px">Nomor Rekening</th>
+                        </tr>
+                        @foreach ($banks as $bank)
+                            <tr style="border: 1px solid black">
+                                <td style="border: 1px solid black; padding: 5px">{{ $loop->iteration }}.</td>
+                                <td style="border: 1px solid black; padding: 5px">{{ $bank->nama_bank }}</td>
+                                <td style="border: 1px solid black; padding: 5px">{{ $bank->nama_pemilik }}</td>
+                                <td style="border: 1px solid black; padding: 5px">{{ $bank->nomor_rekening }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    <label><span class="text-danger">*</span>Bukti Pembayaran</label>
+                    <input type="file" name="bukti_pembayaran" class="form-control" required>
+                    <span class="text-danger"><i>format file .jpg/.png, maks.2MB</i></span>
                 </div>
 
                 <button type="submit" class="btn btn-primary mx-4" value="save" name="type" onclick="return confirm('Apakah anda yakin data yang anda masukkan benar?')">Daftar</button>
@@ -87,4 +116,25 @@
     </div>
 </div>
 
+{{-- menampilkan biaya --}}
+<script>
+    $(document).ready(function() {
+      var selectElement = $('#jalur_masuk'); // Mengubah id menjadi jalur_masuk
+      // Add event listener for changes on select
+      updateData(selectElement); // Mengirimkan selectElement sebagai argumen
+    });
+  
+    function updateData(selectElement) { // Menerima selectElement sebagai parameter
+      var div_biaya = $('#biaya_number'); // Mengubah id menjadi jalur_masuk
+      var selectedJalurId = selectElement.val();
+      fetch('/fetch-biaya/' + selectedJalurId)
+        .then(response => response.json())
+        .then(data => {
+          div_biaya.html("Rp." + number_format(data.biaya, 0, ',', '.') + " ( " + terbilang(data.biaya) + ") untuk jalur " + data.name);
+        })
+        .catch(error => console.error('Error:', error));
+      // Perform actions based on selectedUserId (e.g., update content)
+    }
+  </script>
+  
 @endsection

@@ -5,7 +5,7 @@
         <div class="col col-md-8 col-lg-6">
                 <main class="form-signin p-4 shadow-lg">
                 <h1 class="h3 mb-3 fw-normal text-center">Please Login</h1>
-                <form action="{{ URL('login') }}" method="POST">
+                <form action="{{ url('login') }}" method="POST">
                     @csrf
                     @error('email')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>

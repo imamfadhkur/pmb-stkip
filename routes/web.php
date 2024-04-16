@@ -64,6 +64,8 @@ Route::get('/logout', function(){
     return redirect()->route('not-found');
 });
 
+Route::get('/fetch-biaya/{id}', [JalurMasukController::class, 'fetch_biaya']);
+
 Route::group(['middleware' => ['guest']], function () {
     Route::controller(PendaftaranController::class)->group(function () {
         Route::get('/jalur-pendaftaran', 'jalurPendaftaran');

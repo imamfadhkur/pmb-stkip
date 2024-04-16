@@ -130,4 +130,12 @@ class JalurMasukController extends Controller
         ]);
     }
 
+    public function fetch_biaya($id)
+    {
+        $jalurMasuk = JalurMasuk::where('id', $id)->firstOrFail();
+        return response()->json([
+            'biaya' => $jalurMasuk->biaya,
+            'name' => $jalurMasuk->nama
+        ]);
+    }
 }

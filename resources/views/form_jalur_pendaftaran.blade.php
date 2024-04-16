@@ -36,6 +36,7 @@
                     <option value="{{ $jm->id }}">{{ $jm->nama }}</option>
                     @endforeach
                   </select>
+                  <div class="text-danger" id="biaya"></div>
                 </div>
               
                 <button type="submit" class="btn btn-primary mx-4">Selanjutnya</button>
@@ -43,5 +44,29 @@
         </div>
     </div>
 </div>
+
+{{-- menampilkan biaya --}}
+<script>
+  $(document).ready(function() {
+    var selectElement = $('#jalur_masuk'); // Mengubah id menjadi jalur_masuk
+    // Add event listener for changes on select
+    updateData(selectElement); // Mengirimkan selectElement sebagai argumen
+    selectElement.on('change', function() {
+      updateData(selectElement); // Mengirimkan selectElement sebagai argumen
+    });
+  });
+
+  function updateData(selectElement) { // Menerima selectElement sebagai parameter
+    var div_biaya = $('#biaya'); // Mengubah id menjadi jalur_masuk
+    var selectedJalurId = selectElement.val();
+    fetch('/fetch-biaya/' + selectedJalurId)
+      .then(response => response.json())
+      .then(data => {
+        div_biaya.html("Biaya jalur " + data.name + " Rp." + number_format(data.biaya, 0, ',', '.'));
+      })
+      .catch(error => console.error('Error:', error));
+    // Perform actions based on selectedUserId (e.g., update content)
+  }
+</script>
 
 @endsection

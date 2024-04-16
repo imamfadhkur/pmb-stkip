@@ -25,7 +25,10 @@
     <!-- Magnific Popup core JS file -->
     <script src="{{ asset('assets/js/jquery.magnific-popup.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-
+    
+    {{-- script tambahan --}}
+    <script src="{{ asset('assets/js/my_script.js') }}"></script>
+    
     <title>{{ $title }}</title>
   </head>
   <body class="d-flex flex-column" style="height: fit-content">
