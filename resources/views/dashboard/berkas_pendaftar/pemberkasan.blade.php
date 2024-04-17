@@ -34,7 +34,7 @@
                         <td><input type="file" name="pas_foto" class="form-control"></td>
                     </tr>
                     <tr>
-                        <td>ijazah/skl
+                        <td>Ijazah/SKL/Foto Nilai Raport Terakhir
                             <br>
                             @if (isset($berkas->ijazah_skl_file) && $berkas->ijazah_skl_file !== null)
                                 <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->ijazah_skl_file) }}" download="{{ $berkas->ijazah_skl }}">{{ $berkas->ijazah_skl }}</a>

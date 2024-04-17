@@ -198,7 +198,8 @@
                 @enderror
             </td>
         </tr>
-        <tr><td>bukti pembayaran</td>
+        <tr><td>bukti pembayaran <br>
+            <span class="text-danger"><i>format file .jpg/.png, maks.2MB</i></span></td>
             <td>
                 <img class="img-preview" class="mb-2" src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="pengumuman" style="max-width: 100px;" hidden>
                 @if($register->bukti_pembayaran)
@@ -216,7 +217,8 @@
             </td>
         </tr>
         <tr>
-            <td>Pas Foto 3*4
+            <td>Pas Foto 3*4 <br>
+                <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
             </td>
             <td>
                 @if (isset($berkas->pas_foto_file) && $berkas->pas_foto_file !== null)
@@ -227,7 +229,8 @@
             </td>
         </tr>
         <tr>
-            <td>ijazah/skl
+            <td>Ijazah/SKL/Foto Nilai Raport Terakhir <br>
+                <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
             </td>
             <td>
                 @if (isset($berkas->ijazah_skl_file) && $berkas->ijazah_skl_file !== null)
@@ -238,7 +241,8 @@
             </td>
         </tr>
         {{-- <tr>
-            <td>SKHUN
+            <td>SKHUN <br>
+                <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
             </td>
             <td>
                 @if (isset($berkas->skhun_file) && $berkas->skhun_file !== null)
@@ -249,7 +253,8 @@
             </td>
         </tr> --}}
         <tr>
-            <td>KK 
+            <td>KK  <br>
+                <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
             </td>
             <td>
                 @if (isset($berkas->kk_file) && $berkas->kk_file !== null)
@@ -260,7 +265,8 @@
             </td>
         </tr>
         <tr>
-            <td>KTP 
+            <td>KTP  <br>
+                <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
             </td>
             <td>
                 @if (isset($berkas->ktp_file) && $berkas->ktp_file !== null)
@@ -271,7 +277,8 @@
             </td>
         </tr>
         <tr>
-            <td>Akta Kelahiran 
+            <td>Akta Kelahiran  <br>
+                <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
             </td>
             <td>
                 @if (isset($berkas->akta_file) && $berkas->akta_file !== null)

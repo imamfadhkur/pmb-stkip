@@ -58,7 +58,7 @@
                 </div>
                 
                 <div class="form-group m-4">
-                    <label><span class="text-danger">*</span>Ijazah/SKL</label>
+                    <label><span class="text-danger">*</span>Ijazah/SKL/Foto Nilai Raport Terakhir</label>
                     <input type="file" name="ijazah_skl" class="form-control" required>
                     <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
                 </div>
@@ -88,7 +88,7 @@
                 </div>
                 
                 <div class="form-group m-4">
-                    <p>Lakukan pembayaran sejumlah <span id="biaya_number"></span> ke salah satu rekening berikut ini:</p>
+                    <p>Lakukan pembayaran sejumlah <b><span id="biaya_number"></span></b> ke salah satu rekening berikut ini:</p>
                     <table border="1">
                         <tr style="border: 1px solid black">
                             <th style="border: 1px solid black; padding: 5px">#</th>
@@ -130,7 +130,7 @@
       fetch('/fetch-biaya/' + selectedJalurId)
         .then(response => response.json())
         .then(data => {
-          div_biaya.html("Rp." + number_format(data.biaya, 0, ',', '.') + " ( " + terbilang(data.biaya) + ") untuk jalur " + data.name);
+          div_biaya.html("Rp." + number_format(data.biaya, 0, ',', '.') + " ( " + terbilang(data.biaya) + ")");
         })
         .catch(error => console.error('Error:', error));
       // Perform actions based on selectedUserId (e.g., update content)
