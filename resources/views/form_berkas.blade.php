@@ -63,12 +63,6 @@
                     <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
                 </div>
                 
-                {{-- <div class="form-group m-4">
-                    <label><span class="text-danger">*</span>SKHUN (Surat Keterangan Hasil Ujian Nasional)</label>
-                    <input type="file" name="skhun" class="form-control" required>
-                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
-                </div> --}}
-                
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>KK</label>
                     <input type="file" name="kk" class="form-control" required>
@@ -85,6 +79,12 @@
                     <label><span class="text-danger">*</span>Akta Kelahiran</label>
                     <input type="file" name="akta" class="form-control" required>
                     <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
+                </div>
+                
+                <div class="form-group m-4">
+                    <label><span class="text-danger">*</span>Dokumen Pendukung Jalur Pendaftaran yang Anda Pilih ({{ $jalur_masuk_name }})</label>
+                    <input type="file" name="doc_pend_jalur_masuk" class="form-control">
+                    <span class="text-danger"><i>Upload dokumen pendukung jika diperlukan</i></span>
                 </div>
                 
                 <div class="form-group m-4">

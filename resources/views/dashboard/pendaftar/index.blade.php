@@ -20,6 +20,7 @@
       <form style="margin-left: auto; margin-bottom: 0;" action="{{ url('register-sort') }}" method="GET" class="m-2">
         <label for="sort">urut berdasarkan: </label>
         <select id="sort" name="sort" class="me-1">
+          <option value="created_at" {{ request('sort') == 'created_at' ? 'selected' : '' }}>Tanggal pendaftaran</option>
             <option value="nama" {{ request('sort') == 'nama' ? 'selected' : '' }}>Nama</option>
             <option value="nama_sekolah" {{ request('sort') == 'nama_sekolah' ? 'selected' : '' }}>Asal Sekolah</option>
             <option value="pembayaran" {{ request('sort') == 'pembayaran' ? 'selected' : '' }}>Status Pembayaran</option>
@@ -84,7 +85,7 @@
           </td>
           <td>
             @if ($register->pembayaran === "belum")
-                <p class="text-danger"><b>belum</b></p>
+                <p class="text-danger"><b>belum terverifikasi</b></p>
             @else
                 <p class="text-success"><b>sudah</b></p>
             @endif

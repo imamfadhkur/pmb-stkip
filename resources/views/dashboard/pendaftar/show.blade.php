@@ -120,6 +120,15 @@
             @endif
         </td>
     </tr>
+    <tr><td>Diterima di Prodi</td>
+        <td>
+            @if ($register->diterima_di !== null)
+                <p class="text-success"><b>{{ $register->diterimadi->nama }}</b></p>
+            @else
+                <p class="text-secondary"><i>belum ditentukan</i></p>
+            @endif
+        </td>
+    </tr>
     <tr><td>Bukti Pembayaran</td>
         <td>
             <img style="max-width: 100%;" src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="{{ $register->nama }}">
@@ -148,17 +157,6 @@
         @endif        
     </td>
 </tr>
-{{-- <tr>
-    <td>SKHUN
-    </td>
-    <td>
-        @if (isset($berkas->skhun_file) && $berkas->skhun_file !== null)
-            <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->skhun_file) }}" download="{{ $berkas->skhun }}">{{ $berkas->skhun }}</a>
-        @else
-        <i class="text-secondary">belum upload</i>
-        @endif        
-    </td>
-</tr> --}}
 <tr>
     <td>KK 
     </td>
@@ -193,10 +191,28 @@
     </td>
 </tr>
 <tr>
+    <td>Dokumen pendukung jalur masuk yang dipilih
+    </td>
+    <td>
+        @if (isset($berkas->doc_pend_jalur_masuk_file) && $berkas->doc_pend_jalur_masuk_file !== null)
+            <a style="color: blue; text-decoration: none" href="{{ asset('storage/'.$berkas->doc_pend_jalur_masuk_file) }}" download="{{ $berkas->doc_pend_jalur_masuk }}">{{ $berkas->doc_pend_jalur_masuk }}</a>
+        @else
+        <i class="text-secondary">belum upload</i>
+        @endif        
+    </td>
+</tr>
+<tr>
     <td>Periode Pendaftaran 
     </td>
     <td>
         {{ $register->created_at->format('Y') }}
+    </td>
+</tr>
+<tr>
+    <td>Tanggal Pendaftaran 
+    </td>
+    <td>
+        {{ $register->created_at->format('H:i:s d/m/Y') }}
     </td>
 </tr>
 </table>

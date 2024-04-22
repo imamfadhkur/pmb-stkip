@@ -245,6 +245,7 @@ class PendaftaranController extends Controller
             'jenjang_pendidikan' => $jenjang_pendidikan,
             'sistem_kuliah' => $sistem_kuliah,
             'jalur_masuk' => $jalur_masuk,
+            'jalur_masuk_name' => JalurMasuk::where('id', $jalur_masuk)->first()->nama,
             'banks' => Bank::all(),
             'nama' => $nama,
             'jk' => $jk,
@@ -434,7 +435,7 @@ class PendaftaranController extends Controller
                 'kk' => 'required|mimes:pdf|max:2048',
                 'ktp' => 'required|mimes:pdf|max:2048',
                 'akta' => 'required|mimes:pdf|max:2048',
-                'bukti_pembayaran' => 'required|image|mimes:png,jpgz|max:2048',
+                'bukti_pembayaran' => 'required|image|mimes:png,jpg|max:2048',
             ]);
 
             if ($validator->fails()) {
@@ -445,6 +446,7 @@ class PendaftaranController extends Controller
                     'jenjang_pendidikan' => $jenjang_pendidikan,
                     'sistem_kuliah' => $sistem_kuliah,
                     'jalur_masuk' => $jalur_masuk,
+                    'jalur_masuk_name' => JalurMasuk::where('id', $jalur_masuk)->first()->nama,
                     'banks' => Bank::all(),
                     'nama' => $nama,
                     'jk' => $jk,

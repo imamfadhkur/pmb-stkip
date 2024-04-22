@@ -23,7 +23,7 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        $registers = Register::paginate(10);
+        $registers = Register::orderBy('created_at', 'desc')->paginate(10);
         return view('dashboard.pendaftar.index', [
             'registers' => $registers,
             'title' => 'register'
