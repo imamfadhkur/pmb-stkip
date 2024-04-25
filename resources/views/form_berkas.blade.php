@@ -54,31 +54,31 @@
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>Pas Foto</label>
                     <input type="file" name="pas_foto" class="form-control" required>
-                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
+                    <span class="text-danger"><i>format file pdf/jpg/png, maks.1MB</i></span>
                 </div>
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>Ijazah/SKL/Foto Nilai Raport Terakhir</label>
                     <input type="file" name="ijazah_skl" class="form-control" required>
-                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
+                    <span class="text-danger"><i>format file pdf/jpg/png, maks.1MB</i></span>
                 </div>
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>KK</label>
                     <input type="file" name="kk" class="form-control" required>
-                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
+                    <span class="text-danger"><i>format file pdf/jpg/png, maks.1MB</i></span>
                 </div>
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>KTP</label>
                     <input type="file" name="ktp" class="form-control" required>
-                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
+                    <span class="text-danger"><i>format file pdf/jpg/png, maks.1MB</i></span>
                 </div>
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>Akta Kelahiran</label>
                     <input type="file" name="akta" class="form-control" required>
-                    <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
+                    <span class="text-danger"><i>format file pdf/jpg/png, maks.1MB</i></span>
                 </div>
                 
                 <div class="form-group m-4">
@@ -107,7 +107,7 @@
                     </table>
                     <label><span class="text-danger">*</span>Bukti Pembayaran</label>
                     <input type="file" name="bukti_pembayaran" class="form-control" required>
-                    <span class="text-danger"><i>format file .jpg/.png, maks.2MB</i></span>
+                    <span class="text-danger"><i>format file pdf/jpg/png, maks.1MB</i></span>
                 </div>
 
                 <button type="submit" class="btn btn-primary mx-4" value="save" name="type" onclick="return confirm('Apakah anda yakin data yang anda masukkan benar?')">Daftar</button>

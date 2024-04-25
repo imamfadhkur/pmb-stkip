@@ -12,10 +12,13 @@
                     @enderror
                     <div class="form-group mt-4">
                         @isset($username)
-                        <input type="hidden" value="{{ $username }}" name="oldemail">
+                        {{-- <input type="hidden" value="{{ $username }}" name="oldemail">
                         <input type="hidden" value="{{ $password }}" name="oldpassword">
                         <div class="alert alert-warning" role="alert">
                             <p>Catat dan simpan data berikut ini untuk login anda: <br>Username: {{ $username }} <br>Password: {{ $password }} <br>dan rubah password anda ketika login</p>
+                        </div> --}}
+                        <div class="alert alert-warning" role="alert">
+                            <p>Pendaftaran berhasil, untuk info selanjutnya bisa dilihat di website <a href="https://stkippgri-bkl.ac.id/">STKIP PGRI Bangkalan</a></p>
                         </div>
                         @endisset
                         Username/Email

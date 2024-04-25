@@ -429,13 +429,13 @@ class PendaftaranController extends Controller
                 'pilihan1' => 'required|different:pilihan2,pilihan3',
                 'pilihan2' => 'required|different:pilihan1,pilihan3',
                 'pilihan3' => 'required|different:pilihan1,pilihan2',
-                'pas_foto' => 'required|mimes:pdf|max:2048', 
-                'ijazah_skl' => 'required|mimes:pdf|max:2048',
-                // 'skhun' => 'required|mimes:pdf|max:2048',
-                'kk' => 'required|mimes:pdf|max:2048',
-                'ktp' => 'required|mimes:pdf|max:2048',
-                'akta' => 'required|mimes:pdf|max:2048',
-                'bukti_pembayaran' => 'required|image|mimes:png,jpg|max:2048',
+                'pas_foto' => 'required|mimes:pdf,jpg,png|max:1024', 
+                'ijazah_skl' => 'required|mimes:pdf,jpg,png|max:1024',
+                // 'skhun' => 'required|mimes:pdf,jpg,png|max:1024',
+                'kk' => 'required|mimes:pdf,jpg,png|max:1024',
+                'ktp' => 'required|mimes:pdf,jpg,png|max:1024',
+                'akta' => 'required|mimes:pdf,jpg,png|max:1024',
+                'bukti_pembayaran' => 'required|image|mimes:pdf,jpg,png|max:1024',
             ]);
 
             if ($validator->fails()) {
