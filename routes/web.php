@@ -18,6 +18,7 @@ use App\Http\Controllers\JalurMasukController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\SistemKuliahController;
 use App\Http\Controllers\BerkasPendaftarController;
+use App\Http\Controllers\JalurMasukProdiController;
 use App\Http\Controllers\PostDaftarUlangController;
 use App\Http\Controllers\JenjangPendidikanController;
 
@@ -127,6 +128,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('/prodi', ProdiController::class);
         Route::resource('/jenjang-pendidikan', JenjangPendidikanController::class);
         Route::resource('/sistem-kuliah', SistemKuliahController::class);
+        Route::resource('/jalur-masuk-prodi', JalurMasukProdiController::class);
     });
     Route::resource('/admin-pengumuman', InformasiController::class)->middleware('administrator')->parameters([
         'admin-pengumuman' => 'informasi'
