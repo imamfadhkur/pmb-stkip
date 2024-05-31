@@ -8,6 +8,7 @@ use App\Models\Register;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\BerkasPendaftar;
+use App\Models\JalurMasukProdi;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -249,6 +250,11 @@ class RegisterController extends Controller
         $register->status_diterima = "diterima";
         $register->save();
         $registers = Register::paginate(10);
+
+        // buat update ke tabel jalur_masuk_prodis untuk mengurangi jumlah kuota berdasar prodi yang diterima
+        $jmp = JalurMasukProdi::where('jalur_masuk_id', $register->jalur_masuk_id)->where('prodi_id', $register->diterima_di)->first();
+        $jmp->update(['kuota' => $jmp->kuota - 1]);
+        $jmp->save();
 
         return redirect()->route('register.index')->with([
             'registers' => $registers,

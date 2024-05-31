@@ -107,7 +107,7 @@
                     </table>
                     <label><span class="text-danger">*</span>Bukti Pembayaran</label>
                     <input type="file" name="bukti_pembayaran" class="form-control" required>
-                    <span class="text-danger"><i>format file pdf/jpg/png, maks.1MB</i></span>
+                    <span class="text-danger"><i>format file jpg/png, maks.1MB</i></span>
                 </div>
 
                 <button type="submit" class="btn btn-primary mx-4" value="save" name="type" onclick="return confirm('Apakah anda yakin data yang anda masukkan benar?')">Daftar</button>

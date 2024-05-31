@@ -11,9 +11,13 @@ class JalurMasukProdi extends Model
 
     protected $guarded = ['id'];
 
-    public function prodis()
+    // public function prodis()
+    // {
+    //     return $this->hasMany(Prodi::class, 'prodi_id', 'id');
+    // }
+    public function prodi()
     {
-        return $this->hasMany(Prodi::class, 'prodi_id', 'id');
+        return $this->belongsTo(Prodi::class, 'prodi_id');
     }
 
     public function jalur_masuks()

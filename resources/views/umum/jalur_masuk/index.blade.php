@@ -21,7 +21,7 @@
                             $desk = Str::limit($deskripsi, rand(160, 200)); // membatasi jumlah karakter secara random
                         @endphp
                         <p class="card-text">{!! $desk !!}</p>
-                        <p class="card-text">sisa kuota: {{ ($jalur_masuk->jumlah_maks_pendaftar - $jalur_masuk->jumlah_pendaftar) }}</p>
+                        <p class="card-text">tersisa untuk: {{ $jalur_masuk->available.' prodi' }}</p>
                       <a href="{{ url('info-jalur-masuk/'. $jalur_masuk->id) }}" class="">Selengkapnya</a>
                     </div>
                     <div class="card-footer text-body-secondary">
@@ -34,7 +34,7 @@
         </div>
     @endforeach
     <div class="row">
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-center">
             {{ $jalur_masuks->links() }}
         </div>
     </div>

@@ -12,11 +12,6 @@ class JalurMasuk extends Model
         'id'
     ];
 
-    public function scopeAktif($query)
-    {
-        return $query->where('status', 'aktif')->whereRaw('jumlah_pendaftar < jumlah_maks_pendaftar');
-    }
-
     public function registers()
     {
         return $this->hasMany(Register::class);

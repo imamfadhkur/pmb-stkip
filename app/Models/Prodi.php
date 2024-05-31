@@ -16,4 +16,9 @@ class Prodi extends Model
     // {
     //     return $this->hasMany(Register::class);
     // }
+
+    public function jalurMasukProdis()
+    {
+        return $this->hasMany(JalurMasukProdi::class, 'prodi_id');
+    }
 }

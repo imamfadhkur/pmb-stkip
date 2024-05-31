@@ -37,6 +37,7 @@
                     @endforeach
                   </select>
                   <div class="text-danger" id="biaya"></div>
+                  <p>Mohon untuk mengecek terlebih dahulu <a href="{{ url('info-jalur-masuk') }}">ketersediaan kuota tiap prodi</a> untuk jalur masuk yang ingin anda pilih.</p>
                 </div>
               
                 <button type="submit" class="btn btn-primary mx-4">Selanjutnya</button>

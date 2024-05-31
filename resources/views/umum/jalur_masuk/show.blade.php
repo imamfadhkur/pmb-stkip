@@ -17,8 +17,27 @@
                         <p>biaya: {{ $jalur_masuk->biaya }}</p>
                         <p>jumlah pendaftar: {{ $jalur_masuk->jumlah_pendaftar }}</p>
                         <p>jumlah maksimum pendaftar: {{ $jalur_masuk->jumlah_maks_pendaftar }}</p>
-                        <p>sisa kuota: {{ ($jalur_masuk->jumlah_maks_pendaftar - $jalur_masuk->jumlah_pendaftar) }}</p>
-                        <p>status: {{ $jalur_masuk->status }}</p>
+                        <p>
+                            <table class="table table-border table-hover">
+                                <tr>
+                                    <td>prodi</td>
+                                    <td>sisa kuota</td>
+                                </tr>
+                                @if (count($jalur_masuk_prodi) == 0)
+                                    <tr>
+                                        <td colspan="2"><i class="text-secondary">tidak ada data</i></td>
+                                    </tr>
+                                @else
+                                    @foreach ($jalur_masuk_prodi as $jmp)
+                                        <tr>
+                                            <td>{{ $jmp->prodi_name }}</td>
+                                            <td>{{ $jmp->kuota }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </table>
+                        </p>
+                        {{-- <p>status: {{ $jalur_masuk->status }}</p> --}}
                         <p class="card-text mt-3">{!! $jalur_masuk->deskripsi !!}</p>
                         <i><a href="{{ url('info-jalur-masuk') }}">Kembali...</a></i>
                     </div>

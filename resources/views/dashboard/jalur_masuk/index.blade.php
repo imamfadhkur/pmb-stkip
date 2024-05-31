@@ -13,6 +13,11 @@
             {{ session('messageSuccess') }}
         </div>
     @endif
+    @if (session('messageFail'))
+        <div class="alert alert-success">
+            {{ session('messageFail') }}
+        </div>
+    @endif
     <a href="{{ url('jalur-masuk/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data jalur masuk</a>
     <table class="table table-hover">
         <tr>
@@ -20,8 +25,8 @@
             <th>Nama Jalur</th>
             <th>Biaya</th>
             <th>Jumlah Pendaftar</th>
-            <th>Jumlah Maksimal Pendaftar</th>
-            <th>Sisa Kouta</th>
+            <th>Kuota Tersedia</th>
+            <th>Kuota Terpenuhi</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -31,8 +36,8 @@
                 <td>{{ $jalurMasuk->nama }}</td>
                 <td>{{ $jalurMasuk->biaya }}</td>
                 <td>{{ $jalurMasuk->jumlah_pendaftar }}</td>
-                <td>{{ $jalurMasuk->jumlah_maks_pendaftar }}</td>
-                <td>{{ ($jalurMasuk->jumlah_maks_pendaftar - $jalurMasuk->jumlah_pendaftar) }}</td>
+                <td>{{ $jalurMasuk->available }} prodi</td>
+                <td>{{ $jalurMasuk->unavailable }} prodi</td>
                 <td>{{ $jalurMasuk->status }}</td>
                 <td>
                     <a class="btn btn-sm btn-warning m-1" title="lihat" href="{{ route('jalur-masuk.show',$jalurMasuk->id) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>

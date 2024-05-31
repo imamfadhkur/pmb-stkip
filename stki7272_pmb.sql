@@ -345,7 +345,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (28, '2023_08_24_034357_create_diterima_di_at_registers_table', 9),
 (29, '2023_11_09_002635_create_kuota_to_prodis_table', 10),
 (30, '2023_11_09_005615_add_sisa_kuota_column_and_trigger_to_prodis_table', 11),
-(31, '2023_11_29_084001_insert_columns_to_registers_table', 12);
+(31, '2023_11_29_084001_insert_columns_to_registers_table', 12),
+(32, '2024_04_19_083432_add_column_to_berkas_pendaftars_table', 13);
 
 -- --------------------------------------------------------
 

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bank;
 use Carbon\Carbon;
+use App\Models\Bank;
 use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Register;
@@ -12,6 +12,7 @@ use App\Rules\ThreeDiffVal;
 use App\Models\SistemKuliah;
 use Illuminate\Http\Request;
 use App\Models\BerkasPendaftar;
+use App\Models\JalurMasukProdi;
 use App\Models\JenjangPendidikan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,26 @@ class PendaftaranController extends Controller
     {
         $jenjang_pendidikan = JenjangPendidikan::all();
         $sistem_kuliah = SistemKuliah::all();
-        $jalur_masuk = JalurMasuk::aktif()->get();
+        
+        $jalur_masuk = JalurMasukProdi::select(
+            'jalur_masuk_prodis.jalur_masuk_id',
+            'jalur_masuks.id',
+            'jalur_masuks.nama',
+            'jalur_masuks.deskripsi',
+            'jalur_masuks.biaya',
+            'jalur_masuks.status'
+        )
+        ->join('jalur_masuks', 'jalur_masuk_prodis.jalur_masuk_id', '=', 'jalur_masuks.id')
+        ->where('jalur_masuk_prodis.kuota', '>', 0)
+        ->groupBy(
+            'jalur_masuk_prodis.jalur_masuk_id',
+            'jalur_masuks.id',
+            'jalur_masuks.nama',
+            'jalur_masuks.deskripsi',
+            'jalur_masuks.biaya',
+            'jalur_masuks.status'
+        )
+        ->get();
 
         return view('form_jalur_pendaftaran', [
             'jenjang_pendidikan' => $jenjang_pendidikan,
@@ -157,7 +177,19 @@ class PendaftaranController extends Controller
         }
         
 
-        $prodis = Prodi::where('sisa_kuota', '>', 0)->get();
+        // $prodis = Prodi::where('sisa_kuota', '>', 0)->get();
+        // $available = JalurMasukProdi::select('jalur_masuk_prodis.*', 'prodis.nama as prodi_name')
+        //     ->join('prodis', 'jalur_masuk_prodis.prodi_id', '=', 'prodis.id')
+        //     ->where('jalur_masuk_prodis.kuota', '>', 0)
+        //     ->where('jalur_masuk_prodis.jalur_masuk_id', $jalurMasuk->id)
+        //     ->get();
+        
+        $prodis = Prodi::select('prodis.*')
+            ->join('jalur_masuk_prodis', 'prodis.id', '=', 'jalur_masuk_prodis.prodi_id')
+            ->where('prodis.sisa_kuota', '>', 0)
+            ->where('jalur_masuk_prodis.jalur_masuk_id', $jalur_masuk)
+            ->where('jalur_masuk_prodis.kuota', '>', 0)
+            ->get();
 
         return view('form_prodi', [
             'jenjang_pendidikan' => $jenjang_pendidikan,
