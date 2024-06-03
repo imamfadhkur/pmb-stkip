@@ -296,46 +296,58 @@ class RegisterController extends Controller
 
     public function export()
     {
+        // dd('here');
         $collections = Register::all();
         $filename = 'data_camaba.csv';
-        $output = fopen('php://output', 'w');
-        fputcsv($output, ['no', 'nama', 'jenis kelamin', 'hp', 'email', 'tempat tanggal lahir', 'alamat', 'kewarganegaraan',  'nik', 'nama ibu', 'jenjang pendidikan', 'sistem kuliah', 'jalur masuk', 'asal sekolah', 'jenis sekolah', 'jurusan', 'tahun lulus', 'nisn', 'alamat sekolah', 'pilihan 1', 'pilihan 2', 'pilihan 3', 'pembayaran', 'status di terima', 'periode pendaftaran']);
-        foreach ($collections as $index => $item) {
-            fputcsv($output, [
-                $index + 1,
-                $item->nama,
-                $item->jk,
-                $item->hp,
-                $item->email,
-                $item->tempat_lahir.', '.Carbon::parse($item->tanggal_lahir)->format('d-m-Y'),
-                $item->alamat,
-                $item->kewarganegaraan,
-                $item->identitas_kewarganegaraan,
-                $item->nama_ibu,
-                $item->jenjangPendidikan->nama,
-                $item->sistemKuliah->nama,
-                $item->jalurMasuk->nama,
-                $item->nama_sekolah,
-                $item->jenis_sekolah,
-                $item->jurusan_sekolah,
-                $item->tahun_lulus,
-                $item->nisn,
-                $item->alamat_sekolah,
-                $item->pilihan1Prodi->nama,
-                $item->pilihan2Prodi->nama,
-                $item->pilihan3Prodi->nama,
-                $item->pembayaran,
-                $item->status_diterima,
-                $item->created_at->format('Y'),
-            ]);
-        }
 
-        fclose($output);
+        // Menyiapkan header respons
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ];
 
-        return Response::make('', 200, $headers);
+        // Menggunakan callback untuk menulis data ke output
+        $callback = function() use ($collections) {
+            $output = fopen('php://output', 'w');
+            
+            // Menulis header CSV
+            fputcsv($output, ['no', 'nama', 'jenis kelamin', 'hp', 'email', 'tempat tanggal lahir', 'alamat', 'kewarganegaraan',  'nik', 'nama ibu', 'jenjang pendidikan', 'sistem kuliah', 'jalur masuk', 'asal sekolah', 'jenis sekolah', 'jurusan', 'tahun lulus', 'nisn', 'alamat sekolah', 'pilihan 1', 'pilihan 2', 'pilihan 3', 'pembayaran', 'status di terima', 'periode pendaftaran'], ';');
+            
+            // Menulis data ke CSV
+            foreach ($collections as $index => $item) {
+                fputcsv($output, [
+                    $index + 1,
+                    $item->nama,
+                    $item->jk,
+                    $item->hp."\t",
+                    $item->email,
+                    $item->tempat_lahir.', '.Carbon::parse($item->tanggal_lahir)->format('d-m-Y'),
+                    $item->alamat,
+                    $item->kewarganegaraan,
+                    $item->identitas_kewarganegaraan."\t",
+                    $item->nama_ibu,
+                    $item->jenjangPendidikan->nama,
+                    $item->sistemKuliah->nama,
+                    $item->jalurMasuk->nama,
+                    $item->nama_sekolah,
+                    $item->jenis_sekolah,
+                    $item->jurusan_sekolah,
+                    $item->tahun_lulus,
+                    $item->nisn."\t",
+                    $item->alamat_sekolah,
+                    $item->pilihan1Prodi->nama,
+                    $item->pilihan2Prodi->nama,
+                    $item->pilihan3Prodi->nama,
+                    $item->pembayaran,
+                    ($item->status_diterima == 'diterima') ? 'diterima di '.$item->diterimadi->nama : $item->status_diterima,
+                    $item->created_at->format('Y'),
+                ], ';');
+            }
+
+            fclose($output);
+        };
+
+        // Mengirimkan response dengan headers yang benar dan output CSV
+        return Response::stream($callback, 200, $headers);
     }
 }
