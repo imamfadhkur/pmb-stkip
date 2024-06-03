@@ -289,6 +289,41 @@ class RegisterController extends Controller
     public function hapus($id)
     {
         $register = Register::findOrFail($id);
+        if ($register->diterima_di !== null)
+        {
+            $jmp = JalurMasukProdi::where('jalur_masuk_id', $register->jalur_masuk_id)->where('prodi_id', $register->diterima_di)->first();
+            $kuo = $jmp->kuota;
+            $jmp->kuota = $kuo + 1;
+            $jmp->save();
+        }
+        if ($register->bukti_pembayaran) {
+            Storage::delete($register->bukti_pembayaran);
+        }
+        if (BerkasPendaftar::where('user_id', $register->user_id)->first()) {
+            $berkas = BerkasPendaftar::where('user_id', $register->user_id)->first();
+            if ($berkas->ijazah_skl_file) {
+                Storage::delete($berkas->ijazah_skl_file);
+            }
+            if ($berkas->skhun_file) {
+                Storage::delete($berkas->skhun_file);
+            }
+            if ($berkas->akta_file) {
+                Storage::delete($berkas->akta_file);
+            }
+            if ($berkas->kk_file) {
+                Storage::delete($berkas->kk_file);
+            }
+            if ($berkas->ktp_file) {
+                Storage::delete($berkas->ktp_file);
+            }
+            if ($berkas->pas_foto_file) {
+                Storage::delete($berkas->pas_foto_file);
+            }
+            if ($berkas->doc_pend_jalur_masuk_file) {
+                Storage::delete($berkas->doc_pend_jalur_masuk_file);
+            }
+            $berkas->delete();
+        }
         $register->delete();
         
         return redirect('/register')->with('messageSuccess', 'Data berhasil dihapus');
