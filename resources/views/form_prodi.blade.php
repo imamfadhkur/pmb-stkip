@@ -74,7 +74,7 @@
                     @endif
                     @endforeach
                 </select>
-                <i class="text-danger">3 pilihan tidak boleh sama.</i><br>
+                <i class="text-danger">disarankan untuk memilih 3 prodi yang berbeda.</i><br>
                 </div>
 
                 <button type="submit" class="btn btn-primary mx-4">Selanjutnya</button>

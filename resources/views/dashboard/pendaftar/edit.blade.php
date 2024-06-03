@@ -180,7 +180,7 @@
         </tr>
         <tr>
             <td></td>
-            <td><i class="text-danger">3 pilihan tidak boleh sama.</i><br></td>
+            <td><i class="text-danger">disarankan untuk memilih 3 prodi yang berbeda.</i><br></td>
         </tr>
         <tr>
             <td>Pembayaran</td>

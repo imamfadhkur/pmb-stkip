@@ -242,12 +242,17 @@ class PendaftaranController extends Controller
         $pilihan3 = $request->pilihan3;
 
         $errorProdi = 'salah';
-        if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
-            $errorProdi = 'Pilihan prodi tidak boleh sama.';
-        }
+        // if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
+        //     $errorProdi = 'Pilihan prodi tidak boleh sama.';
+        // }
 
         if ($errorProdi !== 'salah') {
-            $prodis = Prodi::where('sisa_kuota', '>', 0)->get();
+            $prodis = Prodi::select('prodis.*')
+            ->join('jalur_masuk_prodis', 'prodis.id', '=', 'jalur_masuk_prodis.prodi_id')
+            ->where('prodis.sisa_kuota', '>', 0)
+            ->where('jalur_masuk_prodis.jalur_masuk_id', $jalur_masuk)
+            ->where('jalur_masuk_prodis.kuota', '>', 0)
+            ->get();
             return view('form_prodi', [
                 'jenjang_pendidikan' => $jenjang_pendidikan,
                 'sistem_kuliah' => $sistem_kuliah,
@@ -328,9 +333,9 @@ class PendaftaranController extends Controller
         $pilihan3 = $request->pilihan3;
 
         $errorProdi = 'salah';
-        if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
-            $errorProdi = 'Pilihan prodi tidak boleh sama.';
-        }
+        // if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
+        //     $errorProdi = 'Pilihan prodi tidak boleh sama.';
+        // }
 
         if ($errorProdi !== 'salah') {
             $prodis = Prodi::where('sisa_kuota', '>', 0)->get();

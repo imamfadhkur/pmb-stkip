@@ -89,9 +89,9 @@ class RegisterController extends Controller
             'alamat_sekolah' => 'required',
             'nama_ibu' => 'required',
             'nisn' => 'required|numeric',
-            'pilihan1' => 'required|different:pilihan2,pilihan3',
-            'pilihan2' => 'required|different:pilihan1,pilihan3',
-            'pilihan3' => 'required|different:pilihan1,pilihan2',
+            'pilihan1' => 'required',
+            'pilihan2' => 'required',
+            'pilihan3' => 'required',
         ]);
 
         $user = new User;
@@ -183,9 +183,9 @@ class RegisterController extends Controller
             'nama_ibu' => 'required',
             'nisn' => 'required|numeric',
             'alamat_sekolah' => 'required',
-            'pilihan1' => 'required|different:pilihan2,pilihan3',
-            'pilihan2' => 'required|different:pilihan1,pilihan3',
-            'pilihan3' => 'required|different:pilihan1,pilihan2',
+            'pilihan1' => 'required',
+            'pilihan2' => 'required',
+            'pilihan3' => 'required',
             'pembayaran' => ['required', Rule::in(['sudah', 'belum'])],
             'status_diterima' => ['required', Rule::in(['diterima', 'tidak diterima'])],
         ]));
