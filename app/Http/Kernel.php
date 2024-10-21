@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'administrator' => AdminOrSuperadmin::class,
         'superadmin' => Superadmin::class,
+        'limitLoginAttempts' => \App\Http\Middleware\LimitLoginAttempts::class,
     ];
 }

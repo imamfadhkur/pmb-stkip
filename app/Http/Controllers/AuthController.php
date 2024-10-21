@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -38,6 +39,10 @@ class AuthController extends Controller
         }
 
         if (!$user) {
+            // Tingkatkan jumlah percobaan login
+            $attempts = Session::get('login_attempts', 0);
+            Session::put('login_attempts', $attempts + 1);
+
             // error tidak berlaku ketika username atau input tidak berformat email
             return back()->withErrors([
                 'email' => 'Email atau password tidak benar.'
@@ -55,6 +60,9 @@ class AuthController extends Controller
                     ]);
                 }
             }
+            // Reset jumlah percobaan login
+            Session::forget('login_attempts');
+            
             return redirect('/dashboard');
         }
         
