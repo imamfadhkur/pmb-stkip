@@ -21,6 +21,7 @@
     <div style="display: flex; align-items: center">
         <a style="margin-right: auto; margin-bottom: 0;" href="{{ url('user/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah User</a>
         <form style="margin-left: auto; margin-bottom: 0;" action="{{ url('user-sort') }}" method="GET" class="m-2">
+            @csrf
             <label for="level">Tampilkan: </label>
             <select id="level" name="level" class="me-1">
             <option value="semua" {{ request('level') == 'semua' ? 'selected' : '' }}>semua</option>

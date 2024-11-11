@@ -69,20 +69,20 @@ class PendaftaranController extends Controller
 
     public function asalSekolah(Request $request)
     {
-        $jenjang_pendidikan = $request->jenjang_pendidikan;
-        $sistem_kuliah = $request->sistem_kuliah;
-        $jalur_masuk = $request->jalur_masuk;
-        $nama = $request->nama;
-        $jk = $request->jk;
-        $hp = $request->hp;
-        $email = $request->email;
-        $tempat_lahir = $request->tempat_lahir;
-        $tanggal_lahir = $request->tanggal_lahir;
-        $alamat = $request->alamat;
-        $kewarganegaraan = $request->kewarganegaraan;
-        $identitas_kewarganegaraan = $request->identitas_kewarganegaraan;
-        $nisn = $request->nisn;
-        $nama_ibu = $request->nama_ibu;
+        $jenjang_pendidikan = strip_tags($request->jenjang_pendidikan);
+        $sistem_kuliah = strip_tags($request->sistem_kuliah);
+        $jalur_masuk = strip_tags($request->jalur_masuk);
+        $nama = strip_tags($request->nama);
+        $jk = strip_tags($request->jk);
+        $hp = strip_tags($request->hp);
+        $email = strip_tags($request->email);
+        $tempat_lahir = strip_tags($request->tempat_lahir);
+        $tanggal_lahir = strip_tags($request->tanggal_lahir);
+        $alamat = strip_tags($request->alamat);
+        $kewarganegaraan = strip_tags($request->kewarganegaraan);
+        $identitas_kewarganegaraan = strip_tags($request->identitas_kewarganegaraan);
+        $nisn = strip_tags($request->nisn);
+        $nama_ibu = strip_tags($request->nama_ibu);
 
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
@@ -90,6 +90,7 @@ class PendaftaranController extends Controller
             'hp' => 'required|numeric',
             'email' => 'required|email|unique:users,email',
             'tanggal_lahir' => 'required|date|before:today',
+            'tempat_lahir' => 'required|max:64',
             'alamat' => 'required',
             'kewarganegaraan' => 'required',
             'identitas_kewarganegaraan' => 'required|numeric',
@@ -100,6 +101,24 @@ class PendaftaranController extends Controller
         if ($validator->fails()) {
             return redirect()->route('get-data-diri')->withErrors($validator)->withInput();
         }
+
+        // Mengambil data yang telah divalidasi
+        $validatedData = $validator->validated();
+
+        $jenjang_pendidikan = strip_tags($request->jenjang_pendidikan);
+        $sistem_kuliah = strip_tags($request->sistem_kuliah);
+        $jalur_masuk = strip_tags($request->jalur_masuk);
+        $nama = strip_tags($validatedData['nama']);
+        $jk = strip_tags($validatedData['jk']);
+        $hp = strip_tags($validatedData['hp']);
+        $email = strip_tags($validatedData['email']);
+        $tanggal_lahir = strip_tags($validatedData['tanggal_lahir']);
+        $tempat_lahir = strip_tags($validatedData['tempat_lahir']);
+        $alamat = strip_tags($validatedData['alamat']);
+        $kewarganegaraan = strip_tags($validatedData['kewarganegaraan']);
+        $identitas_kewarganegaraan = strip_tags($validatedData['identitas_kewarganegaraan']);
+        $nisn = strip_tags($validatedData['nisn']);
+        $nama_ibu = strip_tags($validatedData['nama_ibu']);
 
         return view('form_asal_sekolah', [
             'jenjang_pendidikan' => $jenjang_pendidikan,
@@ -123,26 +142,6 @@ class PendaftaranController extends Controller
     public function prodi(Request $request)
     {
         // dd($request);
-        $jenjang_pendidikan = $request->jenjang_pendidikan;
-        $sistem_kuliah = $request->sistem_kuliah;
-        $jalur_masuk = $request->jalur_masuk;
-        $nama = $request->nama;
-        $jk = $request->jk;
-        $hp = $request->hp;
-        $email = $request->email;
-        $tempat_lahir = $request->tempat_lahir;
-        $tanggal_lahir = $request->tanggal_lahir;
-        $alamat = $request->alamat;
-        $kewarganegaraan = $request->kewarganegaraan;
-        $identitas_kewarganegaraan = $request->identitas_kewarganegaraan;
-        $nama_sekolah = $request->nama_sekolah;
-        $jenis_sekolah = $request->jenis_sekolah;
-        $jurusan_sekolah = $request->jurusan_sekolah;
-        $tahun_lulus = $request->tahun_lulus;
-        $alamat_sekolah = $request->alamat_sekolah;
-        $nisn = $request->nisn;
-        $nama_ibu = $request->nama_ibu;
-
         $validator = Validator::make($request->all(),[
             'nama_sekolah' => 'required|max:255',
             'jenis_sekolah' => 'required|max:255',
@@ -150,6 +149,28 @@ class PendaftaranController extends Controller
             'tahun_lulus' => 'required|date_format:Y|before_or_equal:now|after_or_equal:' . (date('Y')-100),
             'alamat_sekolah' => 'required'
         ]);
+
+        $validatedData = $validator->validated();
+
+        $jenjang_pendidikan = strip_tags($request->jenjang_pendidikan);
+        $sistem_kuliah = strip_tags($request->sistem_kuliah);
+        $jalur_masuk = strip_tags($request->jalur_masuk);
+        $nama = strip_tags($request->nama);
+        $jk = strip_tags($request->jk);
+        $hp = strip_tags($request->hp);
+        $email = strip_tags($request->email);
+        $tempat_lahir = strip_tags($request->tempat_lahir);
+        $tanggal_lahir = strip_tags($request->tanggal_lahir);
+        $alamat = strip_tags($request->alamat);
+        $kewarganegaraan = strip_tags($request->kewarganegaraan);
+        $identitas_kewarganegaraan = strip_tags($request->identitas_kewarganegaraan);
+        $nama_sekolah = strip_tags($validatedData['nama_sekolah']);
+        $jenis_sekolah = strip_tags($validatedData['jenis_sekolah']);
+        $jurusan_sekolah = strip_tags($validatedData['jurusan_sekolah']);
+        $tahun_lulus = strip_tags($validatedData['tahun_lulus']);
+        $alamat_sekolah = strip_tags($validatedData['alamat_sekolah']);
+        $nisn = strip_tags($request->nisn);
+        $nama_ibu = strip_tags($request->nama_ibu);
 
         if ($validator->fails()) {
             return view('form_asal_sekolah', [
@@ -218,28 +239,28 @@ class PendaftaranController extends Controller
 
     public function berkas(Request $request)
     {
-        $jenjang_pendidikan = $request->jenjang_pendidikan;
-        $sistem_kuliah = $request->sistem_kuliah;
-        $jalur_masuk = $request->jalur_masuk;
-        $nama = $request->nama;
-        $jk = $request->jk;
-        $hp = $request->hp;
-        $email = $request->email;
-        $tempat_lahir = $request->tempat_lahir;
-        $tanggal_lahir = $request->tanggal_lahir;
-        $alamat = $request->alamat;
-        $kewarganegaraan = $request->kewarganegaraan;
-        $identitas_kewarganegaraan = $request->identitas_kewarganegaraan;
-        $nama_sekolah = $request->nama_sekolah;
-        $jenis_sekolah = $request->jenis_sekolah;
-        $jurusan_sekolah = $request->jurusan_sekolah;
-        $tahun_lulus = $request->tahun_lulus;
-        $nisn = $request->nisn;
-        $nama_ibu = $request->nama_ibu;
-        $alamat_sekolah = $request->alamat_sekolah;
-        $pilihan1 = $request->pilihan1;
-        $pilihan2 = $request->pilihan2;
-        $pilihan3 = $request->pilihan3;
+        $jenjang_pendidikan = strip_tags($request->jenjang_pendidikan);
+        $sistem_kuliah = strip_tags($request->sistem_kuliah);
+        $jalur_masuk = strip_tags($request->jalur_masuk);
+        $nama = strip_tags($request->nama);
+        $jk = strip_tags($request->jk);
+        $hp = strip_tags($request->hp);
+        $email = strip_tags($request->email);
+        $tempat_lahir = strip_tags($request->tempat_lahir);
+        $tanggal_lahir = strip_tags($request->tanggal_lahir);
+        $alamat = strip_tags($request->alamat);
+        $kewarganegaraan = strip_tags($request->kewarganegaraan);
+        $identitas_kewarganegaraan = strip_tags($request->identitas_kewarganegaraan);
+        $nama_sekolah = strip_tags($request->nama_sekolah);
+        $jenis_sekolah = strip_tags($request->jenis_sekolah);
+        $jurusan_sekolah = strip_tags($request->jurusan_sekolah);
+        $tahun_lulus = strip_tags($request->tahun_lulus);
+        $nisn = strip_tags($request->nisn);
+        $nama_ibu = strip_tags($request->nama_ibu);
+        $alamat_sekolah = strip_tags($request->alamat_sekolah);
+        $pilihan1 = strip_tags($request->pilihan1);
+        $pilihan2 = strip_tags($request->pilihan2);
+        $pilihan3 = strip_tags($request->pilihan3);
 
         $errorProdi = 'salah';
         // if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
@@ -309,28 +330,28 @@ class PendaftaranController extends Controller
 
     public function konfirmasi(Request $request)
     {
-        $jenjang_pendidikan = $request->jenjang_pendidikan;
-        $sistem_kuliah = $request->sistem_kuliah;
-        $jalur_masuk = $request->jalur_masuk;
-        $nama = $request->nama;
-        $jk = $request->jk;
-        $hp = $request->hp;
-        $email = $request->email;
-        $tempat_lahir = $request->tempat_lahir;
-        $tanggal_lahir = $request->tanggal_lahir;
-        $alamat = $request->alamat;
-        $kewarganegaraan = $request->kewarganegaraan;
-        $identitas_kewarganegaraan = $request->identitas_kewarganegaraan;
-        $nama_sekolah = $request->nama_sekolah;
-        $jenis_sekolah = $request->jenis_sekolah;
-        $jurusan_sekolah = $request->jurusan_sekolah;
-        $tahun_lulus = $request->tahun_lulus;
-        $nisn = $request->nisn;
-        $nama_ibu = $request->nama_ibu;
-        $alamat_sekolah = $request->alamat_sekolah;
-        $pilihan1 = $request->pilihan1;
-        $pilihan2 = $request->pilihan2;
-        $pilihan3 = $request->pilihan3;
+        $jenjang_pendidikan = strip_tags($request->jenjang_pendidikan);
+        $sistem_kuliah = strip_tags($request->sistem_kuliah);
+        $jalur_masuk = strip_tags($request->jalur_masuk);
+        $nama = strip_tags($request->nama);
+        $jk = strip_tags($request->jk);
+        $hp = strip_tags($request->hp);
+        $email = strip_tags($request->email);
+        $tempat_lahir = strip_tags($request->tempat_lahir);
+        $tanggal_lahir = strip_tags($request->tanggal_lahir);
+        $alamat = strip_tags($request->alamat);
+        $kewarganegaraan = strip_tags($request->kewarganegaraan);
+        $identitas_kewarganegaraan = strip_tags($request->identitas_kewarganegaraan);
+        $nama_sekolah = strip_tags($request->nama_sekolah);
+        $jenis_sekolah = strip_tags($request->jenis_sekolah);
+        $jurusan_sekolah = strip_tags($request->jurusan_sekolah);
+        $tahun_lulus = strip_tags($request->tahun_lulus);
+        $nisn = strip_tags($request->nisn);
+        $nama_ibu = strip_tags($request->nama_ibu);
+        $alamat_sekolah = strip_tags($request->alamat_sekolah);
+        $pilihan1 = strip_tags($request->pilihan1);
+        $pilihan2 = strip_tags($request->pilihan2);
+        $pilihan3 = strip_tags($request->pilihan3);
 
         $errorProdi = 'salah';
         // if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
@@ -395,28 +416,28 @@ class PendaftaranController extends Controller
 
     public function daftar(Request $request)
     {
-        $jenjang_pendidikan = $request->jenjang_pendidikan;
-        $sistem_kuliah = $request->sistem_kuliah;
-        $jalur_masuk = $request->jalur_masuk;
-        $nama = $request->nama;
-        $jk = $request->jk;
-        $hp = $request->hp;
-        $email = $request->email;
-        $tempat_lahir = $request->tempat_lahir;
-        $tanggal_lahir = $request->tanggal_lahir;
-        $alamat = $request->alamat;
-        $kewarganegaraan = $request->kewarganegaraan;
-        $identitas_kewarganegaraan = $request->identitas_kewarganegaraan;
-        $nama_sekolah = $request->nama_sekolah;
-        $jenis_sekolah = $request->jenis_sekolah;
-        $jurusan_sekolah = $request->jurusan_sekolah;
-        $tahun_lulus = $request->tahun_lulus;
-        $nisn = $request->nisn;
-        $nama_ibu = $request->nama_ibu;
-        $alamat_sekolah = $request->alamat_sekolah;
-        $pilihan1 = $request->pilihan1;
-        $pilihan2 = $request->pilihan2;
-        $pilihan3 = $request->pilihan3;
+        $jenjang_pendidikan = strip_tags($request->jenjang_pendidikan);
+        $sistem_kuliah = strip_tags($request->sistem_kuliah);
+        $jalur_masuk = strip_tags($request->jalur_masuk);
+        $nama = strip_tags($request->nama);
+        $jk = strip_tags($request->jk);
+        $hp = strip_tags($request->hp);
+        $email = strip_tags($request->email);
+        $tempat_lahir = strip_tags($request->tempat_lahir);
+        $tanggal_lahir = strip_tags($request->tanggal_lahir);
+        $alamat = strip_tags($request->alamat);
+        $kewarganegaraan = strip_tags($request->kewarganegaraan);
+        $identitas_kewarganegaraan = strip_tags($request->identitas_kewarganegaraan);
+        $nama_sekolah = strip_tags($request->nama_sekolah);
+        $jenis_sekolah = strip_tags($request->jenis_sekolah);
+        $jurusan_sekolah = strip_tags($request->jurusan_sekolah);
+        $tahun_lulus = strip_tags($request->tahun_lulus);
+        $nisn = strip_tags($request->nisn);
+        $nama_ibu = strip_tags($request->nama_ibu);
+        $alamat_sekolah = strip_tags($request->alamat_sekolah);
+        $pilihan1 = strip_tags($request->pilihan1);
+        $pilihan2 = strip_tags($request->pilihan2);
+        $pilihan3 = strip_tags($request->pilihan3);
 
         if ($request->type == 'edit') {
             return view('form_edit_konfirmasi', [
@@ -466,13 +487,13 @@ class PendaftaranController extends Controller
                 'pilihan1' => 'required|different:pilihan2,pilihan3',
                 'pilihan2' => 'required|different:pilihan1,pilihan3',
                 'pilihan3' => 'required|different:pilihan1,pilihan2',
-                'pas_foto' => 'required|mimes:pdf,jpg,png|max:1024', 
-                'ijazah_skl' => 'required|mimes:pdf,jpg,png|max:1024',
-                // 'skhun' => 'required|mimes:pdf,jpg,png|max:1024',
-                'kk' => 'required|mimes:pdf,jpg,png|max:1024',
-                'ktp' => 'required|mimes:pdf,jpg,png|max:1024',
-                'akta' => 'required|mimes:pdf,jpg,png|max:1024',
-                'bukti_pembayaran' => 'required|image|mimes:pdf,jpg,png|max:1024',
+                'pas_foto' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024', 
+                'ijazah_skl' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
+                // 'skhun' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
+                'kk' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
+                'ktp' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
+                'akta' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
+                'bukti_pembayaran' => 'required|image|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
             ]);
 
             if ($validator->fails()) {
