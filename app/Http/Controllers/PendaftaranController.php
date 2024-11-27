@@ -16,7 +16,7 @@ use App\Models\JalurMasukProdi;
 use App\Models\JenjangPendidikan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Validator;
 
 class PendaftaranController extends Controller
 {
@@ -487,13 +487,13 @@ class PendaftaranController extends Controller
                 'pilihan1' => 'required|different:pilihan2,pilihan3',
                 'pilihan2' => 'required|different:pilihan1,pilihan3',
                 'pilihan3' => 'required|different:pilihan1,pilihan2',
-                'pas_foto' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024', 
-                'ijazah_skl' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
-                // 'skhun' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
-                'kk' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
-                'ktp' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
-                'akta' => 'required|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
-                'bukti_pembayaran' => 'required|image|mimes:pdf,jpg,png|extensions:jpeg,png,jpg,pdf|max:1024',
+                'pas_foto' => 'required|mimes:pdf,jpg,pngmax:1024', 
+                'ijazah_skl' => 'required|mimes:pdf,jpg,pngmax:1024',
+                // 'skhun' => 'required|mimes:pdf,jpg,pngmax:1024',
+                'kk' => 'required|mimes:pdf,jpg,pngmax:1024',
+                'ktp' => 'required|mimes:pdf,jpg,pngmax:1024',
+                'akta' => 'required|mimes:pdf,jpg,pngmax:1024',
+                'bukti_pembayaran' => 'required|image|mimes:pdf,jpg,pngmax:1024',
             ]);
 
             if ($validator->fails()) {
