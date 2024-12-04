@@ -48,7 +48,7 @@ class PendaftaranController extends Controller
         return view('form_jalur_pendaftaran', [
             'jenjang_pendidikan' => $jenjang_pendidikan,
             'sistem_kuliah' => $sistem_kuliah,
-            'jalur_masuk' => $jalur_masuk,
+            'jalur_masuk' => $jalur_masuk->where('status', 'aktif')->all(),
             'title' => 'Pendaftaran | jalur pendaftaran'
         ]);
     }
