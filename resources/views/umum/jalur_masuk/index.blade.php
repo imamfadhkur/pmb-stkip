@@ -12,7 +12,13 @@
             <div class="col">
                 <div class="card text-center m-3">
                     <div class="card-header">
-                      <h5>{{ $jalur_masuk->nama }}</h5>
+                      <h5>{{ $jalur_masuk->nama }} - 
+                        @if($jalur_masuk->status == 'aktif')
+                          <span class="text-success">{{ $jalur_masuk->status }}</span>
+                        @else
+                          <span class="text-danger">{{ $jalur_masuk->status }}</span>
+                        @endif
+                      </h5>
                     </div>
                     <div class="card-body">
                       {{-- <h5 class="card-title">Special title treatment</h5> --}}
