@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         // buatan sendiri
         DB::table('users')->insert([
             'name' => Str::random(10),
-            'email' => 'superadmin@gmail.com',
+            'email' => 'superadmin',
             'password' => Hash::make('superadmin'),
             'level' => 'superadmin',
         ]);
@@ -48,9 +48,6 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('jenjang_pendidikans')->insert(['nama' => 'S1']);
         DB::table('sistem_kuliahs')->insert(['nama' => 'reguler']);
-        DB::table('prodis')->insert(['nama' => 'Olahraga']);
-        DB::table('prodis')->insert(['nama' => 'Bahasa Inggris']);
-        DB::table('prodis')->insert(['nama' => 'Ekonomi']);
         DB::table('informasi_kampuses')->insert(['name' => 'STKIP PGRI Bangkalan']);
         DB::table('banks')->insert([
             'nama_pemilik' => 'STKIP PGRI BANGKALAN'

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prodi;
 use App\Models\Register;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ProdiController extends Controller
 {
@@ -14,7 +15,7 @@ class ProdiController extends Controller
     public function index()
     {
         return view('dashboard.prodi.index', [
-            'prodis' => Prodi::paginate(10),
+            'prodis' => Prodi::paginate(16),
             'title' => 'prodi'
         ]);
     }
@@ -24,7 +25,15 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        return view('dashboard.prodi.create',['title' => 'create prodi']);
+        $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/api/prodi');
+        foreach($response->json() as $prodi){
+            Prodi::updateOrCreate([
+                'id' => $prodi['id']
+            ],[
+                'nama' => $prodi['nama']
+            ]);
+        }
+        return redirect()->route('prodi.index')->with('messageSuccess', 'Prodi berhasil ditambahkan');
     }
 
     /**

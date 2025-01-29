@@ -24,23 +24,11 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('kewarganegaraan');
             $table->string('identitas_kewarganegaraan');
-            $table->unsignedBigInteger('jenjang_pendidikan_id');
-            $table->foreign('jenjang_pendidikan_id')->references('id')->on('jenjang_pendidikans');
-            $table->unsignedBigInteger('sistem_kuliah_id');
-            $table->foreign('sistem_kuliah_id')->references('id')->on('sistem_kuliahs');
-            $table->unsignedBigInteger('jalur_masuk_id');
-            $table->foreign('jalur_masuk_id')->references('id')->on('jalur_masuks');
             $table->string('nama_sekolah');
             $table->string('jenis_sekolah');
             $table->string('jurusan_sekolah');
             $table->year('tahun_lulus');
             $table->text('alamat_sekolah');
-            $table->unsignedBigInteger('pilihan1');
-            $table->foreign('pilihan1')->references('id')->on('prodis');
-            $table->unsignedBigInteger('pilihan2');
-            $table->foreign('pilihan2')->references('id')->on('prodis');
-            $table->unsignedBigInteger('pilihan3');
-            $table->foreign('pilihan3')->references('id')->on('prodis');
             $table->timestamps();
         });
     }

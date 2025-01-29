@@ -11,6 +11,7 @@
             {{ session('messageSuccess') }}
         </div>
     @endif
+    @include('components.error_success')
     
     <div style="display: flex; align-items: center">
       <div style="margin-right: auto; margin-bottom: 0;">
@@ -31,7 +32,7 @@
             <option value="DESC" {{ request('ascdesc') == 'DESC' ? 'selected' : '' }}>Turun</option>
         </select>
         <button type="submit" class="btn btn-sm text-light" style="background-color: #007bff"><i class="bi bi-filter"></i></button>
-    </form>    
+    </form> 
     </div>
 
     @isset($success_data_diterima)
@@ -133,33 +134,51 @@
                   <div class="modal-body">
                       <div class="form-group">
                         <input type="hidden" name="regist_id" value="{{ $register->id }}">
-                          <label for="diterima_di"><b>{{ $register->nama }} diterima di prodi?</b></label>
-                          @if ($register->pilihan1Prodi)
+                            <label for="diterima_di"><b>{{ $register->nama }} diterima di prodi?</b></label>
+                            @if ($register->pilihan1Prodi)
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan1Prodi->id }}" id="diterima_1{{ $register->id }}" {{ $register->diterima_di === $register->pilihan1Prodi->id ? 'checked' : '' }}>
+                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan1Prodi->id }}" id="diterima_1{{ $register->id }}" {{ $register->diterima_di === $register->pilihan1Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan1Prodi->nama }}', {{ $register->id }})">
                               <label class="form-check-label" for="diterima_1{{ $register->id }}">
-                                {{ $register->pilihan1Prodi->nama }}
+                              {{ $register->pilihan1Prodi->nama }}
                               </label>
                             </div>
-                          @endif
-                          @if ($register->pilihan2Prodi)
+                            @endif
+                            @if ($register->pilihan2Prodi)
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan2Prodi->id }}" id="diterima_2{{ $register->id }}" {{ $register->diterima_di === $register->pilihan2Prodi->id ? 'checked' : '' }}>
+                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan2Prodi->id }}" id="diterima_2{{ $register->id }}" {{ $register->diterima_di === $register->pilihan2Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan2Prodi->nama }}', {{ $register->id }})">
                               <label class="form-check-label" for="diterima_2{{ $register->id }}">
-                                {{ $register->pilihan2Prodi->nama }}
+                              {{ $register->pilihan2Prodi->nama }}
                               </label>
                             </div>
-                          @endif
-                          @if ($register->pilihan3Prodi)
+                            @endif
+                            @if ($register->pilihan3Prodi)
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan3Prodi->id }}" id="diterima_3{{ $register->id }}" {{ $register->diterima_di === $register->pilihan3Prodi->id ? 'checked' : '' }}>
+                              <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan3Prodi->id }}" id="diterima_3{{ $register->id }}" {{ $register->diterima_di === $register->pilihan3Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan3Prodi->nama }}', {{ $register->id }})">
                               <label class="form-check-label" for="diterima_3{{ $register->id }}">
-                                {{ $register->pilihan3Prodi->nama }}
+                              {{ $register->pilihan3Prodi->nama }}
                               </label>
                             </div>
-                          @endif
+                            @endif
+                            <input type="hidden" name="prodi_name" id="prodi_name{{ $register->id }}" value="" placeholder="nama_prodi">
+                            <script>
+                            function updateProdiName(prodiName, registerId) {
+                              document.getElementById('prodi_name' + registerId).value = prodiName;
+                            }
+                            </script>
                       </div>
                       <!-- ... other input fields ... -->
+                      <input type="hidden" name="name" placeholder="name" value="{{ $register->nama }}">
+                      <input type="hidden" name="role" placeholder="role" value="mahasiswa">
+                      <input type="hidden" name="jenis_kelamin" placeholder="jenis_kelamin" value="{{ $register->jk }}">
+                      <input type="hidden" name="tempat_lahir" placeholder="tempat_lahir" value="{{ $register->tempat_lahir }}">
+                      <input type="hidden" name="tanggal_lahir" placeholder="tanggal_lahir" value="{{ $register->tanggal_lahir }}">
+                      <input type="hidden" name="alamat" placeholder="alamat" value="{{ $register->alamat }}">
+                      <input type="hidden" name="kewarganegaraan" placeholder="kewarganegaraan" value="{{ $register->kewarganegaraan }}">
+                      <input type="hidden" name="nik" placeholder="nik" value="{{ $register->identitas_kewarganegaraan }}">
+                      <input type="hidden" name="nisn" placeholder="nisn" value="{{ $register->nisn }}">
+                      <input type="hidden" name="nama_ibu" placeholder="nama_ibu" value="{{ $register->nama_ibu }}">
+                      <input type="hidden" name="tanggal_daftar" placeholder="tanggal_daftar" id="" value="{{ $register->created_at }}">
+                      <input type="hidden" name="nama_jalur_masuk" placeholder="nama_jalur_masuk" id="" value="{{ $register->jalurMasuk->nama }}">
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

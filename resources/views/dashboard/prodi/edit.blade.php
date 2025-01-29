@@ -12,7 +12,7 @@
     @method('PUT')
     <div class="form-group m-2">
         <label for="nama" class="form-label">Nama Prodi</label>
-        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama', $prodi->nama) }}">
+        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama', $prodi->nama) }}" readonly>
         @error('nama')
             <div class="invalid-feedback">
                 {{ $message }}

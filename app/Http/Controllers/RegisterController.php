@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 
 class RegisterController extends Controller
 {
@@ -239,28 +240,41 @@ class RegisterController extends Controller
         return redirect('/register')->with('messageSuccess', 'Data berhasil dirubah');
     }
     
+    private $apiToken, $url;
+
+    public function __construct()
+    {
+        $this->apiToken = env('API_TOKEN');
+        $this->url = env('API_ENDPOINT');
+    }
+    
     public function ubahPenerimaan(Request $request)
     {
-        $register = Register::where('id', '=', $request->regist_id)->first();
-        // dd('Update berhasil, '.$register->nama.' diterima di prodi '.$request->input('diterima_di'));
-        $validatedData = $request->validate(['diterima_di' => 'required']);
-        // $register->diterima_di = null;
-        // $register_id = $request->regist_id;
-        $register->diterima_di = $request->input('diterima_di');
-        $register->status_diterima = "diterima";
-        $register->save();
-        $registers = Register::paginate(10);
+        
+        $response = Http::withToken($this->apiToken)->post($this->url.'/api/insert-mahasiswa', $request->all());
 
-        // buat update ke tabel jalur_masuk_prodis untuk mengurangi jumlah kuota berdasar prodi yang diterima
-        $jmp = JalurMasukProdi::where('jalur_masuk_id', $register->jalur_masuk_id)->where('prodi_id', $register->diterima_di)->first();
-        $jmp->update(['kuota' => $jmp->kuota - 1]);
-        $jmp->save();
+        if ($response->status() == 201) {
+            $register = Register::where('id', '=', $request->regist_id)->first();
+            $validatedData = $request->validate(['diterima_di' => 'required']);
+            $register->diterima_di = $request->input('diterima_di');
+            $register->status_diterima = "diterima";
+            $register->save();
+            $registers = Register::paginate(10);
 
-        return redirect()->route('register.index')->with([
+            // buat update ke tabel jalur_masuk_prodis untuk mengurangi jumlah kuota berdasar prodi yang diterima
+            $jmp = JalurMasukProdi::where('jalur_masuk_id', $register->jalur_masuk_id)->where('prodi_id', $register->diterima_di)->first();
+            $jmp->update(['kuota' => $jmp->kuota - 1]);
+            $jmp->save();
+
+            return redirect()->route('register.index')->with([
             'registers' => $registers,
             'title' => 'register',
             'success_data_diterima' => 'Update berhasil, '.$register->nama.' diterima di prodi '.$register->diterimadi->nama,
-        ]);
+            ]);
+        } elseif ($response->status() == 422) {
+            // dd($response->json());
+            return back()->withErrors($response->json('errors'));
+        }
     }
 
     public function uploadPembayaran(Request $request)
