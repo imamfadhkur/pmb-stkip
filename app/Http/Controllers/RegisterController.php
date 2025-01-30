@@ -23,9 +23,27 @@ class RegisterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $registers = Register::orderBy('created_at', 'desc')->paginate(10);
+        $request->validate([
+            'search' => 'nullable|string|max:255',
+            'sort' => 'nullable|in:created_at,nama,nama_sekolah,pembayaran',
+            'ascdesc' => 'nullable|in:ASC,DESC',
+        ]);
+        
+        $query = Register::query();
+    
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', '%' . $search . '%')
+                  ->orWhere('nama_sekolah', 'like', '%' . $search . '%');
+            });
+        }
+    
+        $registers = $query->orderBy($request->get('sort', 'created_at'), $request->get('ascdesc', 'DESC'))
+                           ->paginate(10);
+    
         return view('dashboard.pendaftar.index', [
             'registers' => $registers,
             'title' => 'register'
@@ -251,30 +269,25 @@ class RegisterController extends Controller
     public function ubahPenerimaan(Request $request)
     {
         
-        $response = Http::withToken($this->apiToken)->post($this->url.'/api/insert-mahasiswa', $request->all());
+        // $response = Http::withToken($this->apiToken)->post($this->url.'/api/insert-mahasiswa', $request->all());
 
-        if ($response->status() == 201) {
-            $register = Register::where('id', '=', $request->regist_id)->first();
-            $validatedData = $request->validate(['diterima_di' => 'required']);
-            $register->diterima_di = $request->input('diterima_di');
-            $register->status_diterima = "diterima";
-            $register->save();
-            $registers = Register::paginate(10);
+        $register = Register::where('id', '=', $request->regist_id)->first();
+        $validatedData = $request->validate(['diterima_di' => 'required']);
+        $register->diterima_di = $request->input('diterima_di');
+        $register->status_diterima = "diterima";
+        $register->save();
+        $registers = Register::paginate(10);
 
-            // buat update ke tabel jalur_masuk_prodis untuk mengurangi jumlah kuota berdasar prodi yang diterima
-            $jmp = JalurMasukProdi::where('jalur_masuk_id', $register->jalur_masuk_id)->where('prodi_id', $register->diterima_di)->first();
-            $jmp->update(['kuota' => $jmp->kuota - 1]);
-            $jmp->save();
+        // buat update ke tabel jalur_masuk_prodis untuk mengurangi jumlah kuota berdasar prodi yang diterima
+        $jmp = JalurMasukProdi::where('jalur_masuk_id', $register->jalur_masuk_id)->where('prodi_id', $register->diterima_di)->first();
+        $jmp->update(['kuota' => $jmp->kuota - 1]);
+        $jmp->save();
 
-            return redirect()->route('register.index')->with([
-            'registers' => $registers,
-            'title' => 'register',
-            'success_data_diterima' => 'Update berhasil, '.$register->nama.' diterima di prodi '.$register->diterimadi->nama,
-            ]);
-        } elseif ($response->status() == 422) {
-            // dd($response->json());
-            return back()->withErrors($response->json('errors'));
-        }
+        return redirect()->route('register.index')->with([
+        'registers' => $registers,
+        'title' => 'register',
+        'success_data_diterima' => 'Update berhasil, '.$register->nama.' diterima di prodi '.$register->diterimadi->nama,
+        ]);
     }
 
     public function uploadPembayaran(Request $request)
@@ -398,5 +411,48 @@ class RegisterController extends Controller
 
         // Mengirimkan response dengan headers yang benar dan output CSV
         return Response::stream($callback, 200, $headers);
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $registers = Register::where('nama', 'like', "%{$search}%")
+            ->orWhere('alamat', 'like', "%{$search}%")
+            ->orWhere('nama_sekolah', 'like', "%{$search}%")
+            ->get();
+
+        $output = '';
+
+        if ($registers->isNotEmpty()) {
+            foreach ($registers as $key => $register) {
+                $output .= '
+                    <tr>
+                        <td>' . ($key + 1) . '.</td>
+                        <td>' . $register->nama . ' (' . $register->jk . ')</td>
+                        <td>' . $register->alamat . '</td>
+                        <td>' . $register->nama_sekolah . '</td>
+                        <td>' . $register->jalurMasuk->nama . '</td>
+                        <td>';
+                if ($register->bukti_pembayaran) {
+                    $output .= '<a class="test-popup-link" href="' . asset('storage/' . $register->bukti_pembayaran) . '">
+                                <img src="' . asset('storage/' . $register->bukti_pembayaran) . '" class="rounded w-50" style="max-height: 50px;">
+                            </a>';
+                } else {
+                    $output .= '<p class="text-danger"><b>belum upload</b></p>';
+                }
+                $output .= '</td>
+                        <td>' . ($register->pembayaran === "belum" ? 'Belum Terverifikasi' : 'Sudah') . '</td>
+                        <td>' . ($register->status_diterima === "diterima" ? 'Diterima' : 'Tidak Diterima') . '</td>
+                        <td>
+                            <a class="btn btn-warning btn-sm" href="' . route('register.show', $register->email) . '"><i class="bi bi-eye"></i></a>
+                        </td>
+                    </tr>';
+            }
+        } else {
+            $output = '<tr><td colspan="9" class="text-center text-muted">Tidak ada data ditemukan.</td></tr>';
+        }
+
+        return response($output);
     }
 }

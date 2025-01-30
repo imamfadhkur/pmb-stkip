@@ -216,9 +216,21 @@
     </td>
 </tr>
 </table>
-<a href="{{ route('register.index') }}" class="btn btn-primary ms-4">back</a>
+<a href="{{ route('register.index') }}" class="btn btn-sm btn-primary ms-4">
+    <i class="bi bi-arrow-left"></i> Back
+</a>
 @can('superadmin')    
-    <a href="{{ route('register.edit', $register->email) }}" class="btn btn-warning ms-2">edit</a>
+    <a href="{{ route('register.edit', $register->email) }}" class="btn btn-sm btn-warning ms-2">
+        <i class="bi bi-pencil"></i> Edit
+    </a>
+    <form action="{{ url('hapus/'. $register->id) }}" method="POST" class="d-inline">
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="id" value="{{ $register->id }}">
+        <button onclick="return confirm('apakah anda yakin ingin menghapus?')" title="Hapus pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-danger m-1">
+            <i class="bi bi-trash"></i> Delete
+        </button>
+    </form>
 @endcan
 
 
