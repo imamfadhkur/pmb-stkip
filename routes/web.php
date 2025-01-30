@@ -139,8 +139,5 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/user/reset_password/{user}', [UserController::class, 'reset_password'])->name('user.reset_password');
     Route::get('/user-sort', [UserController::class, 'sort']);
     Route::get('/register-search', [RegisterController::class, 'search'])->name('register.search');
-    Route::get('/api/insert-mahasiswa/test', function () {
-        // Your logic to insert mahasiswa
-        return response()->json(['message' => 'Mahasiswa inserted successfully']);
-    });
+    Route::get('/api/insert-mahasiswa', [RegisterController::class, 'insert_mahasiswa']);
 });

@@ -35,7 +35,7 @@
               </div>
               <div class="modal-body">
                 <p>Tindakan ini akan membuat akun mahasiswa baru di siakad, ketik "lanjutkan" apabila anda yakin?</p>
-                <input type="text" id="confirmLanjutkan" class="form-control" placeholder="Ketik 'lanjutkan'">
+                <input type="text" id="confirmLanjutkan" class="form-control" placeholder="Ketik 'lanjutkan'" autocomplete="off">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -55,7 +55,7 @@
               </div>
               <div class="modal-body">
                 <p>Data camaba sebanyak {{ $registers->count() }} apakah sudah melakukan seluruh proses registrasi dan tes? <br> <b>Mohon hapus data camaba yang gagal test atau tidak registrasi ulang,</b> pastikan bahwa disini merupakan data final. <br><br> Apabila data sudah siap maka ketik "saya yakin" untuk finalisasi data ke siakad.</p>
-                <input type="text" id="confirmSayaYakin" class="form-control" placeholder="Ketik 'saya yakin'">
+                <input type="text" id="confirmSayaYakin" class="form-control" placeholder="Ketik 'saya yakin'" autocomplete="off">
               </div>
               <div class="modal-footer">
                 <a href="{{ url('register') }}" class="btn btn-secondary">Bersihkan Data</a>
@@ -80,7 +80,7 @@
           });
 
           document.getElementById('finalizeButton').addEventListener('click', function() {
-            window.location.href = "{{ url('api/insert-mahasiswa/test') }}";
+            window.location.href = "{{ url('api/insert-mahasiswa') }}";
           });
         </script>
 

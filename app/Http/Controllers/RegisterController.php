@@ -258,14 +258,6 @@ class RegisterController extends Controller
         return redirect('/register')->with('messageSuccess', 'Data berhasil dirubah');
     }
     
-    private $apiToken, $url;
-
-    public function __construct()
-    {
-        $this->apiToken = env('API_TOKEN');
-        $this->url = env('API_ENDPOINT');
-    }
-    
     public function ubahPenerimaan(Request $request)
     {
         
@@ -454,5 +446,37 @@ class RegisterController extends Controller
         }
 
         return response($output);
+    }
+
+    public function insert_mahasiswa()
+    {
+        $registers = Register::where('status_diterima', 'diterima')->get();
+        foreach ($registers as $register) {
+            $data = [
+                'name' => $register->nama,
+                'role' => 'mahasiswa',
+                'jenis_kelamin' => $register->jk,
+                'tempat_lahir' => $register->tempat_lahir,
+                'tanggal_lahir' => $register->tanggal_lahir,
+                'alamat' => $register->alamat,
+                'kewarganegaraan' => $register->kewarganegaraan,
+                'nik' => $register->identitas_kewarganegaraan,
+                'nisn' => $register->nisn,
+                'nama_ibu' => $register->nama_ibu,
+                'prodi_name' => $register->diterimadi->nama,
+                'tanggal_daftar' => $register->created_at->toDateString(),
+                'nama_jalur_masuk' => $register->jalurMasuk->nama,
+            ];
+
+            $response = Http::withToken(env('API_TOKEN'))->post(env('API_ENDPOINT').'/api/insert-mahasiswa', $data);
+
+            if ($response->json()['message'] === 'Validasi gagal') {
+                $errors = $response->json('errors'); // Ambil bagian 'errors' dari response
+                $message = $response->json('message'); // Ambil bagian 'message' dari response
+                return redirect()->back()->withErrors($errors)->with('error_custom', $message);
+            }
+            
+        }
+        return redirect()->route('register.index')->with('messageSuccess', 'Data mahasiswa baru berhasil ditambahkan ke SIAKAD');
     }
 }
