@@ -12,6 +12,7 @@
                         {{ session('messageSuccess') }}
                 </div>
         @endif
+        @include('components.error_success')
         <a href="{{ url('prodi/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data prodi</a>
         <div class="row">
                 @foreach ($prodis as $prodi)

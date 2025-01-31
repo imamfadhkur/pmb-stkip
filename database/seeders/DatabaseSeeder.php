@@ -15,14 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
 
-        // buatan sendiri
         DB::table('users')->insert([
             'name' => Str::random(10),
             'email' => 'superadmin',
@@ -52,5 +49,9 @@ class DatabaseSeeder extends Seeder
         DB::table('banks')->insert([
             'nama_pemilik' => 'STKIP PGRI BANGKALAN'
         ]);
+        
+        // \App\Models\User::factory(50)->create();
+        // \App\Models\Register::factory(50)->create();
+
     }
 }

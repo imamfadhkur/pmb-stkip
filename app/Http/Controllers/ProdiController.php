@@ -26,6 +26,10 @@ class ProdiController extends Controller
     public function create()
     {
         $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/api/prodi');
+        if(!$response->ok() || is_null($response->json())){
+            return redirect()->route('prodi.index')->with('error_custom', 'Gagal mengambil data prodi');
+        }
+        
         foreach($response->json() as $prodi){
             Prodi::updateOrCreate([
                 'id' => $prodi['id']

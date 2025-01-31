@@ -412,38 +412,64 @@ class RegisterController extends Controller
         $registers = Register::where('nama', 'like', "%{$search}%")
             ->orWhere('alamat', 'like', "%{$search}%")
             ->orWhere('nama_sekolah', 'like', "%{$search}%")
+            ->orWhereHas('diterimadi', function ($query) use ($search) {
+                $query->where('nama', 'like', "%{$search}%");
+            })
             ->get();
 
         $output = '';
 
+        $output .= '
+        <thead>
+            <tr>
+            <th>No.</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Asal Sekolah</th>
+            <th>Jalur Masuk</th>
+            <th>Bukti Pembayaran</th>
+            <th>Status Pembayaran</th>
+            <th>Status Diterima</th>
+            <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>';
+        
         if ($registers->isNotEmpty()) {
             foreach ($registers as $key => $register) {
-                $output .= '
-                    <tr>
-                        <td>' . ($key + 1) . '.</td>
-                        <td>' . $register->nama . ' (' . $register->jk . ')</td>
-                        <td>' . $register->alamat . '</td>
-                        <td>' . $register->nama_sekolah . '</td>
-                        <td>' . $register->jalurMasuk->nama . '</td>
-                        <td>';
-                if ($register->bukti_pembayaran) {
-                    $output .= '<a class="test-popup-link" href="' . asset('storage/' . $register->bukti_pembayaran) . '">
-                                <img src="' . asset('storage/' . $register->bukti_pembayaran) . '" class="rounded w-50" style="max-height: 50px;">
-                            </a>';
-                } else {
-                    $output .= '<p class="text-danger"><b>belum upload</b></p>';
-                }
-                $output .= '</td>
-                        <td>' . ($register->pembayaran === "belum" ? 'Belum Terverifikasi' : 'Sudah') . '</td>
-                        <td>' . ($register->status_diterima === "diterima" ? 'Diterima' : 'Tidak Diterima') . '</td>
-                        <td>
-                            <a class="btn btn-warning btn-sm" href="' . route('register.show', $register->email) . '"><i class="bi bi-eye"></i></a>
-                        </td>
-                    </tr>';
+            $output .= '
+                <tr>
+                <td>' . ($key + 1) . '.</td>
+                <td>' . $register->nama . ' (' . $register->jk . ')</td>
+                <td>' . $register->alamat . '</td>
+                <td>' . $register->nama_sekolah . '</td>
+                <td>' . $register->jalurMasuk->nama . '</td>
+                <td>';
+            if ($register->bukti_pembayaran) {
+                $output .= '<a class="test-popup-link" href="' . asset('storage/' . $register->bukti_pembayaran) . '">
+                    <img src="' . asset('storage/' . $register->bukti_pembayaran) . '" class="rounded w-50" style="max-height: 50px;">
+                    </a>';
+            } else {
+                $output .= '<p class="text-danger"><b>belum upload</b></p>';
+            }
+            $output .= '</td>
+                <td>' . ($register->pembayaran === "belum" ? 'Belum Terverifikasi' : 'Sudah') . '</td>
+                <td>';
+            if ($register->status_diterima === "diterima") {
+                $output .= '<p><b class="text-success">' . $register->status_diterima . '</b> - ' . ($register->diterima_di !== null ? $register->diterimadi->nama : '(prodi belum ditentukan)') . '</p>';
+            } else {
+                $output .= '<p class="text-danger"><b>' . $register->status_diterima . '</b></p>';
+            }
+            $output .= '</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" href="' . route('register.show', $register->email) . '"><i class="bi bi-eye"></i></a>
+                </td>
+                </tr>';
             }
         } else {
-            $output = '<tr><td colspan="9" class="text-center text-muted">Tidak ada data ditemukan.</td></tr>';
+            $output .= '<tr><td colspan="9" class="text-center text-muted">Tidak ada data ditemukan.</td></tr>';
         }
+        $output .= '</tbody>';
 
         return response($output);
     }
@@ -478,5 +504,48 @@ class RegisterController extends Controller
             
         }
         return redirect()->route('register.index')->with('messageSuccess', 'Data mahasiswa baru berhasil ditambahkan ke SIAKAD');
+    }
+
+    public function delete_all()
+    {
+        $registers = Register::all();
+        foreach ($registers as $register) {
+            if ($register->diterima_di !== null) {
+            $jmp = JalurMasukProdi::where('jalur_masuk_id', $register->jalur_masuk_id)->where('prodi_id', $register->diterima_di)->first();
+            $kuo = $jmp->kuota;
+            $jmp->kuota = $kuo + 1;
+            $jmp->save();
+            }
+            if ($register->bukti_pembayaran) {
+            Storage::delete($register->bukti_pembayaran);
+            }
+            if (BerkasPendaftar::where('user_id', $register->user_id)->first()) {
+            $berkas = BerkasPendaftar::where('user_id', $register->user_id)->first();
+            if ($berkas->ijazah_skl_file) {
+                Storage::delete($berkas->ijazah_skl_file);
+            }
+            if ($berkas->skhun_file) {
+                Storage::delete($berkas->skhun_file);
+            }
+            if ($berkas->akta_file) {
+                Storage::delete($berkas->akta_file);
+            }
+            if ($berkas->kk_file) {
+                Storage::delete($berkas->kk_file);
+            }
+            if ($berkas->ktp_file) {
+                Storage::delete($berkas->ktp_file);
+            }
+            if ($berkas->pas_foto_file) {
+                Storage::delete($berkas->pas_foto_file);
+            }
+            if ($berkas->doc_pend_jalur_masuk_file) {
+                Storage::delete($berkas->doc_pend_jalur_masuk_file);
+            }
+            $berkas->delete();
+            }
+            $register->delete();
+        }
+        return redirect()->route('register.index')->with('messageSuccess', 'Data pendaftar berhasil dihapus');
     }
 }
