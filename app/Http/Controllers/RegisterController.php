@@ -44,9 +44,19 @@ class RegisterController extends Controller
         $registers = $query->orderBy($request->get('sort', 'created_at'), $request->get('ascdesc', 'DESC'))
                            ->paginate(10);
     
+        $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/api/tahun_ajaran');
+        if(!$response->ok() || is_null($response->json())){
+            return view('dashboard.pendaftar.index', [
+                'registers' => $registers,
+                'title' => 'register',
+                'tahun_ajarans' => null
+            ])->with('error_custom', 'Gagal mengambil data tahun angkatan, data tidak bisa dikirim ke SIAKAD');
+        }
+        
         return view('dashboard.pendaftar.index', [
             'registers' => $registers,
-            'title' => 'register'
+            'title' => 'register',
+            'tahun_ajarans' => $response->json(),
         ]);
     }
 
@@ -474,13 +484,20 @@ class RegisterController extends Controller
         return response($output);
     }
 
-    public function insert_mahasiswa()
+    public function insert_mahasiswa(Request $request)
     {
+        $request->validate([
+            'tahun_ajaran_id' => 'required|integer',
+        ]);
+
+        $tahunAjaranId = $request->input('tahun_ajaran_id');
         $registers = Register::where('status_diterima', 'diterima')->get();
+        
         foreach ($registers as $register) {
             $data = [
                 'name' => $register->nama,
                 'role' => 'mahasiswa',
+                'tahun_ajaran_id' => $tahunAjaranId,
                 'jenis_kelamin' => $register->jk,
                 'tempat_lahir' => $register->tempat_lahir,
                 'tanggal_lahir' => $register->tanggal_lahir,
@@ -501,8 +518,8 @@ class RegisterController extends Controller
                 $message = $response->json('message'); // Ambil bagian 'message' dari response
                 return redirect()->back()->withErrors($errors)->with('error_custom', $message);
             }
-            
         }
+        
         return redirect()->route('register.index')->with('messageSuccess', 'Data mahasiswa baru berhasil ditambahkan ke SIAKAD');
     }
 

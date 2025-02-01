@@ -23,7 +23,7 @@
 
       <div class="col text-center">
         <button type="button" class="btn btn-sm btn-info mb-2" data-bs-toggle="modal" data-bs-target="#generateDataModal">
-          <i class="bi bi-gear"></i>
+          <i class="bi bi-arrow-repeat"></i>
         </button>
         <button type="button" class="btn btn-sm btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#deleteAllDataModal">
           <i class="bi bi-trash"></i>
@@ -54,16 +54,26 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="finalizeDataModalLabel">Finalisasi Data Siakad</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="finalizeDataModalLabel">Finalisasi Data Siakad</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p>Data camaba sebanyak {{ $registers->total() }} apakah sudah melakukan seluruh proses registrasi dan tes? <br> <b>Mohon hapus data camaba yang gagal test atau tidak registrasi ulang,</b> pastikan bahwa disini merupakan data final. <br><br> Apabila data sudah siap maka ketik "saya yakin" untuk finalisasi data ke siakad.</p>
-                <input type="text" id="confirmSayaYakin" class="form-control" placeholder="Ketik 'saya yakin'" autocomplete="off">
+          <p>Data camaba sebanyak {{ $registers->total() }} apakah sudah melakukan seluruh proses registrasi dan tes? <br> <b>Mohon hapus data camaba yang gagal test atau tidak registrasi ulang,</b> pastikan bahwa disini merupakan data final. <br><br> Apabila data sudah siap maka ketik "saya yakin" untuk finalisasi data ke siakad.</p>
+          <input type="text" id="confirmSayaYakin" class="form-control" placeholder="Ketik 'saya yakin'" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <div class="col">
+                  <label for="tahun_ajaran"><b>Pilih Angkatan Mahasiswa</b></label>
+                  <select class="form-control" id="tahun_ajaran_id" name="tahun_ajaran_id">
+                    @foreach ($tahun_ajarans as $tahun_ajaran)
+                      <option value="{{ $tahun_ajaran['id'] }}">{{ $tahun_ajaran['semester'].' '.$tahun_ajaran['tahun_ajaran'] }}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
               <div class="modal-footer">
-                <a href="{{ url('register') }}" id="clearDataButton" class="btn btn-secondary">Bersihkan Data</a>
-                <button type="button" id="finalizeButton" class="btn btn-primary" disabled onclick="this.disabled=true; this.innerHTML='Mengirim...'; document.getElementById('clearDataButton').disabled=true;">Saya Yakin</button>
+          <a href="{{ url('register') }}" id="clearDataButton" class="btn btn-secondary">Bersihkan Data</a>
+          <button type="button" id="finalizeButton" class="btn btn-primary" disabled>Saya Yakin</button>
               </div>
             </div>
           </div>
@@ -81,10 +91,6 @@
 
           document.getElementById('confirmSayaYakin').addEventListener('input', function() {
             document.getElementById('finalizeButton').disabled = this.value !== 'saya yakin';
-          });
-
-          document.getElementById('finalizeButton').addEventListener('click', function() {
-            window.location.href = "{{ url('api/insert-mahasiswa') }}";
           });
         </script>
 
@@ -128,7 +134,8 @@
           });
 
           document.getElementById('finalizeButton').addEventListener('click', function() {
-          window.location.href = "{{ url('api/insert-mahasiswa') }}";
+            var tahunAjaranId = document.getElementById('tahun_ajaran_id').value;
+            window.location.href = "{{ url('api/insert-mahasiswa') }}?tahun_ajaran_id=" + tahunAjaranId;
           });
 
           document.getElementById('confirmHapusSemua').addEventListener('input', function() {
