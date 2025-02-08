@@ -22,77 +22,80 @@
       </div>
 
       <div class="col text-center">
-        <button type="button" class="btn btn-sm btn-info mb-2" data-bs-toggle="modal" data-bs-target="#generateDataModal">
-          <i class="bi bi-arrow-repeat"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#deleteAllDataModal">
-          <i class="bi bi-trash"></i>
-        </button>
+        
+        @if ($tahun_ajarans !== null)
+          <button type="button" class="btn btn-sm btn-info mb-2" data-bs-toggle="modal" data-bs-target="#generateDataModal">
+            <i class="bi bi-arrow-repeat"></i>
+          </button>
+          <button type="button" class="btn btn-sm btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#deleteAllDataModal">
+            <i class="bi bi-trash"></i>
+          </button>
 
-        <!-- Generate Data Modal -->
-        <div class="modal fade" id="generateDataModal" tabindex="-1" aria-labelledby="generateDataModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="generateDataModalLabel">Generate Data Siakad</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p>Tindakan ini akan membuat akun mahasiswa baru di siakad, ketik "lanjutkan" apabila anda yakin?</p>
-                <input type="text" id="confirmLanjutkan" class="form-control" placeholder="Ketik 'lanjutkan'" autocomplete="off">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" id="nextButton" class="btn btn-primary" disabled>Next</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Finalisasi Data Modal -->
-        <div class="modal fade" id="finalizeDataModal" tabindex="-1" aria-labelledby="finalizeDataModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-          <h5 class="modal-title" id="finalizeDataModalLabel">Finalisasi Data Siakad</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-          <p>Data camaba sebanyak {{ $registers->total() }} apakah sudah melakukan seluruh proses registrasi dan tes? <br> <b>Mohon hapus data camaba yang gagal test atau tidak registrasi ulang,</b> pastikan bahwa disini merupakan data final. <br><br> Apabila data sudah siap maka ketik "saya yakin" untuk finalisasi data ke siakad.</p>
-          <input type="text" id="confirmSayaYakin" class="form-control" placeholder="Ketik 'saya yakin'" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <div class="col">
-                  <label for="tahun_ajaran"><b>Pilih Angkatan Mahasiswa</b></label>
-                  <select class="form-control" id="tahun_ajaran_id" name="tahun_ajaran_id">
-                    @foreach ($tahun_ajarans as $tahun_ajaran)
-                      <option value="{{ $tahun_ajaran['id'] }}">{{ $tahun_ajaran['semester'].' '.$tahun_ajaran['tahun_ajaran'] }}</option>
-                    @endforeach
-                  </select>
+          <!-- Generate Data Modal -->
+          <div class="modal fade" id="generateDataModal" tabindex="-1" aria-labelledby="generateDataModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="generateDataModalLabel">Generate Data Siakad</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Tindakan ini akan membuat akun mahasiswa baru di siakad, ketik "lanjutkan" apabila anda yakin?</p>
+                  <input type="text" id="confirmLanjutkan" class="form-control" placeholder="Ketik 'lanjutkan'" autocomplete="off">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="button" id="nextButton" class="btn btn-primary" disabled>Next</button>
                 </div>
               </div>
-              <div class="modal-footer">
-          <a href="{{ url('register') }}" id="clearDataButton" class="btn btn-secondary">Bersihkan Data</a>
-          <button type="button" id="finalizeButton" class="btn btn-primary" disabled>Saya Yakin</button>
+            </div>
+          </div>
+
+          <!-- Finalisasi Data Modal -->
+          <div class="modal fade" id="finalizeDataModal" tabindex="-1" aria-labelledby="finalizeDataModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+            <h5 class="modal-title" id="finalizeDataModalLabel">Finalisasi Data Siakad</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+            <p>Data camaba sebanyak {{ $registers->total() }} apakah sudah melakukan seluruh proses registrasi dan tes? <br> <b>Mohon hapus data camaba yang gagal test atau tidak registrasi ulang,</b> pastikan bahwa disini merupakan data final. <br><br> Apabila data sudah siap maka ketik "saya yakin" untuk finalisasi data ke siakad.</p>
+            <input type="text" id="confirmSayaYakin" class="form-control" placeholder="Ketik 'saya yakin'" autocomplete="off">
+                </div>
+                <div class="form-group">
+                  <div class="col">
+                    <label for="tahun_ajaran"><b>Pilih Angkatan Mahasiswa</b></label>
+                    <select class="form-control" id="tahun_ajaran_id" name="tahun_ajaran_id">
+                      @foreach ($tahun_ajarans as $tahun_ajaran)
+                        <option value="{{ $tahun_ajaran['id'] }}">{{ $tahun_ajaran['semester'].' '.$tahun_ajaran['tahun_ajaran'] }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="modal-footer">
+            <a href="{{ url('register') }}" id="clearDataButton" class="btn btn-secondary">Bersihkan Data</a>
+            <button type="button" id="finalizeButton" class="btn btn-primary" disabled>Saya Yakin</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <script>
-          document.getElementById('confirmLanjutkan').addEventListener('input', function() {
-            document.getElementById('nextButton').disabled = this.value !== 'lanjutkan';
-          });
+          <script>
+            document.getElementById('confirmLanjutkan').addEventListener('input', function() {
+              document.getElementById('nextButton').disabled = this.value !== 'lanjutkan';
+            });
 
-          document.getElementById('nextButton').addEventListener('click', function() {
-            $('#generateDataModal').modal('hide');
-            $('#finalizeDataModal').modal('show');
-          });
+            document.getElementById('nextButton').addEventListener('click', function() {
+              $('#generateDataModal').modal('hide');
+              $('#finalizeDataModal').modal('show');
+            });
 
-          document.getElementById('confirmSayaYakin').addEventListener('input', function() {
-            document.getElementById('finalizeButton').disabled = this.value !== 'saya yakin';
-          });
-        </script>
+            document.getElementById('confirmSayaYakin').addEventListener('input', function() {
+              document.getElementById('finalizeButton').disabled = this.value !== 'saya yakin';
+            });
+          </script>
+        @endif
 
         <!-- Delete All Data Modal -->
         <div class="modal fade" id="deleteAllDataModal" tabindex="-1" aria-labelledby="deleteAllDataModalLabel" aria-hidden="true">
