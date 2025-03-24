@@ -25,9 +25,13 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/api/prodi');
-        if(!$response->ok() || is_null($response->json())){
-            return redirect()->route('prodi.index')->with('error_custom', 'Gagal mengambil data prodi');
+        try {
+            $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/prodi');
+            if(!$response->ok() || is_null($response->json())){
+            return redirect()->route('prodi.index')->with('error_custom', 'Gagal mengambil data prodi: ' . strip_tags($response->body()));
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('prodi.index')->with('error_custom', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         
         foreach($response->json() as $prodi){

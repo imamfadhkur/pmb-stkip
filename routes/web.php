@@ -142,4 +142,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/api/insert-mahasiswa', [RegisterController::class, 'insert_mahasiswa']);
 
     Route::delete('delete-all-register', [RegisterController::class, 'delete_all'])->middleware('superadmin');
+
+    Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
 });

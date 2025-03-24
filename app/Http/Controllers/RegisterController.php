@@ -42,21 +42,23 @@ class RegisterController extends Controller
         }
     
         $registers = $query->orderBy($request->get('sort', 'created_at'), $request->get('ascdesc', 'DESC'))
-                           ->paginate(10);
+                           ->paginate(50);
     
-        $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/api/tahun_ajaran');
-        if(!$response->ok() || is_null($response->json())){
-            return view('dashboard.pendaftar.index', [
-                'registers' => $registers,
-                'title' => 'register',
-                'tahun_ajarans' => null
-            ])->with('error_custom', 'Gagal mengambil data tahun angkatan, data tidak bisa dikirim ke SIAKAD');
+        try {
+            $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/tahun_ajaran');
+            if(!$response->ok() || is_null($response->json())){
+            throw new \Exception('Gagal mengambil data tahun angkatan: ' . strip_tags($response->body()));
+            }
+            $tahunAjarans = $response->json();
+        } catch (\Exception $e) {
+            session()->flash('error_custom', $e->getMessage());
+            $tahunAjarans = null;
         }
-        
+
         return view('dashboard.pendaftar.index', [
             'registers' => $registers,
             'title' => 'register',
-            'tahun_ajarans' => $response->json(),
+            'tahun_ajarans' => $tahunAjarans,
         ]);
     }
 
@@ -271,7 +273,7 @@ class RegisterController extends Controller
     public function ubahPenerimaan(Request $request)
     {
         
-        // $response = Http::withToken($this->apiToken)->post($this->url.'/api/insert-mahasiswa', $request->all());
+        // $response = Http::withToken($this->apiToken)->post($this->url.'/insert-mahasiswa', $request->all());
 
         $register = Register::where('id', '=', $request->regist_id)->first();
         $validatedData = $request->validate(['diterima_di' => 'required']);
@@ -417,20 +419,24 @@ class RegisterController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->search;
+        $search = trim($request->search);
 
-        $registers = Register::where('nama', 'like', "%{$search}%")
-            ->orWhere('alamat', 'like', "%{$search}%")
-            ->orWhere('nama_sekolah', 'like', "%{$search}%")
-            ->orWhereHas('diterimadi', function ($query) use ($search) {
-                $query->where('nama', 'like', "%{$search}%");
-            })
-            ->get();
+        if (empty($search)) {
+            $registers = Register::take(5)->get();
+        } else {
+            $registers = Register::where('nama', 'like', "%{$search}%")
+                ->orWhere('alamat', 'like', "%{$search}%")
+                ->orWhere('nama_sekolah', 'like', "%{$search}%")
+                ->orWhereHas('diterimadi', function ($query) use ($search) {
+                    $query->where('nama', 'like', "%{$search}%");
+                })
+                ->get();
+        }
 
         $output = '';
 
         $output .= '
-        <thead>
+        <thead class="table-dark">
             <tr>
             <th>No.</th>
             <th>Nama</th>
@@ -448,38 +454,45 @@ class RegisterController extends Controller
         if ($registers->isNotEmpty()) {
             foreach ($registers as $key => $register) {
             $output .= '
-                <tr>
-                <td>' . ($key + 1) . '.</td>
-                <td>' . $register->nama . ' (' . $register->jk . ')</td>
-                <td>' . $register->alamat . '</td>
-                <td>' . $register->nama_sekolah . '</td>
-                <td>' . $register->jalurMasuk->nama . '</td>
-                <td>';
+            <tr>
+            <td>' . ($key + 1) . '.</td>
+            <td>' . $register->nama . ' (' . $register->jk . ')</td>
+            <td>' . $register->alamat . '</td>
+            <td>' . $register->nama_sekolah . '</td>
+            <td>' . $register->jalurMasuk->nama . '</td>
+            <td>';
             if ($register->bukti_pembayaran) {
-                $output .= '<a class="test-popup-link" href="' . asset('storage/' . $register->bukti_pembayaran) . '">
-                    <img src="' . asset('storage/' . $register->bukti_pembayaran) . '" class="rounded w-50" style="max-height: 50px;">
-                    </a>';
+            $output .= '<a class="test-popup-link" href="' . asset('storage/' . $register->bukti_pembayaran) . '">
+                <img src="' . asset('storage/' . $register->bukti_pembayaran) . '" class="rounded w-50" style="max-height: 50px;">
+                </a>';
             } else {
-                $output .= '<p class="text-danger"><b>belum upload</b></p>';
+            $output .= '<p class="text-danger"><b>belum upload</b></p>';
             }
             $output .= '</td>
-                <td>' . ($register->pembayaran === "belum" ? 'Belum Terverifikasi' : 'Sudah') . '</td>
-                <td>';
+            <td>' . ($register->pembayaran === "belum" ? 'Belum Terverifikasi' : 'Sudah') . '</td>
+            <td>';
             if ($register->status_diterima === "diterima") {
-                $output .= '<p><b class="text-success">' . $register->status_diterima . '</b> - ' . ($register->diterima_di !== null ? $register->diterimadi->nama : '(prodi belum ditentukan)') . '</p>';
+            $output .= '<p><b class="text-success">' . $register->status_diterima . '</b> - ' . ($register->diterima_di !== null ? $register->diterimadi->nama : '(prodi belum ditentukan)') . '</p>';
             } else {
-                $output .= '<p class="text-danger"><b>' . $register->status_diterima . '</b></p>';
+            $output .= '<p class="text-danger"><b>' . $register->status_diterima . '</b></p>';
             }
             $output .= '</td>
-                <td>
-                    <a class="btn btn-warning btn-sm" href="' . route('register.show', $register->email) . '"><i class="bi bi-eye"></i></a>
-                </td>
-                </tr>';
+            <td>
+                <a class="btn btn-warning btn-sm" href="' . route('register.show', $register->email) . '"><i class="bi bi-eye"></i></a>
+            </td>
+            </tr>';
             }
         } else {
             $output .= '<tr><td colspan="9" class="text-center text-muted">Tidak ada data ditemukan.</td></tr>';
         }
         $output .= '</tbody>';
+        $output .= '<tfoot>
+            <tr>
+            <td colspan="9" class="text-center">
+                <button class="btn btn-primary" onclick="location.reload();">Refresh</button>
+            </td>
+            </tr>
+        </tfoot>';
 
         return response($output);
     }
@@ -514,7 +527,7 @@ class RegisterController extends Controller
                     'nama_jalur_masuk' => $register->jalurMasuk->nama,
                 ];
             
-                $response = Http::withToken(env('API_TOKEN'))->post(env('API_ENDPOINT').'/api/insert-mahasiswa', $data);
+                $response = Http::withToken(env('API_TOKEN'))->post(env('API_ENDPOINT').'/insert-mahasiswa', $data);
             
                 if ($response->json()['message'] === 'Validasi gagal') {
                     $errors = $response->json('errors'); // Ambil bagian 'errors' dari response
@@ -567,7 +580,9 @@ class RegisterController extends Controller
             }
             $berkas->delete();
             }
+            $user_id = $register->user_id;
             $register->delete();
+            User::where('id', $user_id)->delete();
         }
         return redirect()->route('register.index')->with('messageSuccess', 'Data pendaftar berhasil dihapus');
     }

@@ -33,9 +33,12 @@ class AuthController extends Controller
         if ($request->input('role') == 'admin') {
             $user = User::where('email', $credentials['email'])
                         ->where(function($query) {
-                            $query->where('level','=', 'admin')
-                            ->orWhere('level','=','superadmin');
+                            $query->where('level', '=', 'admin')
+                                  ->orWhere('level', '=', 'superadmin');
                         })->first();
+            if ($user && !Hash::check($credentials['password'], $user->password)) {
+                $user = null;
+            }
         }
 
         if (!$user) {

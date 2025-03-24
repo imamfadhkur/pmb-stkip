@@ -10,12 +10,15 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.user.index', [
-            'title' => 'user',
-            'users' => User::paginate(10)
-        ]);
+        $title = 'users';
+        $level = $request->input('level');
+        $users = User::when($level && $level != 'semua', function ($query) use ($level) {
+            return $query->where('level', $level);
+        })->latest()->paginate(10);
+
+        return view('dashboard.user.index', compact('users', 'level', 'title'));
     }
 
     /**
@@ -136,4 +139,22 @@ class UserController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $level = $request->input('level'); // Anda mungkin ingin mempertimbangkan filter level juga
+
+        $users = User::query()
+            ->when($query, function ($q) use ($query) {
+                return $q->where('name', 'like', '%' . $query . '%')
+                         ->orWhere('email', 'like', '%' . $query . '%');
+            })
+            ->when($level && $level != 'semua', function ($q) use ($level) {
+                return $q->where('level', $level);
+            })
+            ->latest()
+            ->paginate(10); // Anda bisa menyesuaikan jumlah per halaman
+
+        return view('dashboard.user.user_table_data', compact('users'))->render();
+    }
 }

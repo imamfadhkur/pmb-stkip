@@ -25,7 +25,7 @@
         
         @if ($tahun_ajarans !== null)
           <button type="button" class="btn btn-sm btn-info mb-2" data-bs-toggle="modal" data-bs-target="#generateDataModal">
-            <i class="bi bi-arrow-repeat"></i>
+            <i class="bi bi-airplane-engines"></i>
           </button>
           <button type="button" class="btn btn-sm btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#deleteAllDataModal">
             <i class="bi bi-trash"></i>
@@ -198,177 +198,179 @@
         <p class="text-center text-muted">Tidak ada data yang ditemukan.</p>
     @else
 
-      <div id="register-table-body">
+<div class="card">
+  <div class="card-body" id="register-table-body" style="max-height: 600px; overflow-y: auto; max-width: 100%; margin: auto;">
 
-        <table class="table table-hover">
-          <thead>
-          <tr>
-            <th>No.</th>
-            <th>Nama</th>
-            <th>Alamat</th>
-            <th>Asal Sekolah</th>
-            <th>Jalur Masuk</th>
-            <th>Bukti Pembayaran</th>
-            <th>Status Pembayaran</th>
-            <th>Status Diterima</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          
-          <tbody>
-          
-            @foreach ($registers as $register)
-              <tr>
-                <td>{{ $registers->firstItem() + $loop->index }}.</td>
-                <td>@isset($register->nama)
-                    {{$register->nama}} ({{ $register->jk }})
-                @endisset</td>
-                <td>@isset($register->alamat)
-                    {{$register->alamat}}
-                @endisset</td>
-                <td>@isset($register->nama_sekolah)
-                    {{$register->nama_sekolah}}
-                @endisset</td>
-                <td>@isset($register->jalurMasuk->nama)
-                    {{$register->jalurMasuk->nama}}
-                @endisset</td>
-                <td>
-                  @if ($register->bukti_pembayaran)
-                  <a class="test-popup-link mfp-with-zoom" href="{{ asset('storage/'.$register->bukti_pembayaran) }}">
-                    <img src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="Bukti Pembayaran {{ $register->nama }}" class="rounded w-50" style="max-height: 50px;" data-magnify-src="{{ asset('storage/'.$register->bukti_pembayaran) }}" data-magnify="gallery">
-                  </a>
-                            
-                  @else
-                  <p class="text-danger"><b>belum upload</b></p>
-                  @endif
-                </td>
-                <td>
-                  @if ($register->pembayaran === "belum")
-                      <p class="text-danger"><b>belum terverifikasi</b></p>
-                  @else
-                      <p class="text-success"><b>sudah</b></p>
-                  @endif
-                </td>
-                <td>
-                  @if ($register->status_diterima === "diterima")
-                    <p><b class="text-success">{{ $register->status_diterima }}</b> - {{ $register->diterima_di !== null ? $register->diterimadi->nama : '(prodi belum ditentukan)' }}</p>
-                  @else
-                    <p class="text-danger"><b>{{ $register->status_diterima }}</b></p>
-                  @endif
-                </td>
-                <td>
-                  <a class="btn btn-warning btn-sm m-1" title="lihat" href="{{ route('register.show',$register->email) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
-                  <form action="{{ url('change-status-pembayaran') }}" method="POST" class="d-inline">
-                    @csrf
-                    <input type="hidden" name="regist_id" value="{{ $register->id }}">
-                    @if ($register->pembayaran === "belum")
-                    <button title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-sm btn-primary m-1">
-                      <i class="bi bi-cash-coin"></i>
-                    </button>
-                    @else
-                    <button disabled title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-sm btn-primary m-1">
-                      <i class="bi bi-cash-coin"></i>
-                    </button>
-                    @endif
-                  </form>
-
-                  <!-- Button trigger modal -->
-                  <button type="button" title="Diterima di?" class="btn btn-sm btn-warning m-1" data-bs-toggle="modal" data-bs-target="#createModal{{ $register->id }}">
-                    <i class="bi bi-check2-square"></i>
-                  </button>
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="createModal{{ $register->id }}" tabindex="-1" aria-labelledby="createModal{{ $register->id }}Label" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="createModal{{ $register->id }}Label">Penempatan Prodi</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                      <form method="POST" action="{{ url('change-status-diterima') }}">
-                      @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                              <input type="hidden" name="regist_id" value="{{ $register->id }}">
-                                  <label for="diterima_di"><b>{{ $register->nama }} diterima di prodi?</b></label>
-                                  @if ($register->pilihan1Prodi)
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan1Prodi->id }}" id="diterima_1{{ $register->id }}" {{ $register->diterima_di === $register->pilihan1Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan1Prodi->nama }}', {{ $register->id }})">
-                                    <label class="form-check-label" for="diterima_1{{ $register->id }}">
-                                    {{ $register->pilihan1Prodi->nama }}
-                                    </label>
-                                  </div>
-                                  @endif
-                                  @if ($register->pilihan2Prodi)
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan2Prodi->id }}" id="diterima_2{{ $register->id }}" {{ $register->diterima_di === $register->pilihan2Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan2Prodi->nama }}', {{ $register->id }})">
-                                    <label class="form-check-label" for="diterima_2{{ $register->id }}">
-                                    {{ $register->pilihan2Prodi->nama }}
-                                    </label>
-                                  </div>
-                                  @endif
-                                  @if ($register->pilihan3Prodi)
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan3Prodi->id }}" id="diterima_3{{ $register->id }}" {{ $register->diterima_di === $register->pilihan3Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan3Prodi->nama }}', {{ $register->id }})">
-                                    <label class="form-check-label" for="diterima_3{{ $register->id }}">
-                                    {{ $register->pilihan3Prodi->nama }}
-                                    </label>
-                                  </div>
-                                  @endif
-                                  <input type="hidden" name="prodi_name" id="prodi_name{{ $register->id }}" value="" placeholder="nama_prodi">
-                                  <script>
-                                  function updateProdiName(prodiName, registerId) {
-                                    document.getElementById('prodi_name' + registerId).value = prodiName;
-                                  }
-                                  </script>
-                            </div>
-                            <!-- ... other input fields ... -->
-                            <input type="hidden" name="name" placeholder="name" value="{{ $register->nama }}">
-                            <input type="hidden" name="role" placeholder="role" value="mahasiswa">
-                            <input type="hidden" name="jenis_kelamin" placeholder="jenis_kelamin" value="{{ $register->jk }}">
-                            <input type="hidden" name="tempat_lahir" placeholder="tempat_lahir" value="{{ $register->tempat_lahir }}">
-                            <input type="hidden" name="tanggal_lahir" placeholder="tanggal_lahir" value="{{ $register->tanggal_lahir }}">
-                            <input type="hidden" name="alamat" placeholder="alamat" value="{{ $register->alamat }}">
-                            <input type="hidden" name="kewarganegaraan" placeholder="kewarganegaraan" value="{{ $register->kewarganegaraan }}">
-                            <input type="hidden" name="nik" placeholder="nik" value="{{ $register->identitas_kewarganegaraan }}">
-                            <input type="hidden" name="nisn" placeholder="nisn" value="{{ $register->nisn }}">
-                            <input type="hidden" name="nama_ibu" placeholder="nama_ibu" value="{{ $register->nama_ibu }}">
-                            <input type="hidden" name="tanggal_daftar" placeholder="tanggal_daftar" id="" value="{{ $register->created_at }}">
-                            <input type="hidden" name="nama_jalur_masuk" placeholder="nama_jalur_masuk" id="" value="{{ $register->jalurMasuk->nama }}">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button id="createSubmit" type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                      </form>
-                      </div>
-                    </div>
-                  </div>
-
-                  @can('superadmin')
-                    <a class="btn btn-warning btn-sm m-1" title="edit" href="{{ route('register.edit',$register->email) }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
-                    <form action="{{ url('hapus/'. $register->id) }}" method="POST" class="d-inline">
-                      @csrf
-                      @method('DELETE')
-                      <input type="hidden" name="id" value="{{ $register->id }}">
-                      <button onclick="return confirm('apakah anda yakin ingin menghapus?')" title="Hapus pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-danger m-1">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </form>
-                  @endcan
-                </td>
-              </tr>
-            @endforeach
-            
-          </tbody>
-          
-        </table>
+    <table class="table table-hover">
+      <thead class="table-dark">
+      <tr>
+        <th>No.</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Asal Sekolah</th>
+        <th>Jalur Masuk</th>
+        <th>Bukti Pembayaran</th>
+        <th>Status Pembayaran</th>
+        <th>Status Diterima</th>
+        <th>Action</th>
+      </tr>
+      </thead>
       
-        <div class="card-footer d-flex justify-content-center">
-            {{ $registers->links('pagination::bootstrap-5') }}
-        </div>
+      <tbody>
+      
+        @foreach ($registers as $register)
+          <tr>
+            <td>{{ $registers->firstItem() + $loop->index }}.</td>
+            <td>@isset($register->nama)
+                {{$register->nama}} ({{ $register->jk }})
+            @endisset</td>
+            <td>@isset($register->alamat)
+                {{$register->alamat}}
+            @endisset</td>
+            <td>@isset($register->nama_sekolah)
+                {{$register->nama_sekolah}}
+            @endisset</td>
+            <td>@isset($register->jalurMasuk->nama)
+                {{$register->jalurMasuk->nama}}
+            @endisset</td>
+            <td>
+              @if ($register->bukti_pembayaran)
+              <a class="test-popup-link mfp-with-zoom" href="{{ asset('storage/'.$register->bukti_pembayaran) }}">
+                <img src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="Bukti Pembayaran {{ $register->nama }}" class="rounded w-50" style="max-height: 50px;" data-magnify-src="{{ asset('storage/'.$register->bukti_pembayaran) }}" data-magnify="gallery">
+              </a>
+                        
+              @else
+              <p class="text-danger"><b>belum upload</b></p>
+              @endif
+            </td>
+            <td>
+              @if ($register->pembayaran === "belum")
+                  <p class="text-danger"><b>belum terverifikasi</b></p>
+              @else
+                  <p class="text-success"><b>sudah</b></p>
+              @endif
+            </td>
+            <td>
+              @if ($register->status_diterima === "diterima")
+                <p><b class="text-success">{{ $register->status_diterima }}</b> - {{ $register->diterima_di !== null ? $register->diterimadi->nama : '(prodi belum ditentukan)' }}</p>
+              @else
+                <p class="text-danger"><b>{{ $register->status_diterima }}</b></p>
+              @endif
+            </td>
+            <td>
+              <a class="btn btn-warning btn-sm m-1" title="lihat" href="{{ route('register.show',$register->email) }}" style="display: inline-block;"><i class="bi bi-eye"></i></a>
+              <form action="{{ url('change-status-pembayaran') }}" method="POST" class="d-inline">
+                @csrf
+                <input type="hidden" name="regist_id" value="{{ $register->id }}">
+                @if ($register->pembayaran === "belum")
+                <button title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-sm btn-primary m-1">
+                  <i class="bi bi-cash-coin"></i>
+                </button>
+                @else
+                <button disabled title="Verifikasi Pembayaran {{ $register->nama }}" type="submit" onclick="return confirm('Apakah {{ $register->nama }} sudah membayar?')" class="btn btn-sm btn-primary m-1">
+                  <i class="bi bi-cash-coin"></i>
+                </button>
+                @endif
+              </form>
 
-      </div>
+              <!-- Button trigger modal -->
+              <button type="button" title="Diterima di?" class="btn btn-sm btn-warning m-1" data-bs-toggle="modal" data-bs-target="#createModal{{ $register->id }}">
+                <i class="bi bi-check2-square"></i>
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="createModal{{ $register->id }}" tabindex="-1" aria-labelledby="createModal{{ $register->id }}Label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="createModal{{ $register->id }}Label">Penempatan Prodi</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                  <form method="POST" action="{{ url('change-status-diterima') }}">
+                  @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                          <input type="hidden" name="regist_id" value="{{ $register->id }}">
+                              <label for="diterima_di"><b>{{ $register->nama }} diterima di prodi?</b></label>
+                              @if ($register->pilihan1Prodi)
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan1Prodi->id }}" id="diterima_1{{ $register->id }}" {{ $register->diterima_di === $register->pilihan1Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan1Prodi->nama }}', {{ $register->id }})">
+                                <label class="form-check-label" for="diterima_1{{ $register->id }}">
+                                {{ $register->pilihan1Prodi->nama }}
+                                </label>
+                              </div>
+                              @endif
+                              @if ($register->pilihan2Prodi)
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan2Prodi->id }}" id="diterima_2{{ $register->id }}" {{ $register->diterima_di === $register->pilihan2Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan2Prodi->nama }}', {{ $register->id }})">
+                                <label class="form-check-label" for="diterima_2{{ $register->id }}">
+                                {{ $register->pilihan2Prodi->nama }}
+                                </label>
+                              </div>
+                              @endif
+                              @if ($register->pilihan3Prodi)
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan3Prodi->id }}" id="diterima_3{{ $register->id }}" {{ $register->diterima_di === $register->pilihan3Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan3Prodi->nama }}', {{ $register->id }})">
+                                <label class="form-check-label" for="diterima_3{{ $register->id }}">
+                                {{ $register->pilihan3Prodi->nama }}
+                                </label>
+                              </div>
+                              @endif
+                              <input type="hidden" name="prodi_name" id="prodi_name{{ $register->id }}" value="" placeholder="nama_prodi">
+                              <script>
+                              function updateProdiName(prodiName, registerId) {
+                                document.getElementById('prodi_name' + registerId).value = prodiName;
+                              }
+                              </script>
+                        </div>
+                        <!-- ... other input fields ... -->
+                        <input type="hidden" name="name" placeholder="name" value="{{ $register->nama }}">
+                        <input type="hidden" name="role" placeholder="role" value="mahasiswa">
+                        <input type="hidden" name="jenis_kelamin" placeholder="jenis_kelamin" value="{{ $register->jk }}">
+                        <input type="hidden" name="tempat_lahir" placeholder="tempat_lahir" value="{{ $register->tempat_lahir }}">
+                        <input type="hidden" name="tanggal_lahir" placeholder="tanggal_lahir" value="{{ $register->tanggal_lahir }}">
+                        <input type="hidden" name="alamat" placeholder="alamat" value="{{ $register->alamat }}">
+                        <input type="hidden" name="kewarganegaraan" placeholder="kewarganegaraan" value="{{ $register->kewarganegaraan }}">
+                        <input type="hidden" name="nik" placeholder="nik" value="{{ $register->identitas_kewarganegaraan }}">
+                        <input type="hidden" name="nisn" placeholder="nisn" value="{{ $register->nisn }}">
+                        <input type="hidden" name="nama_ibu" placeholder="nama_ibu" value="{{ $register->nama_ibu }}">
+                        <input type="hidden" name="tanggal_daftar" placeholder="tanggal_daftar" id="" value="{{ $register->created_at }}">
+                        <input type="hidden" name="nama_jalur_masuk" placeholder="nama_jalur_masuk" id="" value="{{ $register->jalurMasuk->nama }}">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button id="createSubmit" type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+
+              @can('superadmin')
+                <a class="btn btn-warning btn-sm m-1" title="edit" href="{{ route('register.edit',$register->email) }}" style="display: inline-block;"><i class="bi bi-pencil"></i></a>
+                <form action="{{ url('hapus/'. $register->id) }}" method="POST" class="d-inline">
+                  @csrf
+                  @method('DELETE')
+                  <input type="hidden" name="id" value="{{ $register->id }}">
+                  <button onclick="return confirm('apakah anda yakin ingin menghapus?')" title="Hapus pendaftar {{ $register->nama }}" type="submit" class="btn btn-sm btn-danger m-1">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              @endcan
+            </td>
+          </tr>
+        @endforeach
+        
+      </tbody>
+      
+    </table>
+  
+    <div class="card-footer d-flex justify-content-center">
+        {{ $registers->links('pagination::bootstrap-5') }}
+    </div>
+
+  </div>
+</div>
 
     @endif
 
