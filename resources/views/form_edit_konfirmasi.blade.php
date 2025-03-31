@@ -63,9 +63,12 @@
                             @enderror</td>
                     </tr>
                     <tr><td>email</td>
-                        <td><input type="email" name="email" class="form-control" value="{{ old('email', $email) }}">@error('email')
-                            <div class="alert alert-danger mt-2">{{ $message }}</div>
-                          @enderror</td>
+                        <td>
+                            <input type="email" name="email" class="form-control" value="{{ old('email', $email) }}" required>
+                            @error('email')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </td>
                     </tr>
                     <tr><td>tempat, tanggal lahir</td>
                         <td>

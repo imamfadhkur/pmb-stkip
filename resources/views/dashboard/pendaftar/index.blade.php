@@ -16,20 +16,20 @@
     <div class="row">
       
       <div class="col">
-        <a href="{{ url('register/create') }}" class="btn btn-sm btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data</a>
-        
-        <a href="{{ route('export.register') }}" class="btn btn-sm btn-success mb-2"><i class="bi bi-box-arrow-up-right"></i> Ekspor data</a>
+        <a href="{{ url('register/create') }}" title="Tambah Data" class="btn btn-sm btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah</a>
+        <a href="{{ route('export.register') }}" title="Export Data" class="btn btn-sm btn-success mb-2"><i class="bi bi-box-arrow-up-right"></i> Ekspor</a>
+        <a href="{{ route('register.update') }}" class="btn btn-sm btn-info mb-2" title="Update Data Register"><i class="bi bi-arrow-repeat"></i> Update</a>
       </div>
 
       <div class="col text-center">
         
         @if ($tahun_ajarans !== null)
-          <button type="button" class="btn btn-sm btn-info mb-2" data-bs-toggle="modal" data-bs-target="#generateDataModal">
-            <i class="bi bi-airplane-engines"></i>
-          </button>
-          <button type="button" class="btn btn-sm btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#deleteAllDataModal">
-            <i class="bi bi-trash"></i>
-          </button>
+            <button type="button" class="btn btn-sm btn-info mb-2" data-bs-toggle="modal" data-bs-target="#generateDataModal" title="Generate Data Siakad">
+                <i class="bi bi-airplane-engines"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#deleteAllDataModal" title="Hapus Semua Data">
+                <i class="bi bi-trash"></i>
+            </button>
 
           <!-- Generate Data Modal -->
           <div class="modal fade" id="generateDataModal" tabindex="-1" aria-labelledby="generateDataModalLabel" aria-hidden="true">
@@ -207,10 +207,10 @@
         <th>No.</th>
         <th>Nama</th>
         <th>Alamat</th>
+        <th>Tanggal Daftar</th>
         <th>Asal Sekolah</th>
         <th>Jalur Masuk</th>
-        <th>Bukti Pembayaran</th>
-        <th>Status Pembayaran</th>
+        <th>Pembayaran</th>
         <th>Status Diterima</th>
         <th>Action</th>
       </tr>
@@ -227,6 +227,9 @@
             <td>@isset($register->alamat)
                 {{$register->alamat}}
             @endisset</td>
+            <td>@isset($register->created_at)
+              {{ $register->created_at->format('d/m/Y H:i') }}
+            @endisset</td>
             <td>@isset($register->nama_sekolah)
                 {{$register->nama_sekolah}}
             @endisset</td>
@@ -234,18 +237,8 @@
                 {{$register->jalurMasuk->nama}}
             @endisset</td>
             <td>
-              @if ($register->bukti_pembayaran)
-              <a class="test-popup-link mfp-with-zoom" href="{{ asset('storage/'.$register->bukti_pembayaran) }}">
-                <img src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="Bukti Pembayaran {{ $register->nama }}" class="rounded w-50" style="max-height: 50px;" data-magnify-src="{{ asset('storage/'.$register->bukti_pembayaran) }}" data-magnify="gallery">
-              </a>
-                        
-              @else
-              <p class="text-danger"><b>belum upload</b></p>
-              @endif
-            </td>
-            <td>
               @if ($register->pembayaran === "belum")
-                  <p class="text-danger"><b>belum terverifikasi</b></p>
+                  <p class="text-danger"><b>belum</b></p>
               @else
                   <p class="text-success"><b>sudah</b></p>
               @endif

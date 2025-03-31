@@ -11,7 +11,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <h3 class="mx-4 mt-2">Asal Sekolah</h3>
+            <h3 class="mx-4 mt-2">{{ $nama }}, isikan data Asal Sekolah Anda</h3>
         </div>
     </div>
     <div class="row">

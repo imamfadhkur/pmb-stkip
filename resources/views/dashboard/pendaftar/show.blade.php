@@ -129,11 +129,6 @@
             @endif
         </td>
     </tr>
-    <tr><td>Bukti Pembayaran</td>
-        <td>
-            <img style="max-width: 100%;" src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="{{ $register->nama }}">
-        </td>
-    </tr>
 </tr>
 <tr>
     <td>Pas Foto 3*4

@@ -218,36 +218,22 @@ class RegisterController extends Controller
             'pilihan2' => 'required',
             'pilihan3' => 'required',
             'pembayaran' => ['required', Rule::in(['sudah', 'belum'])],
-            'status_diterima' => ['required', Rule::in(['diterima', 'tidak diterima'])],
+            'status_diterima' => ['required', Rule::in(['diterima', 'belum', 'tidak'])],
         ]));
         
-        if ($request->hasFile('bukti_pembayaran')) {
-            // Menghapus gambar lama
-            if ($register->bukti_pembayaran) {
-                Storage::delete($register->bukti_pembayaran);
-            }
-            // Menyimpan gambar baru
-            $va = $request->file('bukti_pembayaran')->store('bukti-pembayaran');
-            $register->update(['bukti_pembayaran' => $va]);
-        }
-
         $berkas = new BerkasPendaftar;
         if ($berkas::where('user_id',$register->user_id)->first()) {
             $berkas = $berkas::where('user_id',$register->user_id)->first();
         }
         $berkas->user_id = $register->user_id;
         foreach ($request->file() as $key => $file) {
-            if ($request->hasFile('bukti_pembayaran')) {
-                # code...
-            } else {
-                $key_file = $key."_file";
-                if ($berkas->$key_file !== null) {
-                    Storage::delete($berkas->$key_file);
-                }
-                $berkas->$key = $file->getClientOriginalName();
-                $berkas->$key_file = $file->store('berkas');
-                $berkas->save();
+            $key_file = $key."_file";
+            if ($berkas->$key_file !== null) {
+                Storage::delete($berkas->$key_file);
             }
+            $berkas->$key = $file->getClientOriginalName();
+            $berkas->$key_file = $file->store('berkas');
+            $berkas->save();
         }
 
         return redirect()->route('register.index')->with('messageSuccess', 'Pendaftar berhasil diedit');
@@ -294,19 +280,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function uploadPembayaran(Request $request)
-    {
-        $validatedData = $request->validate([
-            'bukti_pembayaran' => 'image|mimes:jpg,png|max:5024'
-        ]);
-        $validatedData['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('bukti-pembayaran');
-        
-        $register_user_id = Auth::user()->id;
-        Register::where('user_id', '=', $register_user_id)->update(['bukti_pembayaran' => $validatedData['bukti_pembayaran']]);
-
-        return redirect('/dashboard');
-    }
-
     public function sort(Request $request)
     {
         $registers = Register::orderBy($request->query('sort'), $request->query('ascdesc'))->paginate(17);
@@ -326,9 +299,6 @@ class RegisterController extends Controller
             $kuo = $jmp->kuota;
             $jmp->kuota = $kuo + 1;
             $jmp->save();
-        }
-        if ($register->bukti_pembayaran) {
-            Storage::delete($register->bukti_pembayaran);
         }
         if (BerkasPendaftar::where('user_id', $register->user_id)->first()) {
             $berkas = BerkasPendaftar::where('user_id', $register->user_id)->first();
@@ -355,7 +325,9 @@ class RegisterController extends Controller
             }
             $berkas->delete();
         }
+        $user_id = $register->user_id;
         $register->delete();
+        User::where('id', $user_id)->delete();
         
         return redirect('/register')->with('messageSuccess', 'Data berhasil dihapus');
     }
@@ -443,7 +415,6 @@ class RegisterController extends Controller
             <th>Alamat</th>
             <th>Asal Sekolah</th>
             <th>Jalur Masuk</th>
-            <th>Bukti Pembayaran</th>
             <th>Status Pembayaran</th>
             <th>Status Diterima</th>
             <th>Action</th>
@@ -460,15 +431,6 @@ class RegisterController extends Controller
             <td>' . $register->alamat . '</td>
             <td>' . $register->nama_sekolah . '</td>
             <td>' . $register->jalurMasuk->nama . '</td>
-            <td>';
-            if ($register->bukti_pembayaran) {
-            $output .= '<a class="test-popup-link" href="' . asset('storage/' . $register->bukti_pembayaran) . '">
-                <img src="' . asset('storage/' . $register->bukti_pembayaran) . '" class="rounded w-50" style="max-height: 50px;">
-                </a>';
-            } else {
-            $output .= '<p class="text-danger"><b>belum upload</b></p>';
-            }
-            $output .= '</td>
             <td>' . ($register->pembayaran === "belum" ? 'Belum Terverifikasi' : 'Sudah') . '</td>
             <td>';
             if ($register->status_diterima === "diterima") {
@@ -552,9 +514,6 @@ class RegisterController extends Controller
             $jmp->kuota = $kuo + 1;
             $jmp->save();
             }
-            if ($register->bukti_pembayaran) {
-            Storage::delete($register->bukti_pembayaran);
-            }
             if (BerkasPendaftar::where('user_id', $register->user_id)->first()) {
             $berkas = BerkasPendaftar::where('user_id', $register->user_id)->first();
             if ($berkas->ijazah_skl_file) {
@@ -585,5 +544,39 @@ class RegisterController extends Controller
             User::where('id', $user_id)->delete();
         }
         return redirect()->route('register.index')->with('messageSuccess', 'Data pendaftar berhasil dihapus');
+    }
+
+    public function register_update()
+    {
+        // UPDATE PEMBAYARAN
+        // get data tagihan
+        $name = auth()->user()->name;
+        try {
+            $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/all-tagihan/'. $name);
+            if(!$response->ok() || is_null($response->json())){
+            throw new \Exception('Gagal mengambil data tagihan: ' . strip_tags($response->body()));
+            }
+            $tagihans = $response->json();
+
+        } catch (\Exception $e) {
+            session()->flash('error_custom', $e->getMessage());
+            $tagihans = null;
+        }
+
+        // cek apakah pendaftar ada yang status tagihannya lunas, jika iya maka perbarui pembayaran pendaftar
+        foreach ($tagihans as $key => $value) {
+            if ($value['status'] === 'SUKSES') {
+                $register = Register::where('email', $value['email'])->first();
+                if ($register && $register->pembayaran !== 'sudah') {
+                    $register->pembayaran = 'sudah';
+                    $register->save();
+                }
+            }
+        }
+        
+        // UPDATE YANG LAINNYA
+        // your code
+
+        return redirect()->route('register.index')->with('messageSuccess', 'Data pendaftar berhasil diperbarui');
     }
 }

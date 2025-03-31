@@ -43,7 +43,7 @@
 
                 <div class="form-group m-4">
                   <label for="email">Email</label>
-                  <input type="email" name="email" class="form-control">
+                  <input type="email" name="email" class="form-control" required>
                 </div>
 
                 <div class="form-group m-4">

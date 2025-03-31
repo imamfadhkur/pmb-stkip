@@ -8,6 +8,9 @@
   <li class="{{ Request::is('register') ? 'active' : '' }}">
       <a href="{{ url('register') }}">Pendaftar</a>
   </li>
+  <li class="{{ Request::is('api/tagihan') ? 'active' : '' }}">
+      <a href="{{ url('api/tagihan') }}">Tagihan</a>
+  </li>
   @can('superadmin')
   <li class="{{ Request::is('data') ? 'active' : '' }}">
   <a href="#pageData" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Data Pendaftaran</a>

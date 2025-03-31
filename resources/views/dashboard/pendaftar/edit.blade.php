@@ -33,7 +33,7 @@
                 @enderror</td>
         </tr>
         <tr><td>email</td>
-            <td><input type="email" name="email" class="form-control" value="{{ old('email', $register->email) }}">@error('email')
+            <td><input type="email" name="email" class="form-control" value="{{ old('email', $register->email) }}" required>@error('email')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror</td>
         </tr>
@@ -198,24 +198,6 @@
                 @enderror
             </td>
         </tr>
-        <tr><td>bukti pembayaran <br>
-            <span class="text-danger"><i>format file .jpg/.png, maks.2MB</i></span></td>
-            <td>
-                <img class="img-preview" class="mb-2" src="{{ asset('storage/'.$register->bukti_pembayaran) }}" alt="pengumuman" style="max-width: 100px;" hidden>
-                @if($register->bukti_pembayaran)
-                <script>document.querySelector('.img-preview').removeAttribute('hidden')</script>
-                @endif
-                <input type="file" name="bukti_pembayaran" id="bukti_pembayaran" class="form-control{{ $errors->has('bukti_pembayaran') ? ' is-invalid' : '' }}" onchange="previewImage()">
-                @if ($errors->has('bukti_pembayaran'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('bukti_pembayaran') }}
-                    </div>
-                @endif
-                @error('bukti_pembayaran')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                @enderror
-            </td>
-        </tr>
         <tr>
             <td>Pas Foto 3*4 <br>
                 <span class="text-danger"><i>format file .pdf, maks.2MB</i></span>
@@ -296,8 +278,12 @@
                     <label for="diterima" class="form-check-label">diterima</label>
                 </div>
                 <div class="form-check">
-                    <input id="tidak" type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="tidak diterima" {{ old('status_diterima', $register->status_diterima) === 'tidak diterima' ? 'checked' : '' }}>
-                    <label for="tidak" class="form-check-label">tidak diterima</label>
+                    <input id="belum" type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="belum" {{ old('status_diterima', $register->status_diterima) === 'belum' ? 'checked' : '' }}>
+                    <label for="belum" class="form-check-label">belum</label>
+                </div>
+                <div class="form-check">
+                    <input id="tidak" type="radio" class="form-check-input @error('status_diterima') is-invalid @enderror" name="status_diterima" value="tidak" {{ old('status_diterima', $register->status_diterima) === 'tidak' ? 'checked' : '' }}>
+                    <label for="tidak" class="form-check-label">tidak</label>
                 </div>
                 @error('pembayaran')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
@@ -312,20 +298,4 @@
 
     </div>
 </div>
-<script>
-    function previewImage() {
-        const image = document.querySelector('#bukti_pembayaran');
-        const imgPreview = document.querySelector('.img-preview');
-
-        // imgPreview.style.display = 'block';
-        imgPreview.classList.add('mb-2');
-
-        const oFReader = new FileReader();
-        oFReader.readAsDataURL(image.files[0]);
-
-        oFReader.onload = function(oFREvent){
-            imgPreview.src = oFREvent.target.result;
-        }
-    }
-</script>
 @endsection

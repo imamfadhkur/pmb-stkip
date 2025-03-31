@@ -11,7 +11,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <h3 class="mx-4 mt-2">Prodi</h3>
+            <h3 class="mx-4 mt-2">Pilih 3 Prodi yang berbeda ya, {{ $nama }}!</h3>
         </div>
     </div>
     <div class="row">

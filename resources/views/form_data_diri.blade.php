@@ -51,7 +51,7 @@
 
                 <div class="form-group m-4">
                   <label for="email">Email</label>
-                  <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                  <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
                   @error('email')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                   @enderror

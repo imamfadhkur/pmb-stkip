@@ -11,7 +11,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <h3 class="mx-4 mt-2">Pemberkasan</h3>
+            <h3 class="mx-4 mt-2">Terakhir nih, Pemberkasan</h3>
             <p class="mx-4"><span class="text-danger">*</span>Lengkapi berkas dibawah ini</p>
         </div>
     </div>
@@ -87,7 +87,7 @@
                     <span class="text-danger"><i>Upload dokumen pendukung jika diperlukan</i></span>
                 </div>
                 
-                <div class="form-group m-4">
+                {{-- <div class="form-group m-4">
                     <p>Lakukan pembayaran sejumlah <b><span id="biaya_number"></span></b> ke salah satu rekening berikut ini:</p>
                     <table border="1">
                         <tr style="border: 1px solid black">
@@ -105,10 +105,7 @@
                             </tr>
                         @endforeach
                     </table>
-                    <label><span class="text-danger">*</span>Bukti Pembayaran</label>
-                    <input type="file" name="bukti_pembayaran" class="form-control" required>
-                    <span class="text-danger"><i>format file jpg/png, maks.1MB</i></span>
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn btn-primary mx-4" value="save" name="type" onclick="return confirm('Apakah anda yakin data yang anda masukkan benar?')">Daftar</button>
               </form>              

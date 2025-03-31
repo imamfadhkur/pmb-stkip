@@ -21,6 +21,7 @@ use App\Http\Controllers\BerkasPendaftarController;
 use App\Http\Controllers\JalurMasukProdiController;
 use App\Http\Controllers\PostDaftarUlangController;
 use App\Http\Controllers\JenjangPendidikanController;
+use App\Http\Controllers\TagihanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,7 @@ Route::group(['middleware' => ['guest']], function () {
         Route::post('/berkas', 'berkas')->name('berkas');
         Route::post('/konfirmasi', 'konfirmasi')->name('konfirmasi');
         Route::post('/daftar', 'daftar')->name('daftar');
+        Route::get('detail-pembayaran', [PendaftaranController::class, 'detail_pembayaran'])->name('detail-pembayaran');
     });
 });
 
@@ -107,7 +109,6 @@ Route::group(['middleware' => ['auth']], function(){
     }
     )->middleware(['administrator']);
     Route::delete('/hapus/{id}', [RegisterController::class, 'hapus'])->middleware(['administrator']);
-    Route::post('/upload-bukti-pembayaran-regist', [RegisterController::class, 'uploadPembayaran']);
     Route::get('/register-sort', [RegisterController::class, 'sort'])->middleware('administrator');
     Route::group(['middleware' => ['superadmin']], function () {
         Route::get('/settings/data-bank', [SettingController::class, 'bank']);
@@ -144,4 +145,13 @@ Route::group(['middleware' => ['auth']], function(){
     Route::delete('delete-all-register', [RegisterController::class, 'delete_all'])->middleware('superadmin');
 
     Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+
+    Route::get('api/tagihan', [TagihanController::class, 'index'])->name('tagihan');
+    Route::get('api/tagihan/{id}', [TagihanController::class, 'show'])->name('tagihan.show');
+    Route::delete('api/tagihan/{id}', [TagihanController::class, 'destroy'])->name('tagihan.destroy');
+    Route::patch('api/tagihan/{id}', [TagihanController::class, 'update'])->name('tagihan.update');
+    Route::post('api/store-tagihan', [TagihanController::class, 'store'])->name('tagihan.store');
+    Route::get('xx-tagihan.export', [TagihanController::class, 'export'])->name('xx-tagihan.export');
+
+    Route::get('register-update', [RegisterController::class, 'register_update'])->name('register.update');
 });
