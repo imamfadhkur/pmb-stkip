@@ -25,6 +25,7 @@
                     <div class="d-inline ms-1">{{ $informasiKampus->noTelp }}</div>
                 </div>
             @endif
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScbQCUhryd_fzPqcVAYkGTg54uilakOsLtNIbnULkq9wxTdug/viewform?usp=header" target="_blank" class="text-warning">bug report</a>
         </div>
     </div>
     <div class="row justify-content-center mt-4">

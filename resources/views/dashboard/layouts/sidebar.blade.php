@@ -42,19 +42,22 @@
       <a href="{{ url('user') }}">User</a>
   </li>
   <li class="{{ Request::is('setting*') ? 'active' : '' }}">
-  <a href="#pageSettings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
-  <ul class="collapse list-unstyled" id="pageSettings">
-    <li class="{{ Request::is('settings/data-bank') ? 'active' : '' }}">
-        <a href="{{ url('settings/data-bank') }}">Data Bank</a>
+    <a href="#pageSettings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
+    <ul class="collapse list-unstyled" id="pageSettings">
+        <li class="{{ Request::is('settings/data-bank') ? 'active' : '' }}">
+            <a href="{{ url('settings/data-bank') }}">Data Bank</a>
+        </li>
+        <li class="{{ Request::is('settings/sosmed') ? 'active' : '' }}">
+            <a href="{{ url('settings/sosmed') }}">Sosial Media</a>
+        </li>
+        <li class="{{ Request::is('settings/informasi-kampus') ? 'active' : '' }}">
+            <a href="{{ url('settings/informasi-kampus') }}">Informasi Kampus</a>
+        </li>
+    </ul>
     </li>
-    <li class="{{ Request::is('settings/sosmed') ? 'active' : '' }}">
-        <a href="{{ url('settings/sosmed') }}">Sosial Media</a>
+    <li>
+        <a href="https://docs.google.com/spreadsheets/d/1XhOh76u4NFFPi9dY9ZFhdrknWhyINu--fQZ4VXxqHv0/edit?usp=sharing" target="_blank">Bug Report</a>
     </li>
-    <li class="{{ Request::is('settings/informasi-kampus') ? 'active' : '' }}">
-        <a href="{{ url('settings/informasi-kampus') }}">Informasi Kampus</a>
-    </li>
-  </ul>
-  </li>
   @endcan
 </ul>
 @if (Auth::user()->level === 'admin')
