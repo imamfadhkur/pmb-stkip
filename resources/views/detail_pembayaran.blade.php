@@ -33,7 +33,7 @@
                         </div>
                         <div class="mb-3">
                             <strong>Nominal:</strong>
-                            <p class="mb-0">Rp{{ number_format($tagihan['nominal_tagihan'], 0, ',', '.') }}</p>
+                            <p class="mb-0">Rp{{ number_format($tagihan['nominal_tagihan'] + 3000, 0, ',', '.') }}</p>
                         </div>
                         <div class="mb-3">
                             <strong>Keterangan:</strong>
@@ -53,7 +53,7 @@
                 </div>
             @else
                 <div class="alert alert-warning">
-                    Tidak ada data tagihan yang tersedia.
+                    Sesi telah berakhir, Anda terlalu lama disini :). Silakan hubungi admin atau contact person mengenai informasi tagihan atau hal lainnya.
                 </div>
             @endif
         </div>

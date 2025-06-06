@@ -74,7 +74,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-            <a href="{{ url('register') }}" id="clearDataButton" class="btn btn-secondary">Bersihkan Data</a>
+            <a href="{{ url('register') }}" id="clearDataButton" class="btn btn-secondary">Batal</a>
             <button type="button" id="finalizeButton" class="btn btn-primary" disabled>Saya Yakin</button>
                 </div>
               </div>

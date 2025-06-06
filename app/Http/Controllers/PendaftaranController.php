@@ -690,7 +690,7 @@ class PendaftaranController extends Controller
     public function detail_pembayaran(Request $request)
     {
         return view('detail_pembayaran', [
-            'tagihan' => session('tagihan')['tagihan'],
+            'tagihan' => session('tagihan')['tagihan'] ?? null,
             'title' => 'Pendaftaran | detail pembayaran',
             'error_custom' => session('error_custom')
         ]);
