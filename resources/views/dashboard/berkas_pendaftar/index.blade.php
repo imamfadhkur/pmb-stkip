@@ -27,7 +27,8 @@
             <td>
               pilihan 1: {{ $user->register->pilihan1Prodi->nama }} <br>
               pilihan 2: {{ $user->register->pilihan2Prodi->nama }} <br>
-              pilihan 3: {{ $user->register->pilihan3Prodi->nama }}
+              pilihan 3: {{ $user->register->pilihan3Prodi->nama }} <br>
+              pilihan 4: {{ $user->register->pilihan4Prodi->nama }}
             </td>
           </tr>
         </table>

@@ -23,6 +23,8 @@ use App\Http\Controllers\PostDaftarUlangController;
 use App\Http\Controllers\JenjangPendidikanController;
 use App\Http\Controllers\TagihanController;
 
+use App\Http\Controllers\NewPendaftaranController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +35,17 @@ use App\Http\Controllers\TagihanController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// =========================== NEW FLOW ===========================
+
+// Route Pendaftaran Model Baru (Wizard)
+
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('/pendaftaran-baru', [NewPendaftaranController::class, 'index'])->name('pendaftaran.wizard');
+    Route::post('/pendaftaran-baru-simpan', [NewPendaftaranController::class, 'store'])->name('pendaftaran.store');
+});
+
+// =========================== END NEW FLOW ===========================
 
 Route::get('/', function () {return view('index', ['title' => 'home']);})->middleware('guest');
 Route::get('/home', function () {return view('index', ['title' => 'home']);})->middleware('guest');

@@ -309,6 +309,14 @@
                                 </label>
                               </div>
                               @endif
+                              @if ($register->pilihan4Prodi)
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="diterima_di" value="{{ $register->pilihan4Prodi->id }}" id="diterima_4{{ $register->id }}" {{ $register->diterima_di === $register->pilihan4Prodi->id ? 'checked' : '' }} onclick="updateProdiName('{{ $register->pilihan4Prodi->nama }}', {{ $register->id }})">
+                                <label class="form-check-label" for="diterima_4{{ $register->id }}">
+                                {{ $register->pilihan4Prodi->nama }}
+                                </label>
+                              </div>
+                              @endif
                               <input type="hidden" name="prodi_name" id="prodi_name{{ $register->id }}" value="" placeholder="nama_prodi">
                               <script>
                               function updateProdiName(prodiName, registerId) {

@@ -13,7 +13,7 @@
                 </div>
         @endif
         @include('components.error_success')
-        <a href="{{ url('prodi/create') }}" class="btn btn-primary mb-2"><i class="bi bi-plus-square"></i> Tambah data prodi</a>
+        <a href="{{ url('prodi/create') }}" class="btn btn-primary mb-2"><i class="bi bi-cloud-download"></i> Get prodi</a>
         <div class="row">
                 @foreach ($prodis as $prodi)
                         <div class="col-md-4 mb-3">

@@ -102,6 +102,7 @@ class RegisterController extends Controller
         $pilihan1 = $request->pilihan1;
         $pilihan2 = $request->pilihan2;
         $pilihan3 = $request->pilihan3;
+        $pilihan4 = $request->pilihan4;
         
         $validator = $request->validate([
             'nama' => 'required|max:255',
@@ -123,6 +124,7 @@ class RegisterController extends Controller
             'pilihan1' => 'required',
             'pilihan2' => 'required',
             'pilihan3' => 'required',
+            'pilihan4' => 'required',
         ]);
 
         $user = new User;
@@ -160,6 +162,7 @@ class RegisterController extends Controller
         $reg->pilihan1 = $pilihan1;
         $reg->pilihan2 = $pilihan2;
         $reg->pilihan3 = $pilihan3;
+        $reg->pilihan4 = $pilihan4;
         $reg->save();
         return redirect()->route('register.index')->with('messageSuccess', 'Pendaftar berhasil ditambahkan');
     }
@@ -217,6 +220,7 @@ class RegisterController extends Controller
             'pilihan1' => 'required',
             'pilihan2' => 'required',
             'pilihan3' => 'required',
+            'pilihan4' => 'required',
             'pembayaran' => ['required', Rule::in(['sudah', 'belum'])],
             'status_diterima' => ['required', Rule::in(['diterima', 'belum', 'tidak'])],
         ]));
@@ -376,6 +380,7 @@ class RegisterController extends Controller
                     $item->pilihan1Prodi->nama,
                     $item->pilihan2Prodi->nama,
                     $item->pilihan3Prodi->nama,
+                    $item->pilihan4Prodi->nama,
                     $item->pembayaran,
                     ($item->status_diterima == 'diterima') ? 'diterima di '.$item->diterimadi->nama : $item->status_diterima,
                     $item->created_at->format('Y'),
@@ -550,7 +555,7 @@ class RegisterController extends Controller
     {
         // UPDATE PEMBAYARAN
         // get data tagihan
-        $name = auth()->user()->name;
+        $name = "pmb";
         try {
             $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/all-tagihan/'. $name);
             if(!$response->ok() || is_null($response->json())){

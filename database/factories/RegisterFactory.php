@@ -36,6 +36,7 @@ class RegisterFactory extends Factory
             'pilihan1' => $this->faker->numberBetween(1, 12),
             'pilihan2' => $this->faker->numberBetween(1, 12),
             'pilihan3' => $this->faker->numberBetween(1, 12),
+            'pilihan4' => $this->faker->numberBetween(1, 12),
             'nama_sekolah' => $this->faker->company,
             'jenis_sekolah' => $this->faker->randomElement(['SMA', 'SMK', 'MA']),
             'jurusan_sekolah' => $this->faker->word,

@@ -50,6 +50,7 @@
                 <input type="hidden" value="{{ $pilihan1 }}" name="pilihan1">
                 <input type="hidden" value="{{ $pilihan2 }}" name="pilihan2">
                 <input type="hidden" value="{{ $pilihan3 }}" name="pilihan3">
+                <input type="hidden" value="{{ $pilihan4 }}" name="pilihan4">
                 
                 <div class="form-group m-4">
                     <label><span class="text-danger">*</span>Pas Foto</label>

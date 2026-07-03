@@ -35,6 +35,7 @@
                 <input type="hidden" value="{{ $pilihan1 }}" name="pilihan1">
                 <input type="hidden" value="{{ $pilihan2 }}" name="pilihan2">
                 <input type="hidden" value="{{ $pilihan3 }}" name="pilihan3">
+                <input type="hidden" value="{{ $pilihan4 }}" name="pilihan4">
 
                 <table class="table mx-4">
                     <tr>
@@ -129,6 +130,14 @@
                                 $pilihan3 = DB::table('prodis')->where('id', $pilihan3)->first();
                             @endphp
                             {{ $pilihan3->nama }}
+                        </td>
+                    </tr>
+                    <tr><td>pilihan 4</td>
+                        <td>
+                            @php
+                                $pilihan4 = DB::table('prodis')->where('id', $pilihan4)->first();
+                            @endphp
+                            {{ $pilihan4->nama }}
                         </td>
                     </tr>
                 </table>

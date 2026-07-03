@@ -10,7 +10,7 @@ class TagihanController extends Controller
 {
     public function index()
     {
-        $name = auth()->user()->name;
+        $name = "pmb";
         try {
             // get tagihan
             $per_page = 100;

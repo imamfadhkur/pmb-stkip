@@ -262,6 +262,7 @@ class PendaftaranController extends Controller
         $pilihan1 = strip_tags($request->pilihan1);
         $pilihan2 = strip_tags($request->pilihan2);
         $pilihan3 = strip_tags($request->pilihan3);
+        $pilihan4 = strip_tags($request->pilihan4);
 
         $errorProdi = 'salah';
         // if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
@@ -325,6 +326,7 @@ class PendaftaranController extends Controller
             'pilihan1' => $pilihan1,
             'pilihan2' => $pilihan2,
             'pilihan3' => $pilihan3,
+            'pilihan4' => $pilihan4,
             'title' => 'Pendaftaran | Pemberkasan'
         ]);
     }
@@ -353,6 +355,7 @@ class PendaftaranController extends Controller
         $pilihan1 = strip_tags($request->pilihan1);
         $pilihan2 = strip_tags($request->pilihan2);
         $pilihan3 = strip_tags($request->pilihan3);
+        $pilihan4 = strip_tags($request->pilihan4);
 
         $errorProdi = 'salah';
         // if ($pilihan1 === $pilihan2 || $pilihan1 === $pilihan3 || $pilihan2 === $pilihan3) {
@@ -411,6 +414,7 @@ class PendaftaranController extends Controller
             'pilihan1' => $pilihan1,
             'pilihan2' => $pilihan2,
             'pilihan3' => $pilihan3,
+            'pilihan4' => $pilihan4,
             'title' => 'Pendaftaran | konfirmasi'
         ]);
     }
@@ -439,6 +443,7 @@ class PendaftaranController extends Controller
         $pilihan1 = strip_tags($request->pilihan1);
         $pilihan2 = strip_tags($request->pilihan2);
         $pilihan3 = strip_tags($request->pilihan3);
+        $pilihan4 = strip_tags($request->pilihan4);
 
         if ($request->type == 'edit') {
             return view('form_edit_konfirmasi', [
@@ -465,6 +470,7 @@ class PendaftaranController extends Controller
                 'pilihan1' => $pilihan1,
                 'pilihan2' => $pilihan2,
                 'pilihan3' => $pilihan3,
+                'pilihan4' => $pilihan4,
                 'title' => 'Pendaftaran | konfirmasi 2'
             ]);
         }
@@ -505,6 +511,8 @@ class PendaftaranController extends Controller
             'pilihan2.different' => 'Pilihan 2 tidak boleh sama dengan pilihan lainnya.',
             'pilihan3.required' => 'Pilihan 3 wajib diisi.',
             'pilihan3.different' => 'Pilihan 3 tidak boleh sama dengan pilihan lainnya.',
+            'pilihan4.required' => 'Pilihan 4 wajib diisi.',
+            'pilihan4.different' => 'Pilihan 4 tidak boleh sama dengan pilihan lainnya.',
             'pas_foto.required' => 'Pas foto wajib diunggah.',
             'pas_foto.mimes' => 'Pas foto harus berupa file PDF, JPG, atau PNG dengan ukuran maksimal 1MB.',
             'ijazah_skl.required' => 'Ijazah/SKL wajib diunggah.',
@@ -535,9 +543,10 @@ class PendaftaranController extends Controller
             'nisn' => 'required|numeric',
             'nama_ibu' => 'required',
             'alamat_sekolah' => 'required',
-            'pilihan1' => 'required|different:pilihan2,pilihan3',
-            'pilihan2' => 'required|different:pilihan1,pilihan3',
-            'pilihan3' => 'required|different:pilihan1,pilihan2',
+            'pilihan1' => 'required|different:pilihan2,pilihan3,pilihan4',
+            'pilihan2' => 'required|different:pilihan1,pilihan3,pilihan4',
+            'pilihan3' => 'required|different:pilihan1,pilihan2,pilihan4',
+            'pilihan4' => 'required|different:pilihan1,pilihan2,pilihan3',
             'pas_foto' => 'required|mimes:pdf,jpg,png|max:1024', 
             'ijazah_skl' => 'required|mimes:pdf,jpg,png|max:1024',
             'kk' => 'required|mimes:pdf,jpg,png|max:1024',
@@ -572,6 +581,7 @@ class PendaftaranController extends Controller
                 'pilihan1' => $pilihan1,
                 'pilihan2' => $pilihan2,
                 'pilihan3' => $pilihan3,
+                'pilihan4' => $pilihan4,
                 'title' => 'Pendaftaran | konfirmasi berkas'
             ])->withErrors($validator);
             }
@@ -620,6 +630,7 @@ class PendaftaranController extends Controller
             $reg->pilihan1 = $pilihan1;
             $reg->pilihan2 = $pilihan2;
             $reg->pilihan3 = $pilihan3;
+            $reg->pilihan4 = $pilihan4;
             $reg->save();
 
             $berkas = new BerkasPendaftar;
@@ -655,18 +666,31 @@ class PendaftaranController extends Controller
                     'tanggal_jatuh_tempo' => Carbon::now()->addDays(7)->format('Y-m-d'),
                     'nominal' => JalurMasuk::find($jalur_masuk)->biaya,
                     'status' => 'PENDING',
-                    'penagih' => auth()->user()->name ?? 'pmb',
+                    'penagih' => 'pmb',
                     'keterangan' => 'Tagihan biaya pendaftaran',
                 ];
 
-                $response = Http::withToken(env('API_TOKEN'))->post(env('API_ENDPOINT') . '/store-tagihan', $data);
+                $response = Http::withToken(env('API_TOKEN'))
+                    ->post(env('API_ENDPOINT') . '/store-tagihan', $data);
 
-                if (!$response->ok() || is_null($response->json())) {
-                    $error_custom = $response->status() === 404 
-                        ? 'Gagal mengirim data: Endpoint tidak ditemukan.' 
-                        : 'Gagal mengirim data: ' . strip_tags($response->body());
-                } else {
-                    $tagihan = $response->json();
+                $responseBody = $response->json();
+
+                // LOGIKA BARU: Cek langsung isi JSON-nya
+                // Kita anggap sukses jika ada key 'success' bernilai true
+                if (isset($responseBody['success']) && $responseBody['success'] === true) {
+                    // SUKSES
+                    $tagihan = $responseBody;
+                } 
+                else {
+                    // GAGAL
+                    // Cek apakah response kosong atau error parsing
+                    if (is_null($responseBody)) {
+                        $error_custom = 'Gagal mengirim data: Respon API kosong atau format salah.';
+                    } else {
+                        // Ambil pesan error dari API jika ada, atau dump body-nya
+                        $pesanApi = $responseBody['message'] ?? strip_tags($response->body());
+                        $error_custom = 'Gagal mengirim data: ' . $pesanApi;
+                    }
                 }
             } catch (\Exception $e) {
                 $error_custom = $e->getMessage();
@@ -677,6 +701,7 @@ class PendaftaranController extends Controller
                 'title' => 'Pendaftaran | daftar',
                 'error_custom' => $error_custom ? 'Pembuatan tagihan gagal, silahkan hubungi Contact Person untuk dibuatkan tagihan secara manual' : null,
             ]);
+            // dd($error_custom, (isset($responseBody['success']) && $responseBody['success'] === true));
         
             return redirect()->route('detail-pembayaran');
             // return view('auth.login', [

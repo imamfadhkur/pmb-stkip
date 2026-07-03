@@ -15,7 +15,7 @@ class ProdiController extends Controller
     public function index()
     {
         return view('dashboard.prodi.index', [
-            'prodis' => Prodi::paginate(16),
+            'prodis' => Prodi::paginate(15),
             'title' => 'prodi'
         ]);
     }
@@ -36,9 +36,9 @@ class ProdiController extends Controller
         
         foreach($response->json() as $prodi){
             Prodi::updateOrCreate([
-                'id' => $prodi['id']
+            'kode' => $prodi['kode']
             ],[
-                'nama' => $prodi['nama']
+            'nama' => $prodi['name']
             ]);
         }
         return redirect()->route('prodi.index')->with('messageSuccess', 'Prodi berhasil ditambahkan');

@@ -33,7 +33,7 @@
           </li>
           <!-- Menu Item 2 -->
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('jalur-pendaftaran') }}">Pendaftaran</a>
+            <a class="nav-link" href="{{ url('pendaftaran-baru') }}">Pendaftaran</a>
           </li>
           @endauth
           

@@ -11,7 +11,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <h3 class="mx-4 mt-2">Pilih 3 Prodi yang berbeda ya, {{ $nama }}!</h3>
+            <h3 class="mx-4 mt-2">Pilih 4 Prodi yang berbeda ya, {{ $nama }}!</h3>
         </div>
     </div>
     <div class="row">
@@ -74,7 +74,18 @@
                     @endif
                     @endforeach
                 </select>
-                <i class="text-danger">disarankan untuk memilih 3 prodi yang berbeda.</i><br>
+                </div>
+            
+                <div class="form-group m-4">
+                <label>Pilihan 4</label>
+                <select class="form-control" id="pilihan4" name="pilihan4">
+                    @foreach($prodis as $pilihan4)
+                    @if ($pilihan4->sisa_kuota > 0)
+                        <option value="{{ $pilihan4->id }}">{{ $pilihan4->nama }}</option>
+                    @endif
+                    @endforeach
+                </select>
+                <i class="text-danger">Pilih 4 prodi yang berbeda.</i><br>
                 </div>
 
                 <button type="submit" class="btn btn-primary mx-4">Selanjutnya</button>

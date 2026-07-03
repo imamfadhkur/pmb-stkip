@@ -83,7 +83,7 @@
             @php
                 $pilihan1 = DB::table('prodis')->where('id', $register->pilihan1)->first();
             @endphp
-            {{ $pilihan1->nama }}
+            {{ $pilihan1->nama ?? 'Tidak ada pilihan' }}
         </td>
     </tr>
     <tr><td>pilihan 2</td>
@@ -91,7 +91,7 @@
             @php
                 $pilihan2 = DB::table('prodis')->where('id', $register->pilihan2)->first();
             @endphp
-            {{ $pilihan2->nama }}
+            {{ $pilihan2->nama ?? 'Tidak ada pilihan' }}
         </td>
     </tr>
     <tr><td>pilihan 3</td>
@@ -99,7 +99,15 @@
             @php
                 $pilihan3 = DB::table('prodis')->where('id', $register->pilihan3)->first();
             @endphp
-            {{ $pilihan3->nama }}
+            {{ $pilihan3->nama ?? 'Tidak ada pilihan' }}
+        </td>
+    </tr>
+    <tr><td>pilihan 4</td>
+        <td>
+            @php
+                $pilihan4 = DB::table('prodis')->where('id', $register->pilihan4)->first();
+            @endphp
+            {{ $pilihan4->nama ?? 'Tidak ada pilihan' }}
         </td>
     </tr>
     <tr><td>Status Pembayaran</td>
