@@ -44,6 +44,7 @@ class NewPendaftaranController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            // --- 1. ATURAN (RULES) ---
             'nama' => 'required|max:255',
             'jk' => 'required',
             'hp' => 'required|numeric',
@@ -76,17 +77,63 @@ class NewPendaftaranController extends Controller
             'ktp' => 'required|mimes:pdf,jpg,png|max:2048',
             'akta' => 'required|mimes:pdf,jpg,png|max:2048',
             'doc_pend_jalur_masuk' => 'nullable|mimes:pdf,jpg,png|max:2048',
+            
         ], [
-            // --- Pesan Kustom untuk Berkas ---
-            'pas_foto.mimes' => 'Pas Foto harus berupa PDF, JPG, atau PNG.',
-            'ijazah_skl.mimes' => 'Ijazah/SKL harus berupa PDF, JPG, atau PNG.',
-            'kk.mimes' => 'Kartu Keluarga (KK) harus berupa PDF, JPG, atau PNG.',
-            'ktp.mimes' => 'KTP harus berupa PDF, JPG, atau PNG.',
-            'akta.mimes' => 'Akta Kelahiran harus berupa PDF, JPG, atau PNG.',
-            'doc_pend_jalur_masuk.mimes' => 'Dokumen Pendukung hanya boleh berupa file PDF, JPG, atau PNG.',
-            'pas_foto.required' => 'Pas Foto wajib diunggah.',
-            'pas_foto.max' => 'Ukuran Pas Foto maksimal 1MB.',
-            'doc_pend_jalur_masuk.max' => 'Ukuran Dokumen Pendukung maksimal 2MB.',
+            // --- 2. KUSTOMISASI PESAN (MESSAGES) ---
+            // Gunakan :attribute agar namanya dinamis
+            'required' => ':attribute wajib diisi.',
+            'numeric'  => ':attribute harus berupa angka.',
+            'email'    => 'Format :attribute tidak valid.',
+            'unique'   => ':attribute sudah terdaftar, silakan gunakan yang lain.',
+            'max'      => [
+                'string' => ':attribute maksimal :max karakter.',
+                'file'   => 'Ukuran :attribute maksimal :max KB.', // File max dalam satuan KB
+            ],
+            'date'     => ':attribute bukan format tanggal yang valid.',
+            'before'   => ':attribute harus sebelum hari ini.',
+            'digits'   => ':attribute harus berjumlah tepat :digits angka.',
+            'mimes'    => ':attribute hanya boleh menggunakan file: :values.',
+            
+            // Override khusus untuk prodi karena rule different bawaan sedikit kaku
+            'pilihan2.different' => 'Pilihan 2 tidak boleh sama dengan Pilihan 1.',
+            'pilihan3.different' => 'Pilihan 3 tidak boleh sama dengan Pilihan 1 dan 2.',
+            'pilihan4.different' => 'Pilihan 4 tidak boleh sama dengan pilihan sebelumnya.',
+            
+        ], [
+            // --- 3. ALIAS NAMA FIELD (ATTRIBUTES) ---
+            // Ubah nama field database menjadi nama yang enak dibaca (berpengaruh ke :attribute di atas)
+            'nama' => 'Nama Lengkap',
+            'jk' => 'Jenis Kelamin',
+            'hp' => 'Nomor HP',
+            'email' => 'Alamat Email',
+            'tempat_lahir' => 'Tempat Lahir',
+            'tanggal_lahir' => 'Tanggal Lahir',
+            'alamat' => 'Alamat Lengkap',
+            'kewarganegaraan' => 'Kewarganegaraan',
+            'identitas_kewarganegaraan' => 'NIK (Nomor Induk Kependudukan)',
+            'nama_ibu' => 'Nama Ibu Kandung',
+            
+            'nama_sekolah' => 'Nama Sekolah Asal',
+            'jenis_sekolah' => 'Jenis Sekolah',
+            'jurusan_sekolah' => 'Jurusan Sekolah',
+            'tahun_lulus' => 'Tahun Lulus',
+            'nisn' => 'NISN',
+            'alamat_sekolah' => 'Alamat Sekolah',
+            
+            'jenjang_pendidikan' => 'Jenjang Pendidikan',
+            'sistem_kuliah' => 'Sistem Kuliah',
+            'jalur_masuk' => 'Jalur Pendaftaran',
+            'pilihan1' => 'Prodi Pilihan 1',
+            'pilihan2' => 'Prodi Pilihan 2',
+            'pilihan3' => 'Prodi Pilihan 3',
+            'pilihan4' => 'Prodi Pilihan 4',
+            
+            'pas_foto' => 'Pas Foto',
+            'ijazah_skl' => 'Ijazah / SKL',
+            'kk' => 'Kartu Keluarga',
+            'ktp' => 'KTP',
+            'akta' => 'Akta Kelahiran',
+            'doc_pend_jalur_masuk' => 'Dokumen Pendukung',
         ]);
 
         DB::beginTransaction();
