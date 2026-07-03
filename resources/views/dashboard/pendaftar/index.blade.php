@@ -245,9 +245,16 @@
             </td>
             <td>
               @if ($register->status_diterima === "diterima")
-                <p><b class="text-success">{{ $register->status_diterima }}</b> - {{ $register->diterima_di !== null ? $register->diterimadi->nama : '(prodi belum ditentukan)' }}</p>
+                <p>
+                  <b class="text-success">{{ ucfirst($register->status_diterima) }}</b> 
+                  - {{ $register->diterima_di !== null ? $register->diterimadi->nama : '(prodi belum ditentukan)' }}
+                </p>
+              @elseif ($register->status_diterima === "belum ditentukan")
+                <!-- Tampilan untuk status belum ditentukan (Warna Abu-abu / Muted) -->
+                <p><b class="text-muted"><i>{{ ucfirst($register->status_diterima) }}</i></b></p>
               @else
-                <p class="text-danger"><b>{{ $register->status_diterima }}</b></p>
+                <!-- Tampilan untuk status tidak diterima (Warna Merah) -->
+                <p class="text-danger"><b>{{ ucfirst($register->status_diterima) }}</b></p>
               @endif
             </td>
             <td>

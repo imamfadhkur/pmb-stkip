@@ -175,7 +175,7 @@ class NewPendaftaranController extends Controller
                 'pilihan3' => $request->pilihan3,
                 'pilihan4' => $request->pilihan4,
                 'pembayaran' => 'belum',
-                'status_diterima' => 'tidak diterima'
+                'status_diterima' => 'belum ditentukan'
             ]);
 
             // 4. Upload Berkas
