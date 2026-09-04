@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
+use App\Models\JalurMasuk;
 
 class RegisterController extends Controller
 {
@@ -59,6 +60,30 @@ class RegisterController extends Controller
             'registers' => $registers,
             'title' => 'register',
             'tahun_ajarans' => $tahunAjarans,
+        ]);
+    }
+
+    public function camabaIndex()
+    {
+        $register = Auth::user()->register;
+        $jalur = JalurMasuk::find($register->jalur_masuk_id);
+
+        try {
+            $response = Http::withToken(env('API_TOKEN'))->get(env('API_ENDPOINT').'/tagihan-by-email/pmb/'. Auth()->user()->email);
+            if(!$response->ok() || is_null($response->json())){
+            throw new \Exception('Gagal mengambil data tagihan: ' . strip_tags($response->body()));
+            }
+            $tagihanResponse = $response->json();
+
+        } catch (\Exception $e) {
+            $tagihanResponse = $e->getMessage();
+        }
+
+        return view('dashboard.layouts.camaba', [
+            'title' => 'dashboard',
+            'register' => $register,
+            'tagihan' => $tagihanResponse['tagihans'][0] ?? null,
+            'jalur' => $jalur,
         ]);
     }
 

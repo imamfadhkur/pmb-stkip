@@ -101,13 +101,14 @@ Route::group(['middleware' => ['guest']], function () {
 });
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('/dashboard', function(){
+    Route::get('/dashboard', function (RegisterController $registerController) {
         if (Auth::user()->level === 'camaba') {
-            return view('dashboard.index', ['title' => 'dashboard']);
-        } else {
-            return redirect('/register');
+            return $registerController->camabaIndex();
         }
+
+        return redirect('/register');
     })->name('dashboard');
+    
     Route::get('/register/export', [RegisterController::class, 'export'])->name('export.register');
     Route::resource('/register', RegisterController::class)->middleware('administrator');
     Route::resource('/profil', BerkasPendaftarController::class);
