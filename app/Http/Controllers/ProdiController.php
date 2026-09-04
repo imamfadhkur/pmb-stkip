@@ -41,7 +41,7 @@ class ProdiController extends Controller
             'nama' => $prodi['name']
             ]);
         }
-        return redirect()->route('prodi.index')->with('messageSuccess', 'Prodi berhasil ditambahkan');
+        return redirect()->route('prodi.index')->with('messageSuccess', 'Prodi berhasil diperbarui');
     }
 
     /**
